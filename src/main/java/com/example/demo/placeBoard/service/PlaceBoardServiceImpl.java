@@ -52,6 +52,19 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 			return null;
 		}
 	}
+	
+//	@Override
+//	public void 
+//	String title = request.getParameter("title");
+//	String content = request.getParameter("content");
+//	String author = request.getParameter("author");
+//	String sql = "INSERT INTO posts (title, content, author) VALUES (?, ?, ?)";
+//	PreparedStatement pstmt = conn.prepareStatement(sql);
+//	pstmt.setString(1, title);
+//	pstmt.setString(2, content);
+//	pstmt.setString(3, author);
+//	pstmt.executeUpdate();
+
 
 	@Override
 	public void modify(PlaceBoardDTO dto) {

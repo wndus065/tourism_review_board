@@ -25,22 +25,22 @@ public class PlaceBoard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(length = 12, nullable = false)
+    @Column(length = 12, nullable = false) //키
     private String placeKey;
     
-    @Column(nullable = false)
+    @Column(nullable = false) //게시판번호
     private int placeNo;
     
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false) //글쓴이
     private String writer;
     
-    @Column(length = 12, nullable = false)
-    private String place;
+    @Column(length = 12, nullable = false) //장소
+    private String place; 
     
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false) //글제목
     private String title;
     
-    @Column(length = 500)
+    @Column(length = 500) //글내용
     private String content;
 	
 	

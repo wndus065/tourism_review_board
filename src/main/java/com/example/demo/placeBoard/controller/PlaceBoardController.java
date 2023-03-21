@@ -39,9 +39,6 @@ public class PlaceBoardController {
 	@PostMapping("/register")
 	public String registerPost(PlaceBoardDTO dto, RedirectAttributes redirectAttributes, Principal principal) {
 		
-		String id = principal.getName();
-		dto.setWriter(id);
-		
 		int no = service.register(dto);
 		redirectAttributes.addFlashAttribute("msg", no);
 		return "redirect:/guestbook/list";
