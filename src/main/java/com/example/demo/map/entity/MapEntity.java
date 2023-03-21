@@ -21,9 +21,8 @@ import lombok.ToString;
 @Builder
 @Table(name = "map")
 
-public class Map {
+public class MapEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String place_key;
 	
 	@Column(length = 50 , nullable = false)

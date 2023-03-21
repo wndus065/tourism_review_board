@@ -4,23 +4,33 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.map.dto.MapDTO;
-import com.example.demo.map.entity.Map;
+import com.example.demo.map.entity.MapEntity;
 import com.example.demo.map.repository.MapRepository;
 
 
 
 public interface MapService {
 	
-	MapDTO read(String Place);
+	boolean register (MapDTO dto);
+	
+	MapDTO read(String address);
+	
+	void remove(String address);
+	
+	void modify(MapDTO dto);
+	
+	Page<MapDTO> getlist(int pageNumber);
+	
 	
     
     
     
     
-    default MapDTO entityToDto(Map entity) {
+    default MapDTO entityToDto(MapEntity entity) {
     	MapDTO dto = MapDTO.builder()
     			.place_key(entity.getPlace_key())
     			.place(entity.getPlace())
@@ -33,8 +43,8 @@ public interface MapService {
     			
     }
     
-    default Map dtoToEntity(MapDTO dto) {
-    	Map entity = Map.builder()
+    default MapEntity dtoToEntity(MapDTO dto) {
+    	MapEntity entity = MapEntity.builder()
     			.place_key(dto.getPlace_key())
     			.place(dto.getPlace())
     			.address(dto.getAddress())
