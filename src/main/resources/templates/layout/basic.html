@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<!--
+	Striped by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:fragment="setContent(content)">
+	<head>
+<title>Striped by HTML5 UP</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="/assets/css/main.css" />
+<style>
+table {
+	border-collapse: collapse;
+	width: 120%;
+}
+
+th, td {
+	padding: 8px;
+	text-align: left;
+	position: relative; /* 추가 */
+}
+
+th {
+	background-color: #f2f2f2;
+}
+</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Content -->
+		<div id="content">
+			<div class="inner">
+				<!-- Post -->
+				<article class="box post post-excerpt">
+					<th:block th:replace="${content}"></th:block>
+			</div>
+		</div>
+		<!-- -------------------------------------------------------구분선------------------------------------------------------- -->
+		<!-- Sidebar -->
+		<div id="sidebar">
+
+			<!-- Logo -->
+			<h1 id="logo">
+				<a href="#">SC.Street</a>
+			</h1>
+
+			<!-- Login -->
+			<section class="box text-style1">
+				<div class="inner">
+					<p>You have to Log in.</p>
+					<button class="login-btn">로그인</button>
+				</div>
+			</section>
+
+
+			<!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li class="current"><a href="#">문화 거리 한눈에 보기</a></li>
+					<li><a href="#">장소 게시판</a></li>
+					<li><a th:href="@{/member/list}">관리자 : 회원 목록</a></li>
+					<li><a href="#">관리자 : 요청 목록</a></li>
+					<li><a href="#">사용자 : 관심 목록</a></li>
+					<li><a href="#">사용자 : 내 정보</a></li>
+				</ul>
+			</nav>
+
+			<!-- 이 부분을 지움 -->
+
+			<!-- Copyright -->
+			<ul id="copyright">
+				<li>&copy; Untitled.</li>
+				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				<li>Editing: 조기연</li>
+			</ul>
+
+		</div>
+
+		<!-- Scripts -->
+		<script src="/assets/js/jquery.min.js"></script>
+		<script src="/assets/js/browser.min.js"></script>
+		<script src="/assets/js/breakpoints.min.js"></script>
+		<script src="/assets/js/util.js"></script>
+		<script src="/assets/js/main.js"></script>
+
+		<script src="/path/to/typed.js/typed.js"></script>
+		<script src="/path/to/typed.js/typed.min.js"></script>
+		<script>
+			var typed = new Typed('.typed', {
+				strings : $('.typed').data('typed-items').split(','),
+				typeSpeed : 100,
+				backSpeed : 100,
+				loop : true,
+				cursorChar : '|',
+				shuffle : false
+			});
+		</script>
+
+
+	</body>
+</th:block>
+</html>
