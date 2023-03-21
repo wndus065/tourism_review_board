@@ -11,16 +11,15 @@ public interface PlaceBoardService {
 	
 	Page<PlaceBoardDTO> getList(int pageNumber);
 
-	PlaceBoardDTO read(int no);
+	PlaceBoardDTO read(int placeNo);
 
 	void modify(PlaceBoardDTO dto);
 
-	void remove(int no);
+	void remove(int placeNo);
 	
 	default PlaceBoard dtoToEntity(PlaceBoardDTO dto) {
 		
 		PlaceBoard entity = PlaceBoard.builder()
-				.placeKey(dto.getPlaceKey())
 				.placeNo(dto.getPlaceNo())
 				.writer(dto.getWriter())
 				.place(dto.getPlace())
@@ -33,7 +32,6 @@ public interface PlaceBoardService {
 	default PlaceBoardDTO entityToDto(PlaceBoard entity) {
 		
 		PlaceBoardDTO dto = PlaceBoardDTO.builder()
-				.placeKey(entity.getPlaceKey())
 				.placeNo(entity.getPlaceNo())
 				.writer(entity.getWriter())
 				.place(entity.getPlace())

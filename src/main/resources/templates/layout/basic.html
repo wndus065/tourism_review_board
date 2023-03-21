@@ -11,21 +11,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<style>
-			table {
-    border-collapse: collapse;
-    width: 120%;
-  }
-  
-  th, td {
-    padding: 8px;
-    text-align: left;
-    position: relative; /* 추가 */
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
- 
+			#content {
+				background-image: url("images/seoul.jpg");
+				background-size: cover;
+			}
 		</style>
 	</head>
 	<body class="is-preload">
@@ -33,48 +22,19 @@
 		<!-- Content -->
 			<div id="content">
 				<div class="inner">
-				<h2>회원 목록</h2>
 
-					<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>PW</th>
-      <th>Name</th>
-      <th>Phone</th>
-      <th>Email</th>
-      <th>Registration Number</th>
-      <th>Registration Date</th>
-      <th>Modification Date</th>
-      <th>Role</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>001</td>
-      <td>********</td>
-      <td>John Doe</td>
-      <td>010-1234-5678</td>
-      <td>johndoe@example.com</td>
-      <td>123456-1234567</td>
-      <td>2022-01-01</td>
-      <td>2022-01-02</td>
-      <td>User</td>
-    </tr>
-    <tr>
-      <td>002</td>
-      <td>********</td>
-      <td>Jane Doe</td>
-      <td>010-9876-5432</td>
-      <td>janedoe@example.com</td>
-      <td>987654-9876543</td>
-      <td>2022-02-01</td>
-      <td>2022-02-02</td>
-      <td>Admin</td>
-    </tr>
-    <!-- 다른 데이터 행들도 이와 같은 방식으로 추가 가능 -->
-  </tbody>
-</table>
+					<!-- Post -->
+						<article class="box post post-excerpt">
+							<header>
+								<!--
+									Note: Titles and subtitles will wrap automatically when necessary, so don't worry
+									if they get too long. You can also remove the <p> entirely if you don't
+									need a subtitle.
+								-->
+								<h2 style="color: white; position: relative; top: -40px;">SC.Street : <span style="color: white; " class="typed" data-typed-items="Seoul, Culture, Street, Project"></span></h2>
+							</header>
+
+						</article>
 
 				</div>
 			</div>
@@ -90,6 +50,7 @@
 						<div class="inner">
 							<p>You have to Log in.</p>
 							<button class="login-btn">로그인</button>
+							<p><a href="#">회원가입</a></p>
 						</div>
 					</section>
 
@@ -107,6 +68,18 @@
 					</nav>
 
 	<!-- 이 부분을 지움 -->
+
+				<!-- Recent Comments -->
+					<section class="box recent-comments">
+						<header>
+							<h2>Recent Comments</h2>
+						</header>
+						<ul>
+							<li>case on <a href="#">Lorem ipsum dolor</a></li>
+							<li>molly on <a href="#">Sed dolore magna</a></li>
+							<li>case on <a href="#">Sed dolore magna</a></li>
+						</ul>
+					</section>
 
 				<!-- Copyright -->
 					<ul id="copyright">

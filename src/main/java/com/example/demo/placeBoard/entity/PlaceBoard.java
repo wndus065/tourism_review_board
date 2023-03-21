@@ -23,12 +23,6 @@ public class PlaceBoard {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(length = 12, nullable = false) //키
-    private String placeKey;
-    
-    @Column(nullable = false) //게시판번호
     private int placeNo;
     
     @Column(length = 50, nullable = false) //글쓴이

@@ -39,34 +39,34 @@ public class PlaceBoardController {
 	@PostMapping("/register")
 	public String registerPost(PlaceBoardDTO dto, RedirectAttributes redirectAttributes, Principal principal) {
 		
-		int no = service.register(dto);
-		redirectAttributes.addFlashAttribute("msg", no);
-		return "redirect:/guestbook/list";
+		int placeNo = service.register(dto);
+		redirectAttributes.addFlashAttribute("msg", placeNo);
+		return "redirect:/placeboard/list";
 	}
 
 	@GetMapping("/read")
-	public void read(int no, @RequestParam(defaultValue = "0") int page, Model model) { //파라미터 추가
-		PlaceBoardDTO dto = service.read(no);
+	public void read(int placeNo, @RequestParam(defaultValue = "0") int page, Model model) { //파라미터 추가
+		PlaceBoardDTO dto = service.read(placeNo);
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", page);
 	}
 
 	@GetMapping("/modify")
-	public void modify(int no, Model model) {
-		PlaceBoardDTO dto = service.read(no);
+	public void modify(int placeNo, Model model) {
+		PlaceBoardDTO dto = service.read(placeNo);
 		model.addAttribute("dto", dto);
 	}
 
 	@PostMapping("/modify")
 	public String modifyPost(PlaceBoardDTO dto, RedirectAttributes redirectAttributes) {
 		service.modify(dto);
-		redirectAttributes.addAttribute("no", dto.getPlaceNo());
-		return "redirect:/guestbook/read";
+		redirectAttributes.addAttribute("placeNo", dto.getPlaceNo());
+		return "redirect:/placeboard/read";
 	}
 
 	@PostMapping("/remove")
-	public String removePost(int no) {
-		service.remove(no);
-		return "redirect:/guestbook/list";
+	public String removePost(int placeNo) {
+		service.remove(placeNo);
+		return "redirect:/placeboard/list";
 	}
 }

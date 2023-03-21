@@ -5,7 +5,7 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-
+<th:block th:replace="layout/basic :: setContent(~{this::content} )">
 <head>
 	<title>Striped by HTML5 UP</title>
 	<meta charset="utf-8" />
@@ -36,48 +36,40 @@
 	<!-- Content -->
 	<div id="content">
 		<div class="inner">
-			<h2>장소게시판</h2>
+			<h2>장소게시판
 
-			<table>
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>PW</th>
-						<th>Name</th>
-						<th>Phone</th>
-						<th>Email</th>
-						<th>Registration Number</th>
-						<th>Registration Date</th>
-						<th>Modification Date</th>
-						<th>Role</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>001</td>
-						<td>********</td>
-						<td>John Doe</td>
-						<td>010-1234-5678</td>
-						<td>johndoe@example.com</td>
-						<td>123456-1234567</td>
-						<td>2022-01-01</td>
-						<td>2022-01-02</td>
-						<td>User</td>
-					</tr>
-					<tr>
-						<td>002</td>
-						<td>********</td>
-						<td>Jane Doe</td>
-						<td>010-9876-5432</td>
-						<td>janedoe@example.com</td>
-						<td>987654-9876543</td>
-						<td>2022-02-01</td>
-						<td>2022-02-02</td>
-						<td>Admin</td>
-					</tr>
-					<!-- 다른 데이터 행들도 이와 같은 방식으로 추가 가능 -->
-				</tbody>
-			</table>
+			
+		 	<span>
+                <a th:href="@{/placeboard/list}">
+                    <button type="button" class="btn btn-outline-primary">글 등록</button>
+                </a>
+            </span>
+			</h2>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">등록일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto : ${list}">					
+					<th scope="row">
+						<!-- 상세조회 링크 수정 -->
+						<a th:href="@{/read(no = ${dto.placeNo}, page= ${list.number + 1})}">
+							[[${dto.no}]]
+						</a>
+					</th>
+					<td>[[${dto.title}]]</td>
+					<td>[[${dto.writer}]]</td>
+					<td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+				</tr>
+
+			</tbody>
+		</table>
 
 		</div>
 	</div>

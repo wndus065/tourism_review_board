@@ -35,7 +35,7 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 	@Override
 	public Page<PlaceBoardDTO> getList(int page) {
 		int pageNum = (page == 0) ? 0 : page - 1; // page는 index 처럼 0부터 시작
-		Pageable pageable = PageRequest.of(pageNum, 10, Sort.by("no").descending());
+		Pageable pageable = PageRequest.of(pageNum, 10, Sort.by("placeNo").descending());
 		Page<PlaceBoard> entityPage = repository.findAll(pageable);
 		Page<PlaceBoardDTO> dtoPage = entityPage.map( entity -> entityToDto(entity) );
 
@@ -43,8 +43,8 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 	}
 
 	@Override
-	public PlaceBoardDTO read(int no) {
-		Optional<PlaceBoard> result = repository.findById(no);
+	public PlaceBoardDTO read(int placeNo) {
+		Optional<PlaceBoard> result = repository.findById(placeNo);
 		if (result.isPresent()) {
 			PlaceBoard guestbook = result.get();
 			return entityToDto(guestbook);
@@ -52,19 +52,6 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 			return null;
 		}
 	}
-	
-//	@Override
-//	public void 
-//	String title = request.getParameter("title");
-//	String content = request.getParameter("content");
-//	String author = request.getParameter("author");
-//	String sql = "INSERT INTO posts (title, content, author) VALUES (?, ?, ?)";
-//	PreparedStatement pstmt = conn.prepareStatement(sql);
-//	pstmt.setString(1, title);
-//	pstmt.setString(2, content);
-//	pstmt.setString(3, author);
-//	pstmt.executeUpdate();
-
 
 	@Override
 	public void modify(PlaceBoardDTO dto) {
@@ -78,7 +65,7 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 	}
 
 	@Override
-	public void remove(int no) {
-		repository.deleteById(no);
+	public void remove(int placeNo) {
+		repository.deleteById(placeNo);
 	}
 }

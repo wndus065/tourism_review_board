@@ -15,7 +15,6 @@ import lombok.ToString;
 @Builder
 public class PlaceBoardDTO {
 
-	private String placeKey;
 	private int placeNo;
 	private String writer;
 	private String place;
