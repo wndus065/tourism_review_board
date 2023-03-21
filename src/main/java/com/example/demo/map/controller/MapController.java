@@ -9,13 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/map")
 public class MapController {
 	
-	private final NaverMapService naverMapService;
-	
-	public MapController(NaverMapService naverMapService) {
-		this.naverMapService = naverMapService;
-	}
-	
-	@GetMapping("/search")
 	
 	
 	

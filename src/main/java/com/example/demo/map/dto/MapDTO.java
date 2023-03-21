@@ -1,6 +1,6 @@
 package com.example.demo.map.dto;
 
-import com.example.demo.map.entity.MapEntity;
+import com.example.demo.map.entity.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
