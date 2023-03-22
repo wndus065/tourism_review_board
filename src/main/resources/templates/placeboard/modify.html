@@ -3,78 +3,63 @@
 
 <th:block th:replace="layout/basic :: setContent(~{this::content} )">
 
-    <th:block th:fragment="content">
+	<th:block th:fragment="content">
 
-        <h1 class="mt-4">placeboard Modify Page</h1>
+		<h1 class="mt-4">placeboard Modify Page</h1>
 
-        <form>
+		<form th:action="@{/placeboard/modify}" th:method="post">
 
-        <div class="form-group">
-            <label >번호</label>
-            <input type="text" class="form-control" name="no" th:value="${dto.no}" readonly >
-        </div>
+			<div class="form-group">
+				<label>제목</label>
+				<input type="text" class="form-control" name="title" th:value="${dto.title}">
+			</div>
+			<div class="form-group">
+				<label>내용</label>
+				<textarea class="form-control" rows="10" name="content">[[${dto.content}]]</textarea>
+			</div>
+		
+			<a th:href="@{/placeboard/modify(no = ${dto.no})}">
+				<button type="button" class="btn btn-primary modifyBtn">수정</button>
 
-        <div class="form-group">
-            <label >제목</label>
-            <input type="text" class="form-control" name="title" th:value="${dto.title}" >
-        </div>
-        <div class="form-group">
-            <label >내용</label>
-            <textarea class="form-control" rows="5" name="content">[[${dto.content}]]</textarea>
-        </div>
-        <div class="form-group">
-            <label >작성자</label>
-            <input type="text" class="form-control" name="writer" th:value="${dto.writer}" readonly>
-        </div>
-        <div class="form-group">
-            <label >등록일</label>
-            <input type="text" class="form-control" th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-        </div>
-        <div class="form-group">
-            <label >수정일</label>
-            <input type="text" class="form-control" th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-        </div>
+			<a th:href="@{/placeboard/list(page=${page})}">
+				<button type="button" class="btn btn-info listBtn">목록으로</button>
 
-        </form>
+			<a th:href="@{/placeboard/remove(page=${page})}">
+				<button type="button" class="btn btn-danger removeBtn">삭제</button>
 
-        <button type="button" class="btn btn-primary modifyBtn">수정</button>
+		</form>
+		<script th:inline="javascript">
 
-        <button type="button" class="btn btn-info listBtn">목록으로</button>
+			var form = $("form"); //form 태그 객체
 
-        <button type="button" class="btn btn-danger removeBtn">삭제</button>
+			$(".modifyBtn").click(function () {
+				if (!confirm("수정하시겠습니까?")) {
+					return;
+				}
 
-        <script th:inline="javascript">
+				form
+					.attr("action", "/placeboard/modify")
+					.attr("method", "post")
+					.submit();
+			});
 
-        	var form = $("form"); //form 태그 객체
+			$(".listBtn").click(function () {
+				form
+					.attr("action", "/placeboard/list")
+					.attr("method", "get")
+					.submit();
+			})
 
-            $(".modifyBtn").click(function() {
-                if(!confirm("수정하시겠습니까?")){
-                    return ;
-                }
+			$(".removeBtn").click(function () {
+				form
+					.attr("action", "/placeboard/remove")
+					.attr("method", "post")
+					.submit();
+			});
 
-                form
-                    .attr("action", "/placeboard/modify")
-                    .attr("method","post")
-                    .submit();
-            });
-
-            $(".listBtn").click(function() {
-                form
-                    .attr("action", "/placeboard/list")
-                    .attr("method","get")
-              		.submit();
-            })
-
-            $(".removeBtn").click(function(){
-            	form
-                    .attr("action", "/placeboard/remove")
-                    .attr("method","post")
-                    .submit();
-            });
-
-        </script>
+		</script>
 
 
-    </th:block>
+	</th:block>
 
 </th:block>

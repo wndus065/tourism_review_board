@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -57,14 +59,14 @@ public class PlaceBoardController {
 		model.addAttribute("dto", dto);
 	}
 
-	@PostMapping("/modify")
+	@PutMapping("/modify")
 	public String modifyPost(PlaceBoardDTO dto, RedirectAttributes redirectAttributes) {
 		service.modify(dto);
 		redirectAttributes.addAttribute("no", dto.getNo());
 		return "redirect:/placeboard/read";
 	}
 
-	@PostMapping("/remove")
+	@DeleteMapping("/modify/remove")
 	public String removePost(int no) {
 		service.remove(no);
 		return "redirect:/placeboard/list";
