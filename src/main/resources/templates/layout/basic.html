@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Striped by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:fragment="setContent(content)">
@@ -28,7 +23,15 @@ th, td {
 th {
 	background-color: #f2f2f2;
 }
+
+.inline-form {
+	display: inline-block;
+	margin-right: 10px;
+}
 </style>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
 	</head>
 	<body class="is-preload">
 
@@ -38,6 +41,7 @@ th {
 				<!-- Post -->
 				<article class="box post post-excerpt">
 					<th:block th:replace="${content}"></th:block>
+				</article>
 			</div>
 		</div>
 		<!-- -------------------------------------------------------구분선------------------------------------------------------- -->
@@ -46,14 +50,31 @@ th {
 
 			<!-- Logo -->
 			<h1 id="logo">
-				<a href="#">SC.Street</a>
+				<a th:href="@{/}">SC.Street</a>
 			</h1>
 
 			<!-- Login -->
-			<section class="box text-style1">
+			<section class="box text-style1" th:if="${session.id == null}">
 				<div class="inner">
-					<p>You have to Log in.</p>
-					<button class="login-btn">로그인</button>
+					<div>You have to Log in.</div>
+					<button class="login-btn">
+						<a th:href="@{/login}">로그인</a>
+					</button>
+					<h1>
+						<a th:href="@{/register}">회원가입</a>
+					</h1>
+				</div>
+			</section>
+			<section class="box text-style1" th:if="${session.id != null}">
+				<div class="inner">
+					<div>
+						<strong><span th:text="${session.id}"></span>님 안녕하세요!</strong>
+					</div>
+						<a th:href="@{/member/readMine}">내 정보</a><a>&nbsp;&nbsp;</a>
+						<a th:href="@{/logout}">로그아웃</a>
+						<!-- <form th:action="@{/logout}" method="post" class="inline-form">
+							<a th:href="@{/logout}" type="submit" class="btn btn-primary">로그아웃</a>
+						</form> -->
 				</div>
 			</section>
 

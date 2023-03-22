@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="layout/basic :: setContent(~{this::content} )">
+
+	<th:block th:fragment="content">
+		<style>
+p {
+	padding-left: 10px;
+	font-size: 1.2em;
+	margin-top: 0.7em;
+	margin-bottom: 0.7em;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+		<header>
+			<h2>회원 가입</h2>
+		</header>
+
+		<section class="box text-style1" style="width: 500px">
+			<div class="inner">
+				<p>
+					<strong>계정 정보</strong>
+				</p>
+				<form th:action="@{/register}" th:method="POST">
+					<p>
+						<label for="id">아이디</label>
+					</p>
+					<p>
+						<input type="text" id="id" name="id" required>
+					</p>
+					<p>
+						<label for="password">비밀번호</label>
+					</p>
+					<p>
+						<input type="password" id="password" name="password" required>
+					</p>
+					<hr>
+					<p>
+						<strong>개인 정보</strong>
+					</p>
+					<p>
+						<label for="name">이름</label>
+					</p>
+					<p>
+						<input type="text" id="name" name="name" required>
+					</p>
+					<p>
+						<label for="regiNum">주민등록번호</label>
+					</p>
+					<p>
+						<input type="text" id="regiNum" name="regiNum" required>
+					</p>
+					<p>
+						<label for="phone">연락처</label>
+					</p>
+					<p>
+						<input type="tel" id="phone" name="phone" required>
+					</p>
+					<p>
+						<label for="email">이메일</label>
+					</p>
+					<p>
+						<input type="email" id="email" name="email" required>
+					</p>
+					<div>
+						<label for="role-select">회원 등급</label> <select id="role-select"
+							name="role" style="width: 300px">
+							<option value="ROLE_USER">일반 사용자</option>
+							<option value="ROLE_ADMIN">관리자</option>
+						</select>
+					</div>
+					<p>
+						<button type="submit">회원 가입</button>
+					</p>
+				</form>
+			</div>
+		</section>
+		<script th:inline="javascript">
+    	 $(document).ready(function(){
+    		 var msg = [[${msg}]]
+    		 if(msg != null){
+    		 alert(msg);
+    		 }
+    	});
+	</script>
+
+	</th:block>
+
+</th:block>

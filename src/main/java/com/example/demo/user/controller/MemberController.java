@@ -5,19 +5,25 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.user.dto.MemberDTO;
+import com.example.demo.user.entity.Member;
 import com.example.demo.user.service.MemberService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 //@RequestMapping("/member")
 public class MemberController {
-	
+
 	@Autowired
 	private MemberService service;
-	
+
 	@GetMapping("/member/list")
 	public void list(@RequestParam(defaultValue = "0") int page, Model model) {
 		Page<MemberDTO> list = service.getList(page);
@@ -26,6 +32,64 @@ public class MemberController {
 		System.out.println("전체 게시물 수 : " + list.getTotalElements());
 		System.out.println("현재 페이지 번호 : " + (list.getNumber() + 1));
 		System.out.println("페이지에 표시할 게시물 수 : " + list.getNumberOfElements());
+	}
+
+	@GetMapping("/member/read")
+	public void read(String id, @RequestParam(defaultValue = "0") int page, Model model) {
+		MemberDTO dto = service.read(id);
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
+	}
+	
+	@GetMapping("/member/readMine")
+	public void readMine(HttpServletRequest request, Model model) {
+	    HttpSession session = request.getSession();
+	    String id = (String) session.getAttribute("id");
+	    
+	    MemberDTO memberDto = service.read(id);
+	    model.addAttribute("dto", memberDto);
+	}
+
+	@GetMapping("/register")
+	public String register() {
+		return "/member/register";
+	}
+
+	@PostMapping("/register")
+	public String registerPost(MemberDTO dto, RedirectAttributes redirectAttributes) {
+		boolean isSuccess = service.register(dto);
+		if (isSuccess) {
+			return "redirect:/"; // 등록 성공 시 메인화면으로
+		} else {
+			redirectAttributes.addFlashAttribute("msg", "아이디가 중복되어 회원등록에 실패했습니다.");
+			return "redirect:/register";
+		}
+	}
+
+	@GetMapping("/login")
+	public String login() {
+		return "/member/login";
+	}
+
+	@PostMapping("/login")
+	public String loginPost(@RequestParam("id") String id, @RequestParam("password") String pw,
+			RedirectAttributes redirectAttributes, @Autowired HttpServletRequest request, Model model) {
+		if (service.read(id) != null && service.read(id).getPassword().equals(pw)) {
+			HttpSession session = request.getSession();
+			session.setAttribute("id", id);
+
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg", "아이디 또는 비밀번호가 옳지 않습니다.");
+
+			return "redirect:/login";
+		}
+	}
+
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate(); // 세션 무효화
+		return "redirect:/"; // 로그아웃 후 로그인 페이지로 이동
 	}
 
 }
