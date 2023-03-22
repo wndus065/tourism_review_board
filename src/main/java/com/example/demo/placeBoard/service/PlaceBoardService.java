@@ -20,7 +20,7 @@ public interface PlaceBoardService {
 	default PlaceBoard dtoToEntity(PlaceBoardDTO dto) {
 		
 		PlaceBoard entity = PlaceBoard.builder()
-				.placeNo(dto.getPlaceNo())
+				.no(dto.getNo())
 				.writer(dto.getWriter())
 				.place(dto.getPlace())
 				.title(dto.getTitle())				
@@ -32,11 +32,13 @@ public interface PlaceBoardService {
 	default PlaceBoardDTO entityToDto(PlaceBoard entity) {
 		
 		PlaceBoardDTO dto = PlaceBoardDTO.builder()
-				.placeNo(entity.getPlaceNo())
+				.no(entity.getNo())
 				.writer(entity.getWriter())
 				.place(entity.getPlace())
 				.title(entity.getTitle())				
 				.content(entity.getContent())
+				.regDate(entity.getRegDate()) 
+				.modDate(entity.getModDate())
 				.build();
 
 		return dto;

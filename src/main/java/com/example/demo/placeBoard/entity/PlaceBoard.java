@@ -19,11 +19,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PlaceBoard {
+public class PlaceBoard extends BaseEntity {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int placeNo;
+    private int no;
     
     @Column(length = 50, nullable = false) //글쓴이
     private String writer;

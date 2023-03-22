@@ -29,13 +29,13 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 		System.out.println(entity);
 		repository.save(entity);
 
-		return entity.getPlaceNo();
+		return entity.getNo();
 	}
 
 	@Override
 	public Page<PlaceBoardDTO> getList(int page) {
 		int pageNum = (page == 0) ? 0 : page - 1; // page는 index 처럼 0부터 시작
-		Pageable pageable = PageRequest.of(pageNum, 10, Sort.by("placeNo").descending());
+		Pageable pageable = PageRequest.of(pageNum, 10, Sort.by("no").descending());
 		Page<PlaceBoard> entityPage = repository.findAll(pageable);
 		Page<PlaceBoardDTO> dtoPage = entityPage.map( entity -> entityToDto(entity) );
 
@@ -43,11 +43,11 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 	}
 
 	@Override
-	public PlaceBoardDTO read(int placeNo) {
-		Optional<PlaceBoard> result = repository.findById(placeNo);
+	public PlaceBoardDTO read(int no) {
+		Optional<PlaceBoard> result = repository.findById(no);
 		if (result.isPresent()) {
-			PlaceBoard guestbook = result.get();
-			return entityToDto(guestbook);
+			PlaceBoard placeBoard = result.get();
+			return entityToDto(placeBoard);
 		} else {
 			return null;
 		}
@@ -55,7 +55,7 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 
 	@Override
 	public void modify(PlaceBoardDTO dto) {
-		Optional<PlaceBoard> result = repository.findById(dto.getPlaceNo());
+		Optional<PlaceBoard> result = repository.findById(dto.getNo());
 		if (result.isPresent()) {
 			PlaceBoard entity = result.get();
 			entity.setTitle(dto.getTitle());
@@ -65,7 +65,7 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 	}
 
 	@Override
-	public void remove(int placeNo) {
-		repository.deleteById(placeNo);
+	public void remove(int no) {
+		repository.deleteById(no);
 	}
 }
