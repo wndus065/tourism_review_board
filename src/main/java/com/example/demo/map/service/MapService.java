@@ -17,7 +17,9 @@ public interface MapService {
 	
 	boolean register (MapDTO dto);
 	
-	MapDTO read(String address);
+	List<MapDTO> getAllMarkers();
+	
+	MapDTO read(double point_x, double point_y);
 	
 	void remove(String address);
 	
@@ -53,4 +55,5 @@ public interface MapService {
     			.build();
     	return entity;
     }
+
 }
