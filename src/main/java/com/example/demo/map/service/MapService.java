@@ -19,9 +19,11 @@ public interface MapService {
 	
 	List<MapDTO> getAllMarkers();
 	
-	MapDTO read(double point_x, double point_y);
+	MapDTO find(String place);
 	
-	void remove(String address);
+	MapDTO read(String place);
+	
+	void remove(String place);
 	
 	void modify(MapDTO dto);
 	

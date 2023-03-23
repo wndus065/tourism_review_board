@@ -17,15 +17,15 @@ import lombok.ToString;
 @Builder
 
 public class MapDTO {
-	
-   private String place_key;
-	
+
+	private String place_key;
+
 	private String place;
-	
+
 	private String address;
-	
+
 	private double point_x;
-	
+
 	private double point_y;
 
 }

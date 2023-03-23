@@ -22,13 +22,13 @@ import lombok.ToString;
 @Table(name = "map")
 
 public class MapEntity {
-	@Id
-	private String place_key;
 	
-	@Column(length = 50 , nullable = false)
+	private String place_key;
+	@Id
+	@Column(length = 255 , nullable = false)
 	private String place;
 	
-	@Column(length = 100 , nullable = false)
+	@Column(length = 255 , nullable = false)
 	private String address;
 	
 	@Column(nullable = false)

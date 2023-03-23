@@ -1,41 +1,58 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+<th:block th:replace="layout/basic :: setContent(~{this::content} )">
+
+	<th:block th:fragment="content">
+	
 
 <body>
     	 <div class="row justify-content-center">
     		<div class="input-div">
-	    	    <h1 class="mt-4">µÓ∑œ«œ±‚</h1>
+	    	    <h1 class="mt-4">Îì±Î°ùÌïòÍ∏∞</h1>
 	    	 	<form th:action="@{/map/register}" th:method="post">
+	    	 	<div class="form-group">
+		                <label >ÌÇ§Í∞í</label>
+		                <input type="place_key" class="form-control" name="place_key">
+		            </div>
 		            <div class="form-group">
-		                <label >¿Âº“</label>
+		                <label >Ïû•ÏÜå</label>
 		                <input type="place" class="form-control" name="place">
 		            </div>
 		            <div class="form-group">
-		                <label >¡÷º“</label>
+		                <label >Ï£ºÏÜå</label>
 		                <input type="address" class="form-control" name="address">
 		            </div>
 				    <div class="form-group">
-		                <label >¡¬«•</label>
-		                <input type="x¡¬«•" class="form-control" name="point_x">
-		                <input type="y¡¬«•" class="form-control" name="point_y">
+		                <label >xÏ¢åÌëú</label>
+		                <input type="xÏ¢åÌëú" class="form-control" name="point_x">
+		                </div>
+		                <div class="form-group">
+		                <label>yÏ¢åÌëú</label>
+		                <input type="yÏ¢åÌëú" class="form-control" name="point_y">
 		            </div>
-		            <button type="submit" class="btn btn-primary">µÓ∑œ</button>
+		            <button type="submit" class="btn btn-primary">Îì±Î°ù</button>
+		            <a th:href="@{/map/list(page=${page})}">
+        			<button type="button" class="btn btn-info">Î™©Î°ùÏúºÎ°ú</button>
+     				  </a>
+		            
+		           
 	        	</form>
         	</div>
     	 </div>
     	 <script th:inline="javascript">
-    	 $(document).ready(function(){
-			  var msg = [[${msg}]]
-			  if(msg != null){
-				  alert(msg);
-			  }
-			});
+    	  $(document).ready(function() {
+    		    var msg = [[${msg}]]
+    		    if(msg !== null) {
+    		      alert(msg);
+    		    }
+    		  });
+      
+
     	 
-		</script>
-    </body>
+			</script>
+   		 </body>
+    </th:block>
+    </th:block>
+    
 </html>

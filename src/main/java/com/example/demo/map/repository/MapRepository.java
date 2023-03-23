@@ -8,6 +8,8 @@ import com.example.demo.map.entity.MapEntity;
 
 public interface MapRepository extends JpaRepository<MapEntity, String> {
 
+
+
 	
 
 }

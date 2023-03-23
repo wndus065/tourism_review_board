@@ -3,11 +3,13 @@ package com.example.demo.map.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -16,21 +18,32 @@ import com.example.demo.map.entity.MapEntity;
 import com.example.demo.map.service.MapService;
 
 @Controller
-@RequestMapping("/map1")
+@RequestMapping("/map")
 public class MapController {
 	
 	@Autowired
 	private MapService service;
 	
-	@GetMapping("/list")
-	
-	public String list(Model model) {
+	@GetMapping("/main")	
+	public String main(Model model) {
 		
-		List<MapDTO> markers = service.getAllMarkers();
+	List<MapDTO> markers = service.getAllMarkers();	
 		
-		
-		model.addAttribute("mapDTOList",markers);
+	model.addAttribute("mapDTOList",markers);
 		return "/map/map";
+	}
+	@GetMapping("/list")
+	public void list(@RequestParam(defaultValue = "0")int page, Model model) {
+		Page<MapDTO> list = service.getlist(page);
+		model.addAttribute("list",list);
+		
+		
+	}
+	@GetMapping("/read")
+	public void read(String place, @RequestParam(defaultValue= "0")int page, Model model) {
+		MapDTO dto = service.read(place);
+		model.addAttribute("dto",dto);
+		model.addAttribute("page",page);
 	}
 	
 	
@@ -40,14 +53,40 @@ public class MapController {
 	}
 	
 	@PostMapping("/register")
-	public String registermap(MapDTO dto, RedirectAttributes redirectAttributes) {
+	public String register(MapDTO dto, RedirectAttributes redirectAttributes) {
 		boolean isSuccess = service.register(dto);
 		if(isSuccess) {
-			return "redirect:/map/main";
+			return "redirect:/map/list";
 		}else {
-			redirectAttributes.addFlashAttribute("msg","이미 등록된 주소입니다.");
+			redirectAttributes.addFlashAttribute("msg","이미 등록된 장소입니다.");
 			return "redirect:/map/register";
 		}
+	}
+	
+	@GetMapping("/find")
+	public void find(String place ,int page, Model model) {
+		MapDTO dto = service.read(place);
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
+	}
+	
+	@GetMapping("/modify")
+	public void modify(String place, Model model) {
+		MapDTO dto = service.read(place);
+		model.addAttribute("dto",dto);
+	}
+	
+	@PostMapping("/modify")
+	public String modifyPost(MapDTO dto , RedirectAttributes redirectAttributes) {
+		service.modify(dto);
+		redirectAttributes.addAttribute("place", dto.getPlace());
+		return "redirect:/map/read";
+	}
+	
+	@PostMapping("/remove")
+	public String remove(String place) {
+		service.remove(place);
+		return "redirect:/map/list";
 	}
 	
 	
