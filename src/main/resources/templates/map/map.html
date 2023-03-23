@@ -27,7 +27,7 @@ for (var i = 0; i < markerDTOs.length; i++) {
     });
     markers.push(marker);
 
-    var contentString = '<div style="padding:20px;">' + markerDTOs[i].place + '</div>';
+    var contentString = '<div style="padding:20px;">' + markerDTOs[i].place +'        '+ markerDTOs[i].address+ '</div>';
 
     naver.maps.Event.addListener(marker, "click", createClickListener(contentString, marker));
   }

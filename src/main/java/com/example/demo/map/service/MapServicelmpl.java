@@ -87,6 +87,8 @@ public class MapServicelmpl implements MapService {
 			MapDTO mapDTO = new MapDTO();
 			mapDTO.setPoint_x(mapEntity.getPoint_x());
 			mapDTO.setPoint_y(mapEntity.getPoint_y());
+			mapDTO.setAddress(mapEntity.getAddress());
+			mapDTO.setPlace(mapEntity.getPlace());
 			
 			markers.add(mapDTO);
 		});
