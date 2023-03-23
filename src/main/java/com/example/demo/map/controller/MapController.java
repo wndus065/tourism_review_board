@@ -84,7 +84,7 @@ public class MapController {
 	}
 	
 	@PostMapping("/remove")
-	public String remove(String place) {
+	public String removePost(String place) {
 		service.remove(place);
 		return "redirect:/map/list";
 	}

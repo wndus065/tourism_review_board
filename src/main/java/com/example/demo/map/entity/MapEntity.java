@@ -2,6 +2,7 @@ package com.example.demo.map.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,8 +22,9 @@ import lombok.ToString;
 @Builder
 @Table(name = "map")
 
+
 public class MapEntity {
-	
+	@Column
 	private String place_key;
 	@Id
 	@Column(length = 255 , nullable = false)

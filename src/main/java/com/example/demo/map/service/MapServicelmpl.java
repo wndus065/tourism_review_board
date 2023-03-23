@@ -22,15 +22,11 @@ import com.example.demo.map.repository.MapRepository;
 public class MapServicelmpl implements MapService {
 
 	@Autowired
-	MapRepository mapRepository;
+	private MapRepository mapRepository;
 
 	@Override
-	public boolean register(MapDTO dto) {
-		double point_x = dto.getPoint_x();
-		double point_y = dto.getPoint_y();
-		String address = dto.getAddress();
-		String place = dto.getPlace();
-		
+	public boolean register(MapDTO dto) {				
+		String place = dto.getPlace();	
 		MapDTO getDto = find(place);
 		if (getDto != null) {
 			System.out.println("이미 등록된 장소입니다.");
@@ -53,6 +49,7 @@ public class MapServicelmpl implements MapService {
 		if (result.isPresent()) {
 			MapEntity entity = result.get();
 			entity.setAddress(dto.getAddress());
+			entity.setPlace_key(dto.getPlace_key());
 			entity.setPlace(dto.getPlace());
 			entity.setPoint_x(dto.getPoint_x());
 			entity.setPoint_y(dto.getPoint_y());

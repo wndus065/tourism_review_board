@@ -1,78 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{layout/basic :: setContent(~{this::content} )}">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
-    <th:block th:fragment="content">
+	<th:block th:fragment="content">
+		<style>
+p {
+	padding-left: 10px;
+	font-size: 1.2em;
+	margin-top: 0.7em;
+	margin-bottom: 0.7em;
+}
+</style>
+		<header>
+			<h2>관광지</h2>
+		</header>
 
-        <h1 class="mt-4">장소 수정</h1>
-
-        <form>
-
-        <div class="form-group">
-            <label >장소</label>
-            <input type="text" class="form-control" name="place" th:value="${dto.place}">
-        </div>
-
-        <div class="form-group">
-            <label >장소 키</label>
-            <input type="text" class="form-control" name="place_key" th:value="${dto.place_key}" >
-        </div>
-        <div class="form-group">
-            <label >주소</label>
-            <input type="text" class="form-control" name="address" th:value="${dto.address}" >
-
-        </div>
-        <div class="form-group">
-            <label >x좌표</label>
-            <input type="text" class="form-control" name="point_x" th:value="${dto.point_x}" >
-        </div>
-        <div class="form-group">
-            <label >y좌표</label>
-            <input type="text" class="form-control" name="point_y" th:value="${dto.point_y}" >
-        </div>
-        
-
-        </form>
-
-        <button type="button" class="btn btn-primary modifyBtn">수정</button>
-
-        <button type="button" class="btn btn-info listBtn">목록으로</button>
-
-        <button type="button" class="btn btn-danger removeBtn">삭제</button>
-
-        <script th:inline="javascript">
-
-        	var form = $("form"); //form 태그 객체
-
-            $(".modifyBtn").click(function() {
-                if(!confirm("수정하시겠습니까?")){
-                    return ;
-                }
-
-                form
-                    .attr("action", "/map/modify")
-                    .attr("method","post")
-                    .submit();
-            });
-
-            $(".listBtn").click(function() {
-                form
-                    .attr("action", "/map/list")
-                    .attr("method","get")
-              		.submit();
-            })
-
-            $(".removeBtn").click(function(){
-            	form
-                    .attr("action", "/map/remove")
-                    .attr("method","post")
-                    .submit();
-            });
-
-        </script>
-
-
-    </th:block>
-
+		<form th:method="post" th:action="@{/modify(place=${dto.place})}">
+			<section class="box text-style1" style="width: 500px">
+			
+				<div class="form-group">
+					<p>
+						<strong>관광지 정보</strong>
+					</p>
+					<p class="form-group">
+						<label>장소 : </label> <input type="text" th:value="${dto.place}" name="place"/>
+					</p>
+					<p class="form-group">
+						<label>장소코드 : </label> <input type="text" th:value="${dto.place_key}" name="place_key"/>
+					</p>
+					<p class="form-group">
+						<label>주소 : </label> <input type="text" th:value="${dto.address}" name="address"/>
+					</p>
+					<p class="form-group">
+						<label>경도 : </label> <input type="text" th:value="${dto.point_x}" name="point_x"/>
+					</p>
+					<p class="form-group">
+						<label>위도 : </label> <input type="text" th:value="${dto.point_y}" name="point_y"/>
+					</p>
+				
+						
+					
+				</div>
+			</section>		
+					
+					<p>
+						<button><a th:href="@{/map/list}" style="color: white" onclick="return confirm('정말 수정하시겠습니까?')">수정</a></button>
+						<button type="button" class="btn btn-danger removeBtn" style="color: white">삭제</button>
+					</p>
+					
+				
+			
+		</form>
+		<script th:inline="javascript">
+		$(document).ready(function() {
+		    $(".removeBtn").click(function() {
+		        var form = $("form");
+		        if (!confirm("정말 삭제하시겠습니까?")) {
+		            form
+		            .attr("action", "/map/remove")
+		            .attr("method", "post")
+		            .submit();
+		        }
+		    });
+		});
+		 </script>
+		
+	</th:block>
 </th:block>
+</html>
