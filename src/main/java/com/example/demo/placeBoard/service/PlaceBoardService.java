@@ -7,15 +7,15 @@ import com.example.demo.placeBoard.entity.PlaceBoard;
 
 public interface PlaceBoardService {
 
-	int register(PlaceBoardDTO dto);
+	boolean register(PlaceBoardDTO dto);
 	
-	Page<PlaceBoardDTO> getList(int pageNumber);
+	Page<PlaceBoardDTO> getList(int no);
 
-	PlaceBoardDTO read(int placeNo);
+	PlaceBoardDTO read(int no);
 
 	void modify(PlaceBoardDTO dto);
 
-	void remove(int placeNo);
+	void remove(int no);
 	
 	default PlaceBoard dtoToEntity(PlaceBoardDTO dto) {
 		

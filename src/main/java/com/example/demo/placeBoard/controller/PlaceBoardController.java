@@ -41,7 +41,7 @@ public class PlaceBoardController {
 	@PostMapping("/register")
 	public String registerPost(PlaceBoardDTO dto, RedirectAttributes redirectAttributes, Principal principal) {
 		
-		int no = service.register(dto);
+		boolean no = service.register(dto);
 		redirectAttributes.addFlashAttribute("msg", no);
 		return "redirect:/placeboard/list";
 	}
@@ -59,14 +59,14 @@ public class PlaceBoardController {
 		model.addAttribute("dto", dto);
 	}
 
-	@PutMapping("/modify")
+	@PostMapping("/modify")
 	public String modifyPost(PlaceBoardDTO dto, RedirectAttributes redirectAttributes) {
 		service.modify(dto);
 		redirectAttributes.addAttribute("no", dto.getNo());
 		return "redirect:/placeboard/read";
 	}
 
-	@DeleteMapping("/modify/remove")
+	@PostMapping("/remove")
 	public String removePost(int no) {
 		service.remove(no);
 		return "redirect:/placeboard/list";

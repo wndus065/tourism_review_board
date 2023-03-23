@@ -24,25 +24,12 @@ public class PlaceBoardRepositoryTest {
 		}
 	}
 	
-//	@Test
-//	public void 없는아이디로_글등록() {
-//		Member member = Member.builder().id("user2").build();
-//		placeboard placeboard = new placeboard(0,"1번글","내용입니다", member); //회원테이블에 없는 아이디를 사용하면 에러가 발생됨
-//		repository.save(placeboard);	
-//	}
-//	
-//	@Test
-//	public void 있는아이디로_글등록() {
-//		Member member1 = Member.builder().id("user1").build();
-//		repository.save(new PlaceBoard(0,"1번글","내용입니다", member1));
-//		repository.save(new PlaceBoard(0,"2번글","내용입니다", member1));
-//		repository.save(new PlaceBoard(0,"3번글","내용입니다", member1));	
-//		
-//		Member member2 = Member.builder().id("user2").build(); //먼저 회원테이블에 데이터를 추가해야함.
-//		repository.save(new PlaceBoard(0,"4번글","내용입니다", member2));	
-//		repository.save(new PlaceBoard(0,"5번글","내용입니다", member2));	
-//	}
-
+	@Test
+	public void 등록() {
+		PlaceBoard placeboard = new PlaceBoard(0, "둘리", "서울", "서울에 간다", "놀러갔다");
+		repository.save(placeboard);	
+	}
+	
 	@Test
 	public void 데이터단건조회() {
 		Optional<PlaceBoard> result = repository.findById(1);
@@ -62,7 +49,7 @@ public class PlaceBoardRepositoryTest {
 	
 	@Test
 	public void 데이터수정() {
-		Optional<PlaceBoard> result = repository.findById(5);
+		Optional<PlaceBoard> result = repository.findById(1);
 		PlaceBoard placeboard = result.get();
 		placeboard.setContent("내용이수정되었습니다~");
 		repository.save(placeboard);	
@@ -71,7 +58,6 @@ public class PlaceBoardRepositoryTest {
 	@Test
 	public void 데이터삭제() {
 		repository.deleteById(1);
-//		repository.deleteAll();
 	}
 
 }

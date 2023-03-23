@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 
 import com.example.demo.placeBoard.dto.PlaceBoardDTO;
+import com.example.demo.placeBoard.entity.PlaceBoard;
 import com.example.demo.placeBoard.service.PlaceBoardService;
 
 @SpringBootTest
@@ -24,6 +26,11 @@ public class PlaceBoardServiceTest {
 	}
 	
 	@Test
+	public void 등록() {
+		service.register(new PlaceBoardDTO(0, "또치", "서울", "서울", "놀러왔따", null, null));	
+	}
+	
+	@Test
 	public void 일번페이지_목록조회하기() {
 		Page<PlaceBoardDTO> page = service.getList(1);
 		List<PlaceBoardDTO> list = page.getContent();
@@ -32,4 +39,16 @@ public class PlaceBoardServiceTest {
 		}
 	}
 	
+	@Test
+	public void 데이터수정() {
+		PlaceBoardDTO result = service.read(2);
+		result.setContent("내용이수정되었습니다~");
+		service.modify(result);	
+	}
+	
+	@Test
+	public void 데이터삭제() {
+		service.remove(2);
+	}
+
 }

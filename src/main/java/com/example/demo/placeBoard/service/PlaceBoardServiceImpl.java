@@ -19,19 +19,31 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 	@Autowired
 	private PlaceBoardRepository repository;
 
+//	@Override
+//	public int register(PlaceBoardDTO dto) {
+//		
+//		System.out.println("DTO----------");
+//		System.out.println(dto);
+//
+//		PlaceBoard entity = dtoToEntity(dto);
+//		System.out.println(entity);
+//		repository.save(entity);
+//
+//		return entity.getNo();
+//	}
+
 	@Override
-	public int register(PlaceBoardDTO dto) {
-		
-		System.out.println("DTO----------");
-		System.out.println(dto);
-
+	public boolean register(PlaceBoardDTO dto) {
+		int no = dto.getNo();
+		PlaceBoardDTO getDto = read(no);
+		if(getDto != null) {
+			return false;
+		}
 		PlaceBoard entity = dtoToEntity(dto);
-		System.out.println(entity);
 		repository.save(entity);
-
-		return entity.getNo();
+		return true;
 	}
-
+	
 	@Override
 	public Page<PlaceBoardDTO> getList(int page) {
 		int pageNum = (page == 0) ? 0 : page - 1; // page는 index 처럼 0부터 시작
