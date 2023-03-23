@@ -15,7 +15,7 @@ p {
 		<header>
 			<h2>내 정보</h2>
 		</header>
-
+		
 		<section class="box text-style1" style="width: 500px">
 			<div class="inner">
 				<p><strong>계정정보</strong></p>
@@ -23,7 +23,7 @@ p {
 				<P>비밀번호 : [[${dto.password}]]</P>
 				<p>가입날짜 : [[${#temporals.format(dto.regDate, 'yyyy/MM/dd
 					HH:mm:ss')}]]</p>
-				<p>수정날짜 : [[${#temporals.format(dto.regDate, 'yyyy/MM/dd
+				<p>수정날짜 : [[${#temporals.format(dto.modDate, 'yyyy/MM/dd
 					HH:mm:ss')}]]</p>
 				<p>회원등급 : [[${dto.role}]]</p>
 			</div>
@@ -36,8 +36,9 @@ p {
 				<p>연락처 : [[${dto.phone}]]</p>
 				<p>이메일 : [[${dto.email}]]</p>
 				<p>
-					<button><a href="#">수정</a></button>
-					<button><a href="#" onclick="return confirm('정말 탈퇴하시겠습니까?')">회원탈퇴</a></button>
+					<button><a th:href="@{/modify/{id}(id=${dto.id})}" style="color: white">수정</a></button>
+					<button><a th:href="@{/remove/{id}(id=${dto.id})}" style="color: white" onclick="return confirm('정말 탈퇴하시겠습니까?')">
+						회원탈퇴</a></button>
 				</p>
 			</div>
 		</section>

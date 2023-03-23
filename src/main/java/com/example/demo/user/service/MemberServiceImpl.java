@@ -52,5 +52,23 @@ public class MemberServiceImpl implements MemberService {
 		repository.save(entity);
 		return true;
 	}
+	
+	@Override
+	public void modify(MemberDTO dto) {
+		Optional<Member> result = repository.findById(dto.getId());
+		if(result.isPresent()) {
+			Member entity = result.get();
+			entity.setPassword(dto.getPassword());
+			entity.setPhone(dto.getPhone());
+			entity.setEmail(dto.getEmail());
+			repository.save(entity);
+		}
+	}
+	
+	@Override
+	public void remove(String id) {
+		System.out.println(id+"회원을 삭제합니다.");
+		repository.deleteById(id);
+	}
 
 }

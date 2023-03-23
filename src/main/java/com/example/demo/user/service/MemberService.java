@@ -43,6 +43,7 @@ public interface MemberService {
 		return entity;
 	}
 
-
+	void modify(MemberDTO dto);
+	void remove(String id);
 
 }

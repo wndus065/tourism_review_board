@@ -5,13 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.user.dto.MemberDTO;
-import com.example.demo.user.entity.Member;
 import com.example.demo.user.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,14 +39,14 @@ public class MemberController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", page);
 	}
-	
+
 	@GetMapping("/member/readMine")
 	public void readMine(HttpServletRequest request, Model model) {
-	    HttpSession session = request.getSession();
-	    String id = (String) session.getAttribute("id");
-	    
-	    MemberDTO memberDto = service.read(id);
-	    model.addAttribute("dto", memberDto);
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+
+		MemberDTO memberDto = service.read(id);
+		model.addAttribute("dto", memberDto);
 	}
 
 	@GetMapping("/register")
@@ -92,4 +91,26 @@ public class MemberController {
 		return "redirect:/"; // 로그아웃 후 로그인 페이지로 이동
 	}
 
+	@GetMapping("/modify/{id}")
+	public String modify(@PathVariable String id, Model model) {
+		MemberDTO dto = service.read(id);
+		model.addAttribute("dto", dto);
+		return "/member/modify";
+	}
+	
+	@PostMapping("/modify/{id}")
+	public String modifyPost(MemberDTO dto, RedirectAttributes redirectAttributes) {
+		service.modify(dto);
+		redirectAttributes.addAttribute("id",dto.getId());
+		return "redirect:/member/readMine";
+	}
+	
+	@GetMapping("/remove/{id}")
+	public String remove(@PathVariable String id,HttpSession session) {
+		System.out.println(id+"회원을 삭제합니다.");
+		service.remove(id);
+		session.invalidate();
+		return "redirect:/";
+	}
+	
 }
