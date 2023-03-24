@@ -61,6 +61,7 @@ public class MemberServiceImpl implements MemberService {
 			entity.setPassword(dto.getPassword());
 			entity.setPhone(dto.getPhone());
 			entity.setEmail(dto.getEmail());
+			System.out.println(entity.toString());
 			repository.save(entity);
 		}
 	}

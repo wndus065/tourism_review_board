@@ -22,22 +22,29 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
+	
+	@Autowired 
+	private HttpServletRequest request;
 
 	@GetMapping("/member/list")
-	public void list(@RequestParam(defaultValue = "0") int page, Model model) {
+	public String list(@RequestParam(defaultValue = "0") int page, Model model) {
 		Page<MemberDTO> list = service.getList(page);
 		model.addAttribute("list", list);
+		model.addAttribute("currentPage","memberA");
 		System.out.println("전체 페이지 수 : " + list.getTotalPages());
 		System.out.println("전체 게시물 수 : " + list.getTotalElements());
 		System.out.println("현재 페이지 번호 : " + (list.getNumber() + 1));
 		System.out.println("페이지에 표시할 게시물 수 : " + list.getNumberOfElements());
+		return "/member/list";
 	}
 
 	@GetMapping("/member/read")
-	public void read(String id, @RequestParam(defaultValue = "0") int page, Model model) {
+	public String read(String id, @RequestParam(defaultValue = "0") int page, Model model) {
 		MemberDTO dto = service.read(id);
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", page);
+		model.addAttribute("currentPage","memberA");
+		return "/member/read";
 	}
 
 	@GetMapping("/member/readMine")
@@ -102,6 +109,7 @@ public class MemberController {
 	public String modifyPost(MemberDTO dto, RedirectAttributes redirectAttributes) {
 		service.modify(dto);
 		redirectAttributes.addAttribute("id",dto.getId());
+		System.out.println(dto.toString());
 		return "redirect:/member/readMine";
 	}
 	

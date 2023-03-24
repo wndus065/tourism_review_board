@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="layout/basic :: setContent(~{this::content} )">
+
+	<th:block th:fragment="content">
+		<style>
+p {
+    padding-left: 10px;
+    font-size: 1.2em;
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
+}
+</style>
+		<header>
+			<h2>요청 상세 정보</h2>
+		</header>
+		<hr>
+		<p><strong>[[${dto.writer}]]</strong></p>
+
+		<section class="box text-style1" style="width: 500px">
+			<div class="inner">
+				<p><strong>[장소] : [[${dto.place}]]</strong></p>
+				<P><strong>[주소] : [[${dto.address}]]</strong></P>
+				<p>[요청날짜] : [[${#temporals.format(dto.regDate, 'yyyy/MM/dd
+					HH:mm:ss')}]]</p>
+				<p><strong>[내용]</strong></p>
+				<p><strong>[[${dto.comment}]]</strong></p>
+			</div>
+		</section>
+	</th:block>
+</th:block>
