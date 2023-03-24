@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="layout/basic :: setContent(~{this::content} )">
+
+	<th:block th:fragment="content">
+
+		<header>
+			<h2>관광지 목록</h2>
+		</header>
+		<table>
+			<thead>
+				<tr>
+					<th>장소</th>
+					<th>주소</th>
+					<th>x좌표</th>
+					<th>y좌표</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto : ${list}">
+					<th><a
+						th:href="@{/map/read(place = ${dto.place}, page= ${list.number + 1})}">
+							[[${dto.place}]]</a></th>
+					<td>[[${dto.address}]]</td>
+					<td>[[${dto.point_x}]]</td>
+					<td>[[${dto.point_y}]]</td>
+					
+				</tr>
+			</tbody>
+		</table>
+		<!-- Pagination -->
+		<div class="pagination">
+			<div class="pages">
+				<a th:href="@{/map/list(page = ${page})}" th:class="${(list.number + 1) == page?'active':''} " th:each="page: ${#numbers.sequence(1, list.totalPages)}">[[${page}]]</a>
+			</div>
+		</div>
+	</th:block>
+</th:block>
