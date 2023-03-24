@@ -3,29 +3,29 @@
 
 <th:block th:replace="~{layout/basic :: setContent(~{this::content} )}">
 
-	<th:block th:fragment="content">
-	
+		<th:block th:fragment="content">
+<style>
+p {
+    padding-left: 10px;
+    font-size: 1.2em;
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
+}
+</style>
 		<header>
-			<h2>장소 정보</h2>
+			<h2>관광지 상세정보</h2>
 		</header>
+		<section class="box text-style1" style="width: 500px">
+			<div class="inner">
+				<p><strong>상세정보</strong></p>
+				<p>장소 :  [[${dto.place}]]</p>
+				<P>주소 : [[${dto.address}]]</P>
+				<p>경도 : [[${dto.point_x}]]</p>
+				<p>위도 : [[${dto.point_y}]]</p>
+				
+			</div>
+		</section>
 		
-		<div class="form-group">
-            <label >장소</label>
-            <input type="text" class="form-control" name="place" th:value="${dto.place}" readonly >
-        </div>						         
-        
-		<div class="form-group">
-            <label >주소</label>
-            <input type="text" class="form-control" name="address" th:value="${dto.address}" readonly >
-        </div>
-		<div class="form-group">
-            <label >x좌표</label>
-            <input type="text" class="form-control" name="point_x" th:value="${dto.point_x}" readonly >
-        </div>
-		<div class="form-group">
-            <label >y좌표</label>
-            <input type="text" class="form-control" name="point_y" th:value="${dto.point_y}" readonly >
-        </div>
         
         <a th:href="@{/map/list(page=${page})}">
         	<button type="button" class="btn btn-info">목록으로</button>

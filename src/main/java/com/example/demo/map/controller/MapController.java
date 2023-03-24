@@ -78,17 +78,21 @@ public class MapController {
 	
 	@PostMapping("/modify")
 	public String modifyPost(MapDTO dto , RedirectAttributes redirectAttributes) {
+		
+//		redirectAttributes.addAttribute("place", dto.getPlace());
 		service.modify(dto);
-		redirectAttributes.addAttribute("place", dto.getPlace());
-		return "redirect:/map/read";
+		return "redirect:/map/list";
 	}
 	
 	@PostMapping("/remove")
 	public String removePost(String place) {
 		service.remove(place);
+		System.out.println("지움");
 		return "redirect:/map/list";
 	}
 	
+	@GetMapping("/search")
+	public String search(RequestParam("keyword")String keyword)
 	
 	
 	

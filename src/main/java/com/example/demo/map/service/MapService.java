@@ -30,6 +30,7 @@ public interface MapService {
 	Page<MapDTO> getlist(int pageNumber);
 	
 	
+	
     
     
     

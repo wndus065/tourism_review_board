@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+<th:block th:replace="layout/basic :: setContent(~{this::content} )">
 
 	<th:block th:fragment="content">
 		<style>
@@ -13,59 +13,46 @@ p {
 }
 </style>
 		<header>
-			<h2>관광지</h2>
+			<h2>관광지 수정하기</h2>
 		</header>
 
-		<form th:method="post" th:action="@{/modify(place=${dto.place})}">
-			<section class="box text-style1" style="width: 500px">
+		<form th:method="post" th:action="@{/map/modify}">
+  <section class="box text-style1" style="width: 500px">
+    <div class="inner">
+      <p>
+        <strong>관광지수정</strong>
+      </p>
+      <p>
+        <label>장소 : </label> <input type="text" th:value="${dto.place}" name="place" readonly/>
+      </p>
+      <p>
+        <label>장소코드값 : </label> <input type="text" th:value="${dto.place_key}" name="place_key" />
+      </p>
+      <p>
+        <label>주소 : </label> <input type="text" th:value="${dto.address}" name="address" />
+      </p>
+      <p>
+        <label>경도 : </label> <input type="text" th:value="${dto.point_x}" name="point_x" />
+      </p>
+      <p>
+        <label>위도 : </label> <input type="text" th:value="${dto.point_y}" name="point_y" />
+      </p>
+    </div>
+  </section>
+ 
+  <p>
+    <button type="submit" onclick="return confirm('정말 수정하시겠습니까?')">수정</button>
+    </p>   
+</form>
+	<form th:method="post" th:action="@{/map/remove(place=${dto.place})}">
+	<p>
+   <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+   </p>
+    
+    </form>
+   
+
 			
-				<div class="form-group">
-					<p>
-						<strong>관광지 정보</strong>
-					</p>
-					<p class="form-group">
-						<label>장소 : </label> <input type="text" th:value="${dto.place}" name="place"/>
-					</p>
-					<p class="form-group">
-						<label>장소코드 : </label> <input type="text" th:value="${dto.place_key}" name="place_key"/>
-					</p>
-					<p class="form-group">
-						<label>주소 : </label> <input type="text" th:value="${dto.address}" name="address"/>
-					</p>
-					<p class="form-group">
-						<label>경도 : </label> <input type="text" th:value="${dto.point_x}" name="point_x"/>
-					</p>
-					<p class="form-group">
-						<label>위도 : </label> <input type="text" th:value="${dto.point_y}" name="point_y"/>
-					</p>
-				
-						
-					
-				</div>
-			</section>		
-					
-					<p>
-						<button><a th:href="@{/map/list}" style="color: white" onclick="return confirm('정말 수정하시겠습니까?')">수정</a></button>
-						<button type="button" class="btn btn-danger removeBtn" style="color: white">삭제</button>
-					</p>
-					
-				
-			
-		</form>
-		<script th:inline="javascript">
-		$(document).ready(function() {
-		    $(".removeBtn").click(function() {
-		        var form = $("form");
-		        if (!confirm("정말 삭제하시겠습니까?")) {
-		            form
-		            .attr("action", "/map/remove")
-		            .attr("method", "post")
-		            .submit();
-		        }
-		    });
-		});
-		 </script>
 		
 	</th:block>
 </th:block>
-</html>

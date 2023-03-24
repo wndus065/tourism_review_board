@@ -4,50 +4,27 @@
 <th:block th:replace="layout/basic :: setContent(~{this::content} )">
 
 	<th:block th:fragment="content">
-	
+	<style>
+p {
+    padding-left: 10px;
+    font-size: 1.2em;
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
+}
+</style>
 		<header>
-			<h2>회원 상세 정보</h2>
+			<h2>관광지 상세정보</h2>
 		</header>
-		<section class="box text-style1">
-						<div class="inner">
-							<p>아이디</p>
-							<input type="text" class="form-control" name="id" th:value="${dto.id}" readonly >
-							</div>
-		<!-- <div class="form-group">
-            <label ></label>
-             -->
-        </div>
-		<div class="form-group">
-            <label >비밀번호</label>
-            <input type="text" class="form-control" name="password" th:value="${dto.password}" readonly >
-        </div>
-		<div class="form-group">
-            <label >이름</label>
-            <input type="text" class="form-control" name="name" th:value="${dto.name}" readonly >
-        </div>
-		<div class="form-group">
-            <label >연락처</label>
-            <input type="text" class="form-control" name="phone" th:value="${dto.phone}" readonly >
-        </div>
-		<div class="form-group">
-            <label >이메일</label>
-            <input type="text" class="form-control" name="email" th:value="${dto.email}" readonly >
-        </div>
-		<div class="form-group">
-            <label >주민등록번호</label>
-            <input type="text" class="form-control" name="regiNum" th:value="${dto.regiNum}" readonly >
-        </div>
-		<div class="form-group">
-            <label >가입날짜</label>
-            <input type="text" class="form-control" name="regDate" th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly >
-        </div>
-		<div class="form-group">
-            <label >수정날짜</label>
-            <input type="text" class="form-control" name="modDate" th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly >
-        </div>
-		<div class="form-group">
-            <label >회원등급</label>
-            <input type="text" class="form-control" name="role" th:value="${dto.role}" readonly >
+		<section class="box text-style1" style="width: 500px">
+			<div class="inner">
+				<p><strong>[[$dto.place}]]</strong></p>
+				<p>장소 :  [[${dto.place}]]</p>
+				<P>주소 : [[${dto.address}]]</P>
+				<p>경도 : [[${dto.point_x})}]]</p>
+				<p>위도 : [[$dto.point_y]]</p>
+				
+			</div>
+		</section>
         </div>
 	</th:block>
 </th:block>

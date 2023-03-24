@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -39,8 +40,13 @@ public class MapServicelmpl implements MapService {
 
 	@Override
 	public void remove(String place) {
-		mapRepository.deleteById(place);
-
+		try {
+	        mapRepository.deleteById(place);
+	        System.out.println("삭제");
+	    } catch (EmptyResultDataAccessException e) {
+	        System.out.println("삭제할 데이터가 존재하지 않습니다.");
+	       
+	    }
 	}
 
 	@Override
