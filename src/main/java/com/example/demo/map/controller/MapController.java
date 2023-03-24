@@ -91,8 +91,7 @@ public class MapController {
 		return "redirect:/map/list";
 	}
 	
-	@GetMapping("/search")
-	public String search(RequestParam("keyword")String keyword)
+	
 	
 	
 	
