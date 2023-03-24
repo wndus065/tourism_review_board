@@ -72,6 +72,7 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 			PlaceBoard entity = result.get();
 			entity.setTitle(dto.getTitle());
 			entity.setContent(dto.getContent());
+			entity.getModDate();
 			repository.save(entity);
 		}
 	}

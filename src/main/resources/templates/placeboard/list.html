@@ -17,10 +17,12 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
+						<th scope="col"></th>
 						<th scope="col">장소</th>
 						<th scope="col">제목</th>
 						<th scope="col">작성자</th>
 						<th scope="col">등록일</th>
+						<th scope="col">수정일</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -35,6 +37,7 @@
 						<td>[[${dto.title}]]</td>
 						<td>[[${dto.writer}]]</td>
 						<td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+						<td>[[${#temporals.format(dto.modDate, 'yyyy/MM/dd')}]]</td>
 					</tr>
 
 				</tbody>
