@@ -16,7 +16,7 @@ p {
 			<h2>관광지 수정하기</h2>
 		</header>
 
-		<form th:method="post" th:action="@{/map/modify}">
+		
   <section class="box text-style1" style="width: 500px">
     <div class="inner">
       <p>
@@ -39,17 +39,18 @@ p {
       </p>
     </div>
   </section>
- 
-  <p>
-    <button type="submit" onclick="return confirm('정말 수정하시겠습니까?')">수정</button>
-    </p>   
-</form>
-	<form th:method="post" th:action="@{/map/remove(place=${dto.place})}">
-	<p>
-   <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
-   </p>
-    
+ <div style="display:flex; flex-direction: row;">
+   <form th:method="post" th:action="@{/map/modify}">
+        <p>
+            <button type="submit" onclick="return confirm('정말 수정하시겠습니까?')">수정</button>
+        </p>   
     </form>
+    <form th:method="post" th:action="@{/map/remove(place=${dto.place})}">
+        <p>
+            <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+        </p>
+    </form> 
+</div>
    
 
 			
