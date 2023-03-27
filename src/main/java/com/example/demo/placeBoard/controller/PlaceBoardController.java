@@ -66,10 +66,9 @@ public class PlaceBoardController {
 		return "redirect:/placeboard/read";
 	}
 
-	@PostMapping("/remove")
-	public String removePost(@RequestParam("no") int no, RedirectAttributes rttr) {
-	    service.remove(no);
-	    rttr.addFlashAttribute("msg", "삭제가 완료되었습니다.");
-	    return "redirect:/placeBoard/list";
+	@GetMapping("/remove") //?no=6
+	public String removePost(int no) {
+		service.remove(no);
+		return "redirect:/placeboard/list";
 	}
 }
