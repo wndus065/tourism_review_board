@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.interestList.dto.InterDTO;
 import com.example.demo.interestList.entity.InterestList;
 import com.example.demo.interestList.repository.InterListRepository;
+import com.example.demo.placeBoard.repository.PlaceBoardRepository;
 import com.example.demo.user.entity.Member;
 import com.example.demo.user.repository.MemberRepository;
 
@@ -24,19 +25,13 @@ public class InterestListServicelmpl implements InterestListService {
 	@Autowired
 	private MemberRepository memberRepository;
 	
-//	@Autowired
-//	private PostRe
+	@Autowired
+	private PlaceBoardRepository placeBoardRepository;
 	
-	public InterestListServicelmpl(InterListRepository interListRepository) {
-		this.interListRepository = interListRepository;
-	}
+	
 
-//	@Override
-//	public void add(InterestRequest interRequest) {
-//		Member member = member.Repository.findById(interestRequest.getMemberId())
-//		.orElseThrow(() -> new EntityNotFoundException("User not found"));
-//		
-//	}
+
+	
 
 	@Override
 	public Page<InterDTO> getList(int pageNumber) {
@@ -49,16 +44,16 @@ public class InterestListServicelmpl implements InterestListService {
 	}
 
 	@Override
-	public void remove(int no) {
-		interListRepository.deleteById(no);
+	public void remove(int interest_no) {
+		interListRepository.deleteById(interest_no);
 		
 		
 		
 	}
 
 	@Override
-	public InterDTO read(int no) {
-		Optional<InterestList> result = interListRepository.findById(no);
+	public InterDTO read(int interest_no) {
+		Optional<InterestList> result = interListRepository.findById(interest_no);
 		if(result.isPresent()) {
 			InterestList entity = result.get();
 			return entityToDto(entity);
@@ -71,6 +66,15 @@ public class InterestListServicelmpl implements InterestListService {
 	public List<InterDTO> find(String id) {
 	 
 		return null;
+	}
+
+	@Override
+	public void add(int no, Member id) {
+		InterDTO dto = new InterDTO();
+		dto.setNo(no);
+		dto.setId(id.getId());
+		
+		
 	}
 
 

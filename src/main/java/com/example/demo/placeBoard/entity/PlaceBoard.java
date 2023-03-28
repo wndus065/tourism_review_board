@@ -23,7 +23,7 @@ public class PlaceBoard extends BaseEntity {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int no;
+    public int no;
     
     @Column(length = 50, nullable = false) //글쓴이
     private String writer;

@@ -14,11 +14,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 public class InterDTO {
-	private int no;
+	private int interest_no;
 	
 	private String id;
 	
-	private int place_no;
+	private int no;
 	
 	private String title;
 	

@@ -26,14 +26,14 @@ import lombok.ToString;
 public class InterestList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int no;
+	private int interest_no;
 	
 	@ManyToOne
 	@JoinColumn(name="id")
 	private String id;
 	@ManyToOne
-	@JoinColumn(name="place_no")
-	private int place_no;
+	@JoinColumn(name="no")
+	private int no;
 	
 	@Column(length = 100 , nullable = false)
 	private String title;

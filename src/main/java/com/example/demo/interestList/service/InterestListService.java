@@ -10,13 +10,13 @@ import com.example.demo.user.entity.Member;
 
 public interface InterestListService {
 	
-//	void add(Place_no place_no, Member id);
+	void add(int no, Member id);
 	
 	Page<InterDTO> getList(int pageNumber);
 	
-	void remove(int no);
+	void remove(int interest_no);
 	
-	InterDTO read(int no);
+	InterDTO read(int interest_no);
 	
 	List<InterDTO> find(String id);
 	
@@ -24,9 +24,9 @@ public interface InterestListService {
 	
 	default InterDTO entityToDto(InterestList entity) {
 		InterDTO dto = InterDTO.builder()
-				.no(entity.getNo())
+				.interest_no(entity.getInterest_no())
 				.id(entity.getId())
-				.place_no(entity.getPlace_no())
+				.no(entity.getNo())
 				.build();
 		return dto;
 				
@@ -34,9 +34,9 @@ public interface InterestListService {
 	
 	default InterestList dtoToEntity(InterDTO dto) {
 		InterestList entity = InterestList.builder()
-				.no(dto.getNo())
+				.interest_no(dto.getInterest_no())
 				.id(dto.getId())
-				.place_no(dto.getPlace_no())
+				.no(dto.getNo())
 				.build();
 		return entity;
 	}
