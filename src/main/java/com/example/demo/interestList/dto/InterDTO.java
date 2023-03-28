@@ -1,5 +1,8 @@
 package com.example.demo.interestList.dto;
 
+import com.example.demo.placeBoard.entity.PlaceBoard;
+import com.example.demo.user.entity.Member;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,12 +19,9 @@ import lombok.ToString;
 public class InterDTO {
 	private int interest_no;
 	
-	private String id;
+	private Member id;
 	
-	private int no;
+	private PlaceBoard no;
 	
-	private String title;
-	
-	private String content;
 
 }

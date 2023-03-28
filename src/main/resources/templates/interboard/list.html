@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="layout/basic :: setContent(~{this::content} )">
+
+	<th:block th:fragment="content">
+<style>
+table td {
+	background-color: transparent;
+}
+</style>
+		<header>
+			<h2>나의 관심 목록</h2>
+		</header>
+		<table>
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>게시물</th>
+					<th>작성자</th>
+								</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto : ${list}">
+					<th style="background-color: transparent;"><a
+						th:href="@{/inter/read(interest_no = ${dto.interest_no}, page= ${list.number + 1})}">
+							[[${dto.interest_no}]]</a></th>
+					<td>[[${dto.no}]]</td>
+					<td>[[${dto.id}]]</td>
+					
+				</tr>
+			</tbody>
+		</table>
+		<!-- Pagination -->
+		<div class="pagination">
+			<div class="pages">
+				<a th:href="@{/member/list(page = ${page})}" th:class="${(list.number + 1) == page?'active':''} " th:each="page: ${#numbers.sequence(1, list.totalPages)}">[[${page}]]</a>
+			</div>
+		</div>
+	</th:block>
+</th:block>

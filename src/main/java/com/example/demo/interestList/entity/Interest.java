@@ -1,5 +1,8 @@
 package com.example.demo.interestList.entity;
 
+import com.example.demo.placeBoard.entity.PlaceBoard;
+import com.example.demo.user.entity.Member;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,23 +26,19 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @Table(name = "interestList")
-public class InterestList {
+public class Interest {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int interest_no;
 	
 	@ManyToOne
 	@JoinColumn(name="id")
-	private String id;
+	private Member id;
+	
 	@ManyToOne
 	@JoinColumn(name="no")
-	private int no;
-	
-	@Column(length = 100 , nullable = false)
-	private String title;
+	private PlaceBoard no;
 	
 	
-	@Column(length = 500 , nullable = false)
-	private String content;
-
+	
 }
