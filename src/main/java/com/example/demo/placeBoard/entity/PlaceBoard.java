@@ -1,10 +1,14 @@
 package com.example.demo.placeBoard.entity;
 
+import com.example.demo.map.entity.MapEntity;
+import com.example.demo.user.entity.Member;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,11 +29,11 @@ public class PlaceBoard extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
     
-    @Column(length = 50, nullable = false) //글쓴이
-    private String writer;
+	@ManyToOne //글쓴이
+    private Member writer;
     
-    @Column(length = 12, nullable = false) //장소
-    private String place; 
+	@ManyToOne //장소
+    private MapEntity place; 
     
     @Column(length = 50, nullable = false) //글제목
     private String title;

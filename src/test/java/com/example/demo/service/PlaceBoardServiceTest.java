@@ -27,7 +27,7 @@ public class PlaceBoardServiceTest {
 	
 	@Test
 	public void 등록() {
-		service.register(new PlaceBoardDTO(0, "또치", "서울", "서울", "놀러왔따", null, null));	
+		service.register(new PlaceBoardDTO(0, "id0", "63빌딩", "서울", "놀러왔따", null, null));	
 	}
 	
 	@Test

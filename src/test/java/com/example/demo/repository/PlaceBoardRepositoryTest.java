@@ -19,14 +19,14 @@ public class PlaceBoardRepositoryTest {
 	@Test
 	public void 글_30건등록() {
 		for(int i=0; i<30; i++) {
-			PlaceBoard placeboard = new PlaceBoard(i, "둘리", "서울", "서울에 간다", "놀러갔다");
+			PlaceBoard placeboard = new PlaceBoard();
 			repository.save(placeboard);	
 		}
 	}
 	
 	@Test
 	public void 등록() {
-		PlaceBoard placeboard = new PlaceBoard(0, "둘리", "서울", "서울에 간다", "놀러갔다");
+		PlaceBoard placeboard = new PlaceBoard(0, "id2", "63빌딩", "서울", "서울에 갔다");
 		repository.save(placeboard);	
 	}
 	
