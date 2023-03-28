@@ -34,5 +34,12 @@ public class InterestList {
 	@ManyToOne
 	@JoinColumn(name="place_no")
 	private int place_no;
+	
+	@Column(length = 100 , nullable = false)
+	private String title;
+	
+	
+	@Column(length = 500 , nullable = false)
+	private String content;
 
 }

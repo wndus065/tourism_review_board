@@ -20,6 +20,8 @@ public class InterDTO {
 	
 	private int place_no;
 	
+	private String title;
 	
+	private String content;
 
 }

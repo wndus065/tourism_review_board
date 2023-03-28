@@ -15,22 +15,26 @@ import com.example.demo.interestList.dto.InterDTO;
 import com.example.demo.interestList.entity.InterestList;
 import com.example.demo.interestList.repository.InterListRepository;
 import com.example.demo.user.entity.Member;
+import com.example.demo.user.repository.MemberRepository;
 
 @Service
 public class InterestListServicelmpl implements InterestListService {
 	@Autowired
-	 InterListRepository interListRepository;
+	private InterListRepository interListRepository;
+	@Autowired
+	private MemberRepository memberRepository;
+	
+//	@Autowired
+//	private PostRe
 	
 	public InterestListServicelmpl(InterListRepository interListRepository) {
 		this.interListRepository = interListRepository;
 	}
 
 //	@Override
-//	public void add(Place_no place_no, Member id) {
-//		InterestList interestList = new InterestList();
-//		interestList.setPlace_no(place_no);
-//		interestList.setId(id);
-//		interListRepository.save(interestList);
+//	public void add(InterestRequest interRequest) {
+//		Member member = member.Repository.findById(interestRequest.getMemberId())
+//		.orElseThrow(() -> new EntityNotFoundException("User not found"));
 //		
 //	}
 
@@ -65,7 +69,7 @@ public class InterestListServicelmpl implements InterestListService {
 
 	@Override
 	public List<InterDTO> find(String id) {
-		// TODO Auto-generated method stub
+	 
 		return null;
 	}
 
