@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE HTML>
 <!--
 	Striped by HTML5 UP
@@ -65,6 +66,99 @@ th {
 					<li class="current"	><a th:href="@{/placeboard/list}">장소 게시판</a></li>
 					<li><a href="#">관리자 : 회원 목록</a></li>
 					<li><a href="#">관리자 : 요청 목록</a></li>
+=======
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:fragment="setContent(content)">
+	<head>
+<title>5조 프로젝트</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="/assets/css/main.css" />
+<style>
+table {
+	border-collapse: collapse;
+	width: 120%;
+}
+
+th, td {
+	padding: 8px;
+	text-align: left;
+	position: relative; /* 추가 */
+}
+
+th {
+	background-color: #f2f2f2;
+}
+
+.inline-form {
+	display: inline-block;
+	margin-right: 10px;
+}
+</style>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+	</head>
+	<body class="is-preload">
+
+		<!-- Content -->
+		<div id="content">
+			<div class="inner">
+				<!-- Post -->
+				<article class="box post post-excerpt">
+					<th:block th:replace="${content}"></th:block>
+				</article>
+			</div>
+		</div>
+		<!-- -------------------------------------------------------구분선------------------------------------------------------- -->
+		<!-- Sidebar -->
+		<div id="sidebar">
+
+			<!-- Logo -->
+			<h1 id="logo">
+				<a th:href="@{/}">SC.Street</a>
+			</h1>
+
+			<!-- Login -->
+			<section class="box text-style1" th:if="${session.id == null}">
+				<div class="inner">
+					<div>You have to Log in.</div>
+					<button class="login-btn">
+						<a th:href="@{/login}">로그인</a>
+					</button>
+					<h1>
+						<a th:href="@{/register}">회원가입</a>
+					</h1>
+				</div>
+			</section>
+			<section class="box text-style1" th:if="${session.id != null}">
+				<div class="inner">
+					<div>
+						<p style="margin-top: 0em; margin-bottom: 0em; padding-left: 10px; font-size: 1.2em;">
+						<strong>Welcome!</strong></p>
+						<p style="margin-top: 0em; margin-bottom: 0em; padding-left: 10px; font-size: 1.2em;">
+						<strong><span th:text="${session.id}"></span></strong></p>
+					</div>
+						<a th:href="@{/member/readMine}">내 정보</a><a>&nbsp;&nbsp;</a>
+						<a th:href="@{/logout}">로그아웃</a>
+						<!-- <form th:action="@{/logout}" method="post" class="inline-form">
+							<a th:href="@{/logout}" type="submit" class="btn btn-primary">로그아웃</a>
+						</form> -->
+				</div>
+			</section>
+
+
+			<!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li><a href="#">문화 거리 한눈에 보기</a></li>
+					<li><a href="#">장소 게시판</a></li>
+					<li th:class="${currentPage == 'memberA' ? 'current' : ''}"><a th:href="@{/member/list}">관리자 : 회원 목록</a></li>
+					<li th:class="${currentPage == 'request' ? 'current' : ''}"><a th:href="@{/request/list}">관리자 : 요청 목록</a></li>
+>>>>>>> refs/remotes/origin/develop
 					<li><a href="#">사용자 : 관심 목록</a></li>
 					<li><a href="#">사용자 : 내 정보</a></li>
 				</ul>

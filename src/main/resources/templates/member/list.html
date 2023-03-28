@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="layout/basic :: setContent(~{this::content} )">
+
+	<th:block th:fragment="content">
+<style>
+table td {
+	background-color: transparent;
+}
+</style>
+		<header>
+			<h2>회원 목록</h2>
+		</header>
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>성함</th>
+					<th>연락처</th>
+					<th>E-mail</th>
+					<th>주민등록번호</th>
+					<th>가입날짜</th>
+					<th>회원등급</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto : ${list}">
+					<th style="background-color: transparent;"><a
+						th:href="@{/member/read(id = ${dto.id}, page= ${list.number + 1})}">
+							[[${dto.id}]]</a></th>
+					<td>[[${dto.name}]]</td>
+					<td>[[${dto.phone}]]</td>
+					<td>[[${dto.email}]]</td>
+					<td>[[${dto.regiNum}]]</td>
+					<td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+					<td>[[${dto.role}]]</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- Pagination -->
+		<div class="pagination">
+			<div class="pages">
+				<a th:href="@{/member/list(page = ${page})}" th:class="${(list.number + 1) == page?'active':''} " th:each="page: ${#numbers.sequence(1, list.totalPages)}">[[${page}]]</a>
+			</div>
+		</div>
+	</th:block>
+</th:block>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="layout/basic :: setContent(~{this::content} )">
+
+	<th:block th:fragment="content">
+		<style>
+p {
+	padding-left: 10px;
+	font-size: 1.2em;
+	margin-top: 0.7em;
+	margin-bottom: 0.7em;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+		<header>
+			<h2>장소 등록</h2>
+		</header>
+
+		<section class="box text-style1" style="width: 500px">
+			<div class="inner">
+				<p>
+					<strong>계정 정보</strong>
+				</p>
+				<form th:action="@{/map/register}" th:method="POST">
+					<p>
+						<label for="place">장소</label>
+					</p>
+					<p>
+						<input type="text" id="place" name="place" required>
+					</p>
+					<p>
+						<label for="place_key">장소코드</label>
+					</p>
+					<p>
+						<input type="text" id="place_key" name="place_key" required>
+					</p>
+					<hr>
+					
+					<p>
+						<label for="address">주소</label>
+					</p>
+					<p>
+						<input type="text" id="address" name="address" required>
+					</p>
+					<p>
+						<label for="pont_x">경도</label>
+					</p>
+					<p>
+						<input type="text" id="point_x" name="point_x" required>
+					</p>
+					<p>
+						<label for="point_y">위도</label>
+					</p>
+					<p>
+						<input type="text" id="point_y" name="point_y" required>
+					</p>
+					
+					<p>
+						<button type="submit">등록하기</button>
+					</p>
+				</form>
+			</div>
+		</section>
+		<script th:inline="javascript">
+    	 $(document).ready(function(){
+    		 var msg = [[${msg}]]
+    		 if(msg != null){
+    		 alert(msg);
+    		 }
+    	});
+	</script>
+
+	</th:block>
+
+</th:block>

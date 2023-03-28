@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="layout/basic :: setContent(~{this::content} )">
+
+	<th:block th:fragment="content">
+		<style>
+p {
+	padding-left: 10px;
+	font-size: 1.2em;
+	margin-top: 0.7em;
+	margin-bottom: 0.7em;
+}
+</style>
+		<header>
+			<h2>내 정보</h2>
+		</header>
+
+		<form th:method="post" th:action="@{/modify/{id}(id=${dto.id})}">
+			<section class="box text-style1" style="width: 500px">
+				<div class="inner">
+					<p>
+						<strong>계정정보</strong>
+					</p>
+					<p>
+						<label>아이디 : </label> <input type="text" th:value="${dto.id}" name="id" readonly/>
+					</p>
+					<p>
+						<label>비밀번호 : </label><input type="password" id="password" name="password" />
+					</p>
+					<p>
+						<label>가입날짜 : </label>[[${#temporals.format(dto.regDate,
+						'yyyy/MM/dd HH:mm:ss')}]]
+					</p>
+					<p>
+						<label>수정날짜 : </label> [[${#temporals.format(dto.modDate,
+						'yyyy/MM/dd HH:mm:ss')}]]
+					</p>
+					<p>
+						<label>회원등급 : </label>[[${dto.role}]]
+					</p>
+				</div>
+			</section>
+			<section class="box text-style1" style="width: 500px">
+				<div class="inner">
+					<p>
+						<strong>개인정보</strong>
+					</p>
+					<p>
+						<label>이름 : </label>[[${dto.name}]]
+					</p>
+					<p>
+						<label>주민등록번호 : </label>[[${dto.regiNum}]]
+					</p>
+					<p>
+						<label>연락처 : </label><input type="text" id="phone" name="phone"
+							th:value="${dto.phone}" />
+					</p>
+					<p>
+						<label>이메일 : </label><input type="text" id="email" name="email"
+							th:value="${dto.email}" />
+					</p>
+					<p>
+						<button><a th:href="@{/member/readMine}" style="color: white" onclick="return confirm('정말 수정하시겠습니까?')">수정</a></button>
+					</p>
+				</div>
+			</section>
+		</form>
+	</th:block>
+</th:block>
