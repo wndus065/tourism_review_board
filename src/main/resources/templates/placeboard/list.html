@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+	<th:block th:replace="layout/basic :: setContent(~{this::content})">
+
+		<th:block th:fragment="content">
+
+			<h1>장소게시판
+				<span>
+					<a th:href="@{/placeboard/register}">
+						<button type="button" class="btn btn-outline-primary">글 등록</button>
+					</a>
+				</span>
+			</h1>
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col">장소</th>
+						<th scope="col">제목</th>
+						<th scope="col">작성자</th>
+						<th scope="col">등록일</th>
+						<th scope="col">수정일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="dto : ${list}">
+						<th scope="row">
+							<!-- 상세조회 링크 수정 -->
+							<a th:href="@{/placeboard/read(no = ${dto.no}, page= ${list.number + 1})}">
+								[[${dto.no}]]
+							</a>
+						</th>
+						<td>[[${dto.place}]]</td>
+						<td>[[${dto.title}]]</td>
+						<td>[[${dto.writer}]]</td>
+						<td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+						<td>[[${#temporals.format(dto.modDate, 'yyyy/MM/dd')}]]</td>
+					</tr>
+
+				</tbody>
+			</table>
+
+			<!-- 페이징 추가 -->
+			<div class="pagination">
+				<div class="pages">
+					<a th:href="@{/placeboard/list(page = ${page})}"
+						th:class="${(list.number + 1) == page?'active':''}"
+						th:each="page: ${#numbers.sequence(1, list.totalPages)}">[[${page}]]</a>
+				</div>
+
+
+			</div>
+
+			<script th:inline="javascript">
+				$(document).ready(function () {
+					// 실행할 기능을 정의
+					var msg = [[${msg}]]
+					if (msg != null) {
+						alert(msg + "번 글이 등록되었습니다.");
+					}
+				});
+			</script>
+
+		</th:block>
+
+	</th:block>
