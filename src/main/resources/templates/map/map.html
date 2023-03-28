@@ -26,9 +26,11 @@ for (var i = 0; i < markerDTOs.length; i++) {
         position: latlng,
         map: map
     });
+    
+    
     markers.push(marker);
 
-    var contentString = '<div style="padding:20px;">' + markerDTOs[i].place +'        '+ markerDTOs[i].address+ '</div>';
+    var contentString = '<a href="list" div style="padding:20px;">' + markerDTOs[i].place +'        '+ markerDTOs[i].address+ '</a>';
 
     naver.maps.Event.addListener(marker, "click", createClickListener(contentString, marker));
   }
@@ -57,7 +59,7 @@ for (var i = 0; i < markerDTOs.length; i++) {
 	</script>
 	<div style="margin: 120px 0 0 250px;">
 	<h1 id="logo">
-				<a href="#">요청 게시판 바로가기</a>
+				<a href="/request/list">요청 게시판 바로가기</a>
 			</h1>
 
 	</div>
