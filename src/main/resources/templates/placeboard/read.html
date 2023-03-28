@@ -3,45 +3,84 @@
 
 <th:block th:replace="layout/basic :: setContent(~{this::content} )">
 
-    <th:block th:fragment="content">
+	<th:block th:fragment="content">
 
-        <h1 class="mt-4">placeboard Read Page</h1>
+		<h2>placeboard Read Page</h2>
 
-        <div class="form-group">
-            <label >번호</label>
-            <input type="text" class="form-control" name="no" th:value="${dto.no}" readonly >
-        </div>
+		<div>
 
-        <div class="form-group">
-            <label >제목</label>
-            <input type="text" class="form-control" name="title" th:value="${dto.title}" readonly >
-        </div>
-        <div class="form-group">
-            <label >글 내용</label>
-            <textarea class="form-control" rows="5" name="content" readonly>[[${dto.content}]]</textarea>
-        </div>
-        <div class="form-group">
-            <label >글쓴이</label>
-            <input type="text" class="form-control" name="writer" th:value="${dto.writer}" readonly>
-        </div>
-        <div class="form-group">
-            <label >등록일</label>
-            <input type="text" class="form-control" name="regDate" th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-        </div>
-        <div class="form-group">
-            <label >수정일</label>
-            <input type="text" class="form-control" name="modDate" th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-        </div>
+			<div>
+				<div class="form-group">
+					<label>번호</label> <input type="text" class="form-control" name="no"
+						th:value="${dto.no}" readonly>
+				</div>
 
-        <a th:href="@{/placeboard/modify(no = ${dto.no})}">
-        	<button type="button" class="btn btn-primary">수정</button>
-        </a>
+				<div class="form-group">
+					<label>제목</label> <input type="text" class="form-control"
+						name="title" th:value="${dto.title}" readonly>
+				</div>
+				<div class="form-group">
+					<label>글 내용</label>
+					<textarea class="form-control" rows="5" name="content" readonly>[[${dto.content}]]</textarea>
+				</div>
+				<div class="form-group">
+					<label>글쓴이</label> <input type="text" class="form-control"
+						name="writer" th:value="${dto.writer}" readonly>
+				</div>
+				<div class="form-group">
+					<label>등록일</label> <input type="text" class="form-control"
+						name="regDate"
+						th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}"
+						readonly>
+				</div>
+				<div class="form-group">
+					<label>수정일</label> <input type="text" class="form-control"
+						name="modDate"
+						th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}"
+						readonly>
+				</div>
 
-		<!-- 목록페이지 링크 수정 -->
-        <a th:href="@{/placeboard/list(page=${page})}">
-        	<button type="button" class="btn btn-info">목록으로</button>
-        </a>
+				<a th:href="@{/placeboard/modify(no = ${dto.no})}">
+					<button type="button" class="btn btn-primary">수정</button>
+				</a>
 
-    </th:block>
+				<!-- 목록페이지 링크 수정 -->
+				<a th:href="@{/placeboard/list(page=${page})}">
+					<button type="button" class="btn btn-info">목록으로</button>
+				</a>
+			</div>
+			<!-- 댓글 구현 하는 중 --><!-- 
+			<div>
+				<section class="box text-style1" style="width: 500px">
+
+					<div class="form-group" id="commentForm">
+						<form>
+							<input type="hidden" id="placeNo" name="placeNo"
+								value="{{placeNo}}" />
+							<textarea id="comment" name="comment" placeholder="댓글을 입력하세요"></textarea>
+							<select id="grade" name="grade">
+								<option value="1">1점</option>
+								<option value="2">2점</option>
+								<option value="3">3점</option>
+								<option value="4">4점</option>
+								<option value="5">5점</option>
+							</select>
+							<button type="submit">등록</button>
+						</form>
+
+					</div>
+					<div class="form-group" id="commentList">
+						<p>
+							<strong>[[${dto.writer}]]</strong> : [[${dto.grade}]]
+						</p>
+						<p>[[${dto.comment}]]</p>
+						<p style="color: gray">[[${#temporals.format(dto.regDate,
+							'yyyy/MM/dd')}]]</p>
+					</div>
+				</section>
+			</div> -->
+		</div>
+
+	</th:block>
 
 </th:block>

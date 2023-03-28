@@ -7,11 +7,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.comment.dto.CommentDTO;
 import com.example.demo.comment.entity.Comment;
 import com.example.demo.comment.repository.CommentRepository;
 
+@Service
 public class CommentServiceImpl implements CommentService {
 	
 	@Autowired
