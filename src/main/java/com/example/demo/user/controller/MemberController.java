@@ -22,9 +22,6 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
-	
-	@Autowired 
-	private HttpServletRequest request;
 
 	@GetMapping("/member/list")
 	public String list(@RequestParam(defaultValue = "0") int page, Model model) {

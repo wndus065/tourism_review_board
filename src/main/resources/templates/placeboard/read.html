@@ -4,12 +4,11 @@
 <th:block th:replace="layout/basic :: setContent(~{this::content} )">
 
 	<th:block th:fragment="content">
-
 		<h2>placeboard Read Page</h2>
 
-		<div>
+		<div class="row">
 
-			<div>
+			<div class="col-9">
 				<div class="form-group">
 					<label>번호</label> <input type="text" class="form-control" name="no"
 						th:value="${dto.no}" readonly>
@@ -49,36 +48,15 @@
 					<button type="button" class="btn btn-info">목록으로</button>
 				</a>
 			</div>
-			<!-- 댓글 구현 하는 중 --><!-- 
-			<div>
-				<section class="box text-style1" style="width: 500px">
-
-					<div class="form-group" id="commentForm">
-						<form>
-							<input type="hidden" id="placeNo" name="placeNo"
-								value="{{placeNo}}" />
-							<textarea id="comment" name="comment" placeholder="댓글을 입력하세요"></textarea>
-							<select id="grade" name="grade">
-								<option value="1">1점</option>
-								<option value="2">2점</option>
-								<option value="3">3점</option>
-								<option value="4">4점</option>
-								<option value="5">5점</option>
-							</select>
-							<button type="submit">등록</button>
-						</form>
-
-					</div>
-					<div class="form-group" id="commentList">
-						<p>
-							<strong>[[${dto.writer}]]</strong> : [[${dto.grade}]]
-						</p>
-						<p>[[${dto.comment}]]</p>
-						<p style="color: gray">[[${#temporals.format(dto.regDate,
-							'yyyy/MM/dd')}]]</p>
-					</div>
+			<!-- 댓글 구현 하는 중 -->
+			
+			<div class="off-3">
+				<section class="box text-style1" style="width: 500px"><!-- 
+					<div th:include="@{/comment/commentForm :: commentForm}"></div> -->
+					<hr>
+					<th:block th:include="/comment/commentList"></th:block>
 				</section>
-			</div> -->
+			</div>
 		</div>
 
 	</th:block>
