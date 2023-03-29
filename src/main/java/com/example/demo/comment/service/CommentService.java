@@ -1,6 +1,6 @@
 package com.example.demo.comment.service;
 
-import org.springframework.data.domain.Page;
+import java.util.List;
 
 import com.example.demo.comment.dto.CommentDTO;
 import com.example.demo.comment.entity.Comment;
@@ -42,7 +42,7 @@ public interface CommentService {
 		return entity;
 	}
 	
-	Page<CommentDTO> getList(int pageNumber);
+	List<CommentDTO> getList(int placeNo);
 	
 	CommentDTO read(int no);
 	

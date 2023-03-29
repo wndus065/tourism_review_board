@@ -11,17 +11,24 @@ public interface RequestBoardService {
 	Page<RequestBoardDTO> getList(int pageNumber);
 	
 	default RequestBoardDTO entityToDto(RequestBoard entity) {
-		RequestBoardDTO dto = RequestBoardDTO.builder()
-				.no(entity.getNo())
-//				.id(entity.getId())
-				.writer(entity.getWriter().getId())
-				.place(entity.getPlace())
-				.address(entity.getAddress())
-				.comment(entity.getComment())
-				.regDate(entity.getRegDate())
-				.modDate(entity.getModDate())
-				.build();
-		return dto;
+	    if (entity == null) {
+	        return null;
+	    }
+
+	    RequestBoardDTO.RequestBoardDTOBuilder builder = RequestBoardDTO.builder()
+	            .no(entity.getNo())
+//	            .id(entity.getId())
+	            .place(entity.getPlace())
+	            .address(entity.getAddress())
+	            .comment(entity.getComment())
+	            .regDate(entity.getRegDate())
+	            .modDate(entity.getModDate());
+
+	    if (entity.getWriter() != null) {
+	        builder.writer(entity.getWriter().getId());
+	    }
+
+	    return builder.build();
 	}
 	
 	RequestBoardDTO read(int no);

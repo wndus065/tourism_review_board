@@ -1,5 +1,7 @@
 package com.example.demo.comment.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.comment.dto.CommentDTO;
 import com.example.demo.comment.entity.Comment;
 import com.example.demo.comment.repository.CommentRepository;
+import com.example.demo.placeBoard.entity.PlaceBoard;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -20,13 +23,15 @@ public class CommentServiceImpl implements CommentService {
 	private CommentRepository repository;
 
 	@Override
-	public Page<CommentDTO> getList(int page) {
-		int pageNum = (page == 0) ? 0 : page - 1;
-		Pageable pageAble = PageRequest.of(pageNum, 10,Sort.by("regDate").descending());
-		Page<Comment> entityPage = repository.findAll(pageAble);
-		Page<CommentDTO> dtoPage = entityPage.map(entity -> entityToDto(entity));
+	public List<CommentDTO> getList(int placeNo){
+		List<Comment> result = repository.findAllByPlaceNo(PlaceBoard.builder().no(placeNo).build());
+		List<CommentDTO> list = new ArrayList<>();
+		for(Comment entity : result) {
+			CommentDTO dto = entityToDto(entity);
+			list.add(dto);
+		}
 		
-		return dtoPage;
+		return list;
 	}
 	
 	@Override

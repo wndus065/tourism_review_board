@@ -8,7 +8,7 @@
 
 		<div class="row">
 
-			<div class="col-9">
+			<div class="col-7">
 				<div class="form-group">
 					<label>번호</label> <input type="text" class="form-control" name="no"
 						th:value="${dto.no}" readonly>
@@ -49,12 +49,68 @@
 				</a>
 			</div>
 			<!-- 댓글 구현 하는 중 -->
-			
-			<div class="off-3">
-				<section class="box text-style1" style="width: 500px"><!-- 
-					<div th:include="@{/comment/commentForm :: commentForm}"></div> -->
+
+			<div class="col-2">
+				<section class="box text-style1" style="width: 500px">
+					<div th:each="dto : ${commentList}">
+						<div class="form-group">
+							<p>
+								<strong>${dto.writer}</strong> : ${dto.grade}
+							</p>
+							<p>${dto.comment}</p>
+							<p style="color: gray">${#temporals.format(dto.regDate,
+								'yyyy/MM/dd')}</p>
+						</div>
+						<hr>
+					</div>
+
 					<hr>
-					<th:block th:include="/comment/commentList"></th:block>
+					<div class="form-group" id="commentForm">
+						<form>
+							<input type="hidden" id="placeNo" name="placeNo"
+								value="{{placeNo}}" />
+							<textarea id="comment" name="comment" placeholder="댓글을 입력하세요"></textarea>
+							<select id="grade" name="grade">
+								<option value="1">1점</option>
+								<option value="2">2점</option>
+								<option value="3">3점</option>
+								<option value="4">4점</option>
+								<option value="5">5점</option>
+							</select>
+							<button type="submit">등록</button>
+						</form>
+
+					</div>
+					<script>
+					// 댓글 등록 이벤트 처리
+					$(document).on("submit", "#commentForm form", function (event) {
+					  event.preventDefault(); // 기본 이벤트 동작 방지
+
+					  const placeNo = $("#placeNo").val();
+					  const comment = $("#comment").val();
+					  const grade = $("#grade").val();
+					  const data = { placeNo, comment, grade };
+
+					  $.ajax({
+					    type: "POST",
+					    url: "/comment/register",
+					    data: data,
+					    success: function (response) {
+					      if (response.success) {
+					        $("#comment").val(""); // 댓글 입력 필드 초기화
+					        $("#grade").val("1"); // 평점 선택 필드 초기화
+					        const commentList = response.data;
+					        updateCommentList(commentList); // 댓글 목록 업데이트
+					      } else {
+					        alert("댓글 등록에 실패했습니다.");
+					      }
+					    },
+					    error: function () {
+					      alert("댓글 등록에 실패했습니다.");
+					    },
+					  });
+					});
+					</script>
 				</section>
 			</div>
 		</div>

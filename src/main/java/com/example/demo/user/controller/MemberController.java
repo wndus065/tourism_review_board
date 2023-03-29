@@ -81,9 +81,11 @@ public class MemberController {
 			HttpSession session = request.getSession();
 			session.setAttribute("id", id);
 
-			return "redirect:/";
+			return "home/index";
 		} else {
+			System.out.println("로그인5");
 			model.addAttribute("msg", "아이디 또는 비밀번호가 옳지 않습니다.");
+			System.out.println("로그인6");
 
 			return "redirect:/login";
 		}
