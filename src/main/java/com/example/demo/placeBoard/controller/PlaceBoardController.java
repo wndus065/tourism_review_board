@@ -42,7 +42,7 @@ public class PlaceBoardController {
 	        // 로그인 되어 있지 않은 경우 로그인 페이지로 리다이렉트
 	        return "redirect:/login";
 	    }
-	    RequestBoardDTO dto = new RequestBoardDTO();
+	    PlaceBoardDTO dto = new PlaceBoardDTO();
 	    dto.setWriter(id);
 	    model.addAttribute("dto", dto);
 	    return "/placeboard/register";
@@ -76,7 +76,7 @@ public class PlaceBoardController {
 		return "redirect:/placeboard/read";
 	}
 
-	@GetMapping("/remove") //?no=6
+	@GetMapping("/remove")
 	public String removePost(int no) {
 		service.remove(no);
 		return "redirect:/placeboard/list";
