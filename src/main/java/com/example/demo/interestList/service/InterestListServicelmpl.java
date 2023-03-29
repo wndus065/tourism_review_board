@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,67 +32,32 @@ public class InterestListServicelmpl implements InterestListService {
 	
 	@Autowired
 	private PlaceBoardRepository placeBoardRepository;
+
+	@Override
+	public void addInterest(String id, int no) {
+		// 관심목록 추가 로직 구현
+        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
+        PlaceBoard placeBoard = placeBoardRepository.findById(no).orElseThrow(() -> new IllegalArgumentException("Invalid no"));
+
+        Interest interest = new Interest();
+        interest.setId(member);
+        interest.setNo(placeBoard);
+
+        interListRepository.save(interest);
+		
+	}
+
+	 @Override
+	    public List<PlaceBoard> getInterestList(String id) {
+	        // 관심목록 리스트 조회 로직 구현
+	        Member member = memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
+	        List<Interest> interestList = interListRepository.findAll();
+	        return interestList.stream().map(Interest::getNo).collect(Collectors.toList());
+	    }
 	
-	
 
 
 	
-
-	@Override
-	public Page<InterDTO> getList(int pageNumber) {
-		int pageNum = (pageNumber == 0) ? 0 : pageNumber -1;
-		Pageable pageable = PageRequest.of(pageNum, 10 , Sort.by("interest_no").descending());
-		
-		Page<Interest> interPage = interListRepository.findAll(pageable);
-		Page<InterDTO> InterDto = interPage.map(entity -> entityToDto(entity));
-		return InterDto;
-	}
-
-	@Override
-	public void remove(int interest_no) {
-		interListRepository.deleteById(interest_no);
-		
-		
-		
-	}
-
-	@Override
-	public InterDTO read(int interest_no) {
-	Optional<Interest> entity = interListRepository.findById(interest_no);
-	if(entity.isPresent()) {
-		Interest interest = entity.get();
-		InterDTO interDTO = entityToDto(interest);
-		return interDTO;
-	}
-	return null;
-	}
-
-	@Override
-	public List<InterDTO> find(Member member) {
-	 List<Interest> list = interListRepository.findAllById(member.getId());
-	 List<InterDTO> dtoList = new ArrayList<>();
-	 for(Interest entity : list) {
-		 InterDTO interDTO = new InterDTO();
-		 interDTO.setInterest_no(entity.getInterest_no());
-		 interDTO.setNo(entity.getNo());
-		 interDTO.setId(entity.getId());
-		 
-	 }return dtoList;
-	
-	}
-
-	@Override
-	public void add(PlaceBoard no, Member id) {
-		InterDTO dto = new InterDTO();
-		dto.setNo(no);
-		dto.setId(id);
-		Interest interest = dtoToEntity(dto);
-		interListRepository.save(interest);
-		
-		
-	}
-
-
 
 	
 

@@ -1,5 +1,6 @@
 package com.example.demo.interestList.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.example.demo.placeBoard.service.PlaceBoardService;
 import com.example.demo.user.entity.Member;
 import com.example.demo.user.service.MemberService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -33,36 +35,16 @@ public class InterController {
 	@Autowired
 	private PlaceBoardService placeBoardService;
 	
-	@GetMapping("/list")
-	public String getList(@RequestParam(name = "page", defaultValue = "1")int pageNumber, Model model) {
-		Page<InterDTO> interList = interesListService.getList(pageNumber);
-		model.addAttribute("list", interList);
-		return "interboard/list";
-	}
-	
-	@GetMapping("/remove")
-	public String remove(@RequestParam("interest_no") int interest_no) {
-		interesListService.remove(interest_no);
-		return "redirect:/interboard/list";
-	}
-	
-	@GetMapping("/read")
-	public String read(@RequestParam("interest_no") int interest_no,Model model) {
-		InterDTO interDTO = interesListService.read(interest_no);
-		model.addAttribute("interDTO", interDTO);
-		return "interboard/read";
-	}
-	@GetMapping("/find")
-	public String find(@RequestParam("id")Member member, Model model) {
-		List<InterDTO> interList = interesListService.find(member);
-		model.addAttribute("interList", interList);
-		return "interboard/find";
-	}
-	@PostMapping("/add")
-	public String add(@RequestParam("interest_no")PlaceBoard placeBoard, HttpSession session) {
-		Member member = (Member)session.getAttribute("member");
-		interesListService.add(placeBoard, member);
-		return "redirect:/inter/list";
-	}
+
+
+   
+    @GetMapping("/list")
+    public String getInterestList(Model model, Member member) {
+        String id = member.getId(); // 현재 로그인한 사용자의 아이디를 가져옵니다.
+        List<PlaceBoard> interestList = interesListService.getInterestList(id); // 해당 사용자가 등록한 관심목록을 가져옵니다.
+        model.addAttribute("interestList", interestList); // 모델에 관심목록을 담아서 뷰에 전달합니다.
+        return "interest/list";
+    }
+   
 
 }

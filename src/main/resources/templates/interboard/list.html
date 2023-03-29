@@ -21,7 +21,7 @@ table td {
 								</tr>
 			</thead>
 			<tbody>
-				<tr th:each="dto : ${list}">
+				<tr th:each="dto : ${interestlist}">
 					<th style="background-color: transparent;"><a
 						th:href="@{/inter/read(interest_no = ${dto.interest_no}, page= ${list.number + 1})}">
 							[[${dto.interest_no}]]</a></th>

@@ -1,10 +1,18 @@
 package com.example.demo.placeBoard.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.demo.interestList.entity.Interest;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,6 +44,11 @@ public class PlaceBoard extends BaseEntity {
     
     @Column(length = 500) //글내용
     private String content;
+    
+    @OneToMany(mappedBy = "no")
+    private List<Interest> interestList = new ArrayList<>();
+    
+   
 	
 	
 

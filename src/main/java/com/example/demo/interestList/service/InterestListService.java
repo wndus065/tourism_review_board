@@ -12,15 +12,8 @@ import com.example.demo.user.entity.Member;
 
 public interface InterestListService {
 	
-	void add(PlaceBoard placeBoard, Member member);
-	
-	Page<InterDTO> getList(int pageNumber);
-	
-	void remove(int interest_no);
-	
-	InterDTO read(int interest_no);
-	
-	List<InterDTO> find(Member member);
+	void addInterest(String id, int no);
+    List<PlaceBoard> getInterestList(String id);
 	
 	
 	

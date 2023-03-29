@@ -41,11 +41,8 @@
         <a th:href="@{/placeboard/list(page=${page})}">
         	<button type="button" class="btn btn-info">목록으로</button>
         </a>
-     <form method="post" th:action="@{/inter/add}" th:object="${dto.no}">
-    <input type="hidden" name="interest_no" th:value="${dto.no}">
-    <input type="hidden" name="id" th:value="${member.id}">
-    <button type="submit" onclick="return confirm('등록하시겠습니까?')">관심등록하기</button>
-</form>
+  
+
 
 
 
