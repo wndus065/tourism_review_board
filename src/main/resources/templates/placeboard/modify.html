@@ -5,7 +5,9 @@
 
 	<th:block th:fragment="content">
 
-		<h1 class="mt-4">placeboard Modify Page</h1>
+		<header>
+			<h2>장소게시판 수정</h2>
+		</header>
 
 		<form th:action="@{/placeboard/modify}" th:method="post">
 			<div class="form-group">
@@ -35,13 +37,13 @@
         </div>
           				
 			<button class="btn btn-primary modifyBtn" type="submit">수정</button>
-				
-		</form>
 			<a th:href="@{/placeboard/list}">
         		<button type="button" class="btn btn-info">목록으로</button></a>
-			<a th:href="@{/placeboard/remove}">
-				<button class="btn btn-danger removeBtn" type="submit">삭제</button>
-			</a>
+			<button class="btn btn-danger removeBtn" type="submit">삭제</button>
+			
+		</form>
+			
+			
 	
 		<script th:inline="javascript">
 
@@ -64,7 +66,7 @@
             $(".removeBtn").click(function(){
             	form
                     .attr("action", "/placeboard/remove")
-                    .attr("method","post")
+                    .attr("method","get")
                     .submit();
             });
 

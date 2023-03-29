@@ -14,6 +14,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.placeBoard.dto.PlaceBoardDTO;
 import com.example.demo.placeBoard.service.PlaceBoardService;
+import com.example.demo.requestBoard.dto.RequestBoardDTO;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/placeboard")
@@ -33,11 +36,20 @@ public class PlaceBoardController {
 	}
 
 	@GetMapping("/register")
-	public void register() {
+	public String register(HttpServletRequest request, Model model) {
+	    String id = (String) request.getSession().getAttribute("id");
+	    if (id == null) {
+	        // 로그인 되어 있지 않은 경우 로그인 페이지로 리다이렉트
+	        return "redirect:/login";
+	    }
+	    RequestBoardDTO dto = new RequestBoardDTO();
+	    dto.setWriter(id);
+	    model.addAttribute("dto", dto);
+	    return "/placeboard/register";
 	}
 
 	@PostMapping("/register")
-	public String registerPost(PlaceBoardDTO dto, RedirectAttributes redirectAttributes, Principal principal) {
+	public String registerPost(PlaceBoardDTO dto, RedirectAttributes redirectAttributes) {
 		
 		int no = service.register(dto);
 		redirectAttributes.addFlashAttribute("msg", no);

@@ -6,8 +6,11 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.example.demo.map.entity.MapEntity;
 import com.example.demo.placeBoard.entity.PlaceBoard;
 import com.example.demo.placeBoard.repository.PlaceBoardRepository;
+import com.example.demo.user.entity.Member;
 
 
 @SpringBootTest
@@ -16,17 +19,12 @@ public class PlaceBoardRepositoryTest {
 	@Autowired
 	PlaceBoardRepository repository;
 	
-	@Test
-	public void 글_30건등록() {
-		for(int i=0; i<30; i++) {
-			PlaceBoard placeboard = new PlaceBoard();
-			repository.save(placeboard);	
-		}
-	}
-	
+		
 	@Test
 	public void 등록() {
-		PlaceBoard placeboard = new PlaceBoard(0, "id2", "63빌딩", "서울", "서울에 갔다");
+		Member member1 = Member.builder().id("id20").build();
+		MapEntity mapEntity1 = MapEntity.builder().place("잠실구장").build();
+		PlaceBoard placeboard = new PlaceBoard(0, member1, mapEntity1, "서울여행", "서울여행 63빌딩에 갔다");
 		repository.save(placeboard);	
 	}
 	
@@ -57,7 +55,7 @@ public class PlaceBoardRepositoryTest {
 	
 	@Test
 	public void 데이터삭제() {
-		repository.deleteById(1);
+		repository.deleteById(3);
 	}
 
 }
