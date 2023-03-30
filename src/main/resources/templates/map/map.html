@@ -30,7 +30,7 @@ for (var i = 0; i < markerDTOs.length; i++) {
     
     markers.push(marker);
 
-    var contentString = '<a href="list" div style="padding:20px;">' + markerDTOs[i].place +'        '+ markerDTOs[i].address+ '</a>';
+    var contentString = '<a href="/placeboard/list" div style="padding:20px;">' + markerDTOs[i].place +'        '+ markerDTOs[i].address+ '</a>';
 
     naver.maps.Event.addListener(marker, "click", createClickListener(contentString, marker));
   }
