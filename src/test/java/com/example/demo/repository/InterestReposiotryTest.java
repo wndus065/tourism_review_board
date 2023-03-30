@@ -56,7 +56,8 @@ public class InterestReposiotryTest {
 	}
 	@Test
 	void 테스트() {
-		Optional<Interest> page = repostiory.findByMemberId("id");
+		
+		Page<Interest> page = repostiory.findByMemberId("id",pageable);
 		System.out.println();
 	}
 		

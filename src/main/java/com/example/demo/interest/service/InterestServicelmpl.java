@@ -45,7 +45,7 @@ public class InterestServicelmpl implements InterestService {
 	        Member member = memberRepository.findById(memberId).orElse(null);
 	        PlaceBoard placeBoard = placeBoardRepository.findById(placeBoardNo).orElse(null);
 	        if (member == null || placeBoard == null) {
-	            // 사용자나 게시물이 없을 경우 예외처리
+	            System.out.println("일치하지 않는 정보입니다.");
 	            throw new IllegalArgumentException("Invalid member or placeBoard");
 	        }
 	        Interest entity = Interest.builder()

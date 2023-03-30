@@ -47,7 +47,11 @@ public class InterestController {
 	
 	@GetMapping("/list")
 	public String getInterestList(@RequestParam(defaultValue ="1")int pageNumber , Model model, HttpServletRequest request) {
-		Page<InterestDTO> interestList = interestService.getList(pageNumber, request);
+		String memberId = (String) request.getSession().getAttribute("id");
+		if(memberId == null) {
+			System.out.println("로그인정보가 없습니다.");
+		}
+		Page<InterestDTO> interestList = interestService.getList(pageNumber, memberId);
 		model.addAttribute("interestList", interestList);
 		return "interestList";
 	}
