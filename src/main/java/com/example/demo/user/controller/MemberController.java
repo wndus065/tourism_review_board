@@ -83,9 +83,7 @@ public class MemberController {
 
 			return "home/index";
 		} else {
-			System.out.println("로그인5");
-			model.addAttribute("msg", "아이디 또는 비밀번호가 옳지 않습니다.");
-			System.out.println("로그인6");
+			redirectAttributes.addFlashAttribute("msg", "아이디 또는 비밀번호가 옳지 않습니다.");
 
 			return "redirect:/login";
 		}

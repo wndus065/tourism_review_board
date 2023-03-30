@@ -46,9 +46,9 @@ public interface CommentService {
 	
 	CommentDTO read(int no);
 	
-	int register(CommentDTO dto);
+	int register(CommentDTO dto, String id);
 	
 	void modify(CommentDTO dto);
-	void remove(int no);
+	boolean remove(int no);
 
 }
