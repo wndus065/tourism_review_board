@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-
-<th:block th:replace="layout/basic :: setContent(~{this::content})">
+<th:block th:replace="layout/basic :: setContent(~{this::content} )">
 
 	<th:block th:fragment="content">
+		<style>
+			table td {
+				background-color: transparent;
+			}
+		</style>
 		<header>
 			<h2>장소게시판 목록</h2>
 		</header>
-		<table class="table table-striped">
+		<table>	
 			<thead>
 				<tr>
-					<th scope="col"></th>
-					<th scope="col">장소</th>
-					<th scope="col">제목</th>
-					<th scope="col">작성자</th>
-					<th scope="col">등록일</th>
-					<th scope="col">수정일</th>
+					<th></th>
+					<th>장소</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>등록일</th>
+					<th>수정일</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="dto : ${list}">
-					<th scope="row">
+					<th style="background-color: transparent;">
 						<!-- 상세조회 링크 수정 -->
 						<a th:href="@{/placeboard/read(no = ${dto.no}, page= ${list.number + 1})}">
 							[[${dto.no}]]

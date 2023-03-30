@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+package com.example.demo.map;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

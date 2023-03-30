@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+package com.example.demo.member;
 
 import java.util.List;
 import java.util.Optional;
