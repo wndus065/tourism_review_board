@@ -57,9 +57,6 @@ public class PlaceBoardController {
 		PlaceBoardDTO dto = service.read(no);
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", page);
-		
-//		List<CommentDTO> commentList = commentService.getList(dto.getNo());
-//		model.addAttribute("commentList", commentList);
 	}
 
 	@GetMapping("/modify")

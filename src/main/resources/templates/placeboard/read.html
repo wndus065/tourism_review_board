@@ -5,6 +5,7 @@
 
 	<th:block th:fragment="content">
 		<body onload="loadCommentList()">
+		<input type="hidden" id="sessionId" th:value="${session.id}" />
 			<h2>placeboard Read Page</h2>
 
 			<div class="row">
@@ -73,41 +74,55 @@
 						<hr>
 						<div class="form-group" id="commentList">
 							<div th:each="dto : ${commentList}">
-							<div class="row">
-								<div class="form-group col-10">
-									<p>
-										<strong>[[${dto.writer}]]</strong> ([[${dto.grade}]])
-									</p>
-									<p>[[${dto.comment}]]</p>
-									<p style="color: gray">[[${#temporals.format(dto.regDate,
-										'yyyy/MM/dd HH:mm:ss')}]]</p>
+								<div class="row">
+									<div class="col-10">
+										<p>
+											<strong>[[${dto.writer}]]</strong> ([[${dto.grade}]])
+										</p>
+										<p>[[${dto.comment}]]</p>
+										<p style="color: gray">[[${#temporals.format(dto.regDate,
+											'yyyy/MM/dd HH:mm:ss')}]]</p>
+									</div>
+									<div class="col-2 d-flex flex-column">
+										<div>
+											<button class="editCommentBtn" style="height: 40px; writing-mode: horizontal-tb;">수정</button>
+										</div>
+										<div style="margin-top: 10px;">
+											<button class="deleteCommentBtn" style="height: 40px; writing-mode: horizontal-tb;">삭제</button>
+										</div>
+									</div>
+									<hr>
 								</div>
-								<div class="col-2">
-									<button>
-										<p>zz</p>
-									</button>
-									<button>
-										<p>aa</p>
-									</button>
-								</div>
-								<hr>
-							</div></div>
+							</div>
 						</div>
 
 
 						<script>
 					function updateCommentList(commentList) {
 					    let commentHtml = '';
+					    const sessionId = $("#sessionId").val();
+					    
 					    for (let i = 0; i < commentList.length; i++) {
 					        const comment = commentList[i];
-					        commentHtml += `<div class="form-group col-10">
-					                            <p><strong>${comment.writer}</strong> : ${comment.grade}</p>
-					                            <p>${comment.comment}</p>
-					                            <p style="color: gray">${comment.regDate}</p>
-					                        </div>
-					                        <div class="col-2">
-												<button><p>zz</p></button>
-												<button><p>aa</p></button>
+					        let editDeleteButtons ='';
+					        
+					        if(comment.writer == sessionId){
+					            editDeleteButtons = `<div class="col-2 d-flex flex-column">
+		                              <div>
+		                                <button class="editCommentBtn" style="height: 40px; width: 85px">수정</button>
+		                              </div>
+		                              <div style="margin-top: 10px;">
+		                                <button class="deleteCommentBtn" style="height: 40px; width: 85px">삭제</button>
+		                              </div>
+		                            </div>`;
+					        }
+					        commentHtml += `<div class="row">
+					        					<div class="form-group col-10">
+					                            	<p><strong>${comment.writer}</strong> : ${comment.grade}</p>
+					                            	<p>${comment.comment}</p>
+					                            	<p style="color: gray">${comment.regDate}</p>
+					                        	</div>
+					                        	${editDeleteButtons}
 											</div>
 					                        <hr>`;
 					    }
