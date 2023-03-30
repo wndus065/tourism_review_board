@@ -3,7 +3,7 @@ package com.example.demo.placeBoard.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.demo.interestList.entity.Interest;
+import com.example.demo.interest.entity.Interest;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,7 +29,7 @@ import lombok.ToString;
 @Builder
 public class PlaceBoard extends BaseEntity {
 	
-	@Id
+	@Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
     
@@ -45,8 +45,7 @@ public class PlaceBoard extends BaseEntity {
     @Column(length = 500) //글내용
     private String content;
     
-    @OneToMany(mappedBy = "no")
-    private List<Interest> interestList = new ArrayList<>();
+ 
     
    
 	

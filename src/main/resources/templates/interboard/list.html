@@ -21,10 +21,11 @@ table td {
 								</tr>
 			</thead>
 			<tbody>
-				<tr th:each="dto : ${interestlist}">
-					<th style="background-color: transparent;"><a
+				<tr th:each="dto : ${interestList}">
+					<th style="background-color: transparent;"> <a
 						th:href="@{/inter/read(interest_no = ${dto.interest_no}, page= ${list.number + 1})}">
-							[[${dto.interest_no}]]</a></th>
+						-->
+							[[${dto.interest_no]] </a></th>
 					<td>[[${dto.no}]]</td>
 					<td>[[${dto.id}]]</td>
 					
@@ -34,7 +35,7 @@ table td {
 		<!-- Pagination -->
 		<div class="pagination">
 			<div class="pages">
-				<a th:href="@{/member/list(page = ${page})}" th:class="${(list.number + 1) == page?'active':''} " th:each="page: ${#numbers.sequence(1, list.totalPages)}">[[${page}]]</a>
+				<a th:href="@{/interboard/list(page = ${page})}" th:class="${(interestlist.number + 1) == page?'active':''} " th:each="page: ${#numbers.sequence(1, interestlist.totalPages)}">[[${page}]]</a>
 			</div>
 		</div>
 	</th:block>

@@ -1,4 +1,4 @@
-package com.example.demo.interestList.entity;
+package com.example.demo.interest.entity;
 
 import com.example.demo.placeBoard.entity.PlaceBoard;
 import com.example.demo.user.entity.Member;
@@ -32,12 +32,14 @@ public class Interest {
 	private int interest_no;
 	
 	@ManyToOne
-	@JoinColumn(name="id")
-	private Member id;
+	@JoinColumn(name="id" , referencedColumnName = "id")
+	private Member member;
 	
 	@ManyToOne
-	@JoinColumn(name="no")
-	private PlaceBoard no;
+	@JoinColumn(name="no" , referencedColumnName = "no")
+	private PlaceBoard placeBoard;
+	
+	
 	
 	
 	

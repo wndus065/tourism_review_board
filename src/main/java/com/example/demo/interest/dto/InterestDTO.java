@@ -1,4 +1,6 @@
-package com.example.demo.interestList.dto;
+package com.example.demo.interest.dto;
+
+import java.util.List;
 
 import com.example.demo.placeBoard.entity.PlaceBoard;
 import com.example.demo.user.entity.Member;
@@ -16,12 +18,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class InterDTO {
+public class InterestDTO {
 	private int interest_no;
 	
-	private Member id;
+	private String id;
 	
-	private PlaceBoard no;
 	
+	private int no;
 
 }

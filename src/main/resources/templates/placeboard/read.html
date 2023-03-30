@@ -41,11 +41,14 @@
         <a th:href="@{/placeboard/list(page=${page})}">
         	<button type="button" class="btn btn-info">목록으로</button>
         </a>
-  
-
-
-
-
+      
+     <form th:method="post" th:action="@{/interboard/add}">
+     
+        <p>
+            <button type="submit" onclick="return confirm('등록하시겠습니까?')">관심목록등록</button>
+        </p>
+    </form> 
+     
     </th:block>
 
 </th:block>

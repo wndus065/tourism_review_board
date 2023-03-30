@@ -3,7 +3,7 @@ package com.example.demo.user.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.demo.interestList.entity.Interest;
+import com.example.demo.interest.entity.Interest;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -50,7 +50,6 @@ public class Member extends BaseEntity{
 	@Column(length=30,nullable=false)
 	private String role;
 	
-	@OneToMany(mappedBy = "id")
-	private List<Interest> interestList = new ArrayList<>();
+	
 
 }
