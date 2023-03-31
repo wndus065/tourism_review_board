@@ -5,26 +5,34 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.comment.dto.CommentDTO;
 import com.example.demo.comment.service.CommentService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Controller
+//@Controller
+@RestController
 @RequestMapping("/comment")
 public class CommentController {
 
 	@Autowired
 	private CommentService service;
+
+	private final Logger logger = LoggerFactory.getLogger(CommentController.class);
 
 	@PostMapping("/register")
 	@ResponseBody
@@ -44,18 +52,8 @@ public class CommentController {
 		return map;
 	}
 
-	/* 삭제처리 */
-	@DeleteMapping("/remove") 
-	public Map<String, Boolean> remove(@RequestParam int commentNo) {
-		HashMap<String, Boolean> map = new HashMap<String, Boolean>();
-		boolean isSuccess = service.remove(commentNo);
-		map.put("success", isSuccess);
-		 
-		return map; //삭제 처리 결과 전달
-	}
-	
 	@GetMapping("/list")
-	public ResponseEntity<Map<String, Object>> getCommentList(@RequestParam("placeNo") int placeNo){
+	public ResponseEntity<Map<String, Object>> getCommentList(@RequestParam("placeNo") int placeNo) {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			List<CommentDTO> commentList = service.getList(placeNo);
@@ -64,7 +62,30 @@ public class CommentController {
 		} catch (Exception e) {
 			response.put("success", false);
 		}
-		
+
 		return ResponseEntity.ok(response);
+	}
+
+//	@PutMapping("/update")
+//	public ResponseEntity<?> modify(@RequestBody CommentDTO dto) {
+//		logger.info("Received request: " + dto);
+//		service.modify(dto);
+//		return ResponseEntity.ok().build();
+//	}
+	@PutMapping("/update")
+	public ResponseEntity<Map<String, Object>> modify(@RequestBody CommentDTO dto) {
+	    Map<String, Object> response = new HashMap<>();
+	    boolean isSuccess = service.modify(dto);
+	    response.put("success", isSuccess);
+	    return ResponseEntity.ok(response);
+	}
+
+
+	@DeleteMapping("/remove")
+	public ResponseEntity<Map<String, Object>> remove(int commentNo) {
+	    Map<String, Object> response = new HashMap<>();
+	    boolean isSuccess = service.remove(commentNo);
+	    response.put("success", isSuccess);
+	    return ResponseEntity.ok(response);
 	}
 }

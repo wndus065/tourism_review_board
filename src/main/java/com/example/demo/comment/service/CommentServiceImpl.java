@@ -64,26 +64,37 @@ public class CommentServiceImpl implements CommentService {
 		return entity.getCommentNo();
 	}
 
+//	@Override
+//	public void modify(CommentDTO dto) {
+//		Optional<Comment> result = repository.findById(dto.getCommentNo());
+//		if (result.isPresent()) {
+//			Comment entity = result.get();
+//			entity.setComment(dto.getComment());
+//			repository.save(entity);
+//		}
+//	}
 	@Override
-	public void modify(CommentDTO dto) {
-		Optional<Comment> result = repository.findById(dto.getCommentNo());
-		if (result.isPresent()) {
-			Comment entity = result.get();
-			entity.setComment(dto.getComment());
-			entity.setGrade(dto.getGrade());
-			repository.save(entity);
-		}
+	public boolean modify(CommentDTO dto) {
+	    Optional<Comment> result = repository.findById(dto.getCommentNo());
+	    if (result.isPresent()) {
+	        Comment entity = result.get();
+	        entity.setComment(dto.getComment());
+	        repository.save(entity);
+	        return true;
+	    } else {
+	        return false;
+	    }
 	}
+
 
 	@Override
 	public boolean remove(int no) {
-		try {
-			System.out.println("댓글을 삭제합니다.");
-			repository.deleteById(no);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+	    try {
+	        repository.deleteById(no);
+	        return true;
+	    } catch (Exception e) {
+	        return false;
+	    }
 	}
 
 }

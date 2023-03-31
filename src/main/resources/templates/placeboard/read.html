@@ -85,10 +85,10 @@
 									</div>
 									<div class="col-2 d-flex flex-column">
 										<div>
-											<button class="editCommentBtn" style="height: 40px; writing-mode: horizontal-tb;">수정</button>
+											<button class="editCommentBtn" data-comment-no="${dto.commentNo}" style="height: 40px; writing-mode: horizontal-tb;">수정</button>
 										</div>
 										<div style="margin-top: 10px;">
-											<button class="deleteCommentBtn" style="height: 40px; writing-mode: horizontal-tb;">삭제</button>
+											<button class="deleteCommentBtn" data-comment-no="${dto.commentNo}" style="height: 40px; writing-mode: horizontal-tb;">삭제</button>
 										</div>
 									</div>
 									<hr>
@@ -109,10 +109,10 @@
 					        if(comment.writer == sessionId){
 					            editDeleteButtons = `<div class="col-2 d-flex flex-column">
 		                              <div>
-		                                <button class="editCommentBtn" style="height: 40px; width: 85px">수정</button>
+		                                <button class="editCommentBtn" data-comment-no="${comment.commentNo}" style="height: 40px; width: 85px">수정</button>
 		                              </div>
 		                              <div style="margin-top: 10px;">
-		                                <button class="deleteCommentBtn" style="height: 40px; width: 85px">삭제</button>
+		                                <button class="deleteCommentBtn" data-comment-no="${comment.commentNo}" style="height: 40px; width: 85px">삭제</button>
 		                              </div>
 		                            </div>`;
 					        }
@@ -178,6 +178,74 @@
 					      alert("댓글 등록에 실패했습니다.");
 					    },
 					  });
+					});
+					
+					// 댓글 수정 버튼 클릭 이벤트 처리
+					$(document).on("click", ".editCommentBtn", function (event) {
+					  const commentNo = $(this).data("comment-no");
+					  const commentRow = $(this).closest(".row");
+					  const commentText = commentRow.find("p").eq(1).text();
+					  const saveButton = `<button class="saveCommentBtn" data-comment-no="${commentNo}" style="height: 40px; width: 85px">저장</button>`;
+
+					  commentRow.find("p").eq(1).replaceWith(`<textarea>${commentText}</textarea>`);
+					  $(this).replaceWith(saveButton);
+					});
+
+					// 댓글 저장 버튼 클릭 이벤트 처리
+					$(document).on("click", ".saveCommentBtn", function (event) {
+					  const commentNo = $(this).data("comment-no");
+					  const commentRow = $(this).closest(".row");
+					  const newCommentText = commentRow.find("textarea").val();
+					  
+					  $.ajax({
+					    type: "PUT",
+					    url: "/comment/update",
+					    data: JSON.stringify({
+					        commentNo: commentNo,
+					        comment: newCommentText
+					      }),
+					    contentType: "application/json",
+					    success: function (response) {
+					      if (response.success) {
+					        loadCommentList();
+					      } else {
+					        alert("댓글 수정에 실패했습니다.");
+					      }
+					    },
+					    error: function () {
+					      alert("댓글 수정에 실패했습니다.");
+					    },
+					  });
+					  // 수정 버튼으로 다시 변경
+					  const editButton = `<button class="editCommentBtn" data-comment-no="${commentNo}" style="height: 40px; width: 85px">수정</button>`;
+					  $(this).replaceWith(editButton);
+
+					  // 댓글 내용을 <p>로 변경
+					  const commentText = commentRow.find("textarea").val();
+					  commentRow.find("textarea").replaceWith(`<p>${commentText}</p>`);
+					});
+					
+					// 댓글 삭제 버튼 클릭 이벤트 처리
+					$(document).on("click", ".deleteCommentBtn", function (event) {
+					  const commentNo = $(this).data("comment-no");
+
+					  if (confirm("댓글을 삭제하시겠습니까?")) {
+					    $.ajax({
+					      type: "DELETE",
+					      url: "/comment/remove?commentNo="+commentNo,
+					      data: { commentNo },
+					      success: function (response) {
+					        if (response.success) {
+					          loadCommentList();
+					        } else {
+					          alert("댓글 삭제에 실패했습니다.");
+					        }
+					      },
+					      error: function () {
+					        alert("댓글 삭제에 실패했습니다.");
+					      },
+					    });
+					  }
 					});
 					</script>
 					</section>
