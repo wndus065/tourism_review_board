@@ -37,8 +37,6 @@ public class InterestServicelmpl implements InterestService {
 	
 	@Autowired
 	private PlaceBoardRepository placeBoardRepository;
-	@Autowired
-	private ModelMapper modelMapper;
 
 	 @Override
 	    public void add(String memberId, int placeBoardNo) {
@@ -61,39 +59,18 @@ public class InterestServicelmpl implements InterestService {
 	}
 
 
-//	@Override
-//	public InterestDTO read(int interest_no) {
-//		Optional<Interest> result = interestRepository.findById(interest_no);
-//		if(result.isPresent()) {
-//			Interest entity = result.get();
-//			return entityToDto(entity);
-//		}else {
-//		return null;
-//		}
-//	}
-//
-//	@Override
-//	public InterestDTO getInterestById(String interestId) {
-//		Integer id = Integer.parseInt(interestId); // String 타입의 ID 값을 Integer 타입으로 변환
-//        Optional<Interest> optionalInterest = interestRepository.findById(id);
-// 
-//        if (optionalInterest.isPresent()) {
-//            Interest interest = optionalInterest.get();
-//            InterestDTO interestDTO = new InterestDTO();
-//            // Interest 엔티티에서 InterestDTO로 매핑하는 코드 작성
-//            return interestDTO;
-//        }
-//        return null;
-//    }
 
 	@Override
-	public Page<InterestDTO> getList(int pageNumber, String memberId) {
+	public Page<InterestDTO> getList(int page, String memberId) {
 		
-		int pageNum = (pageNumber == 0) ? 0 :pageNumber -1;
-		Pageable pageable = PageRequest.of(pageNum, 10 , Sort.by("interest_no").descending());
+		int pageNum = (page == 0) ? 0 :page -1;
+		Pageable pageable = PageRequest.of(pageNum, 10 , Sort.by("interestNo").descending());
 		Page<Interest> entityPage = interestRepository.findByMemberId(memberId,pageable);
 		Page<InterestDTO> dtoPage = entityPage.map(entity -> entityToDto(entity));
 		return dtoPage;
+	}
+
+	
 	}
 
 	
@@ -112,4 +89,4 @@ public class InterestServicelmpl implements InterestService {
 
 	
 
-}
+

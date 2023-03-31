@@ -18,7 +18,9 @@ public interface InterestRepository extends JpaRepository<Interest, Integer> {
 
 	
 	Optional<Interest> findByMemberId(String memberId);
-	
+
+
+		
 	   
 	 
 	   

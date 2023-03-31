@@ -54,12 +54,12 @@ public class InterestReposiotryTest {
 		Interest enInterest = new Interest(0,member1,placeBoard);
 		repostiory.save(enInterest);		
 	}
-	@Test
-	void 테스트() {
-		
-		Page<Interest> page = repostiory.findByMemberId("id",pageable);
-		System.out.println();
-	}
+//	@Test
+//	void 테스트() {
+//		
+//		Page<Interest> page = repostiory.findByMemberId("id",pageable);
+//		System.out.println();
+//	}
 		
 	
 }

@@ -19,11 +19,16 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 public class InterestDTO {
+	
 	private int interest_no;
 	
 	private String id;
 	
-	
 	private int no;
-
+	
+	private String place;
+	
+	private String writer;
+	
+	private String title;
 }

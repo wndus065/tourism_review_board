@@ -43,5 +43,9 @@ public class InterestServiceTest {
 			System.out.println(dto);
 		}
 	}
+	@Test
+	void 관심목록삭제하기() {
+		service.remove(1);
+	}
 
 }

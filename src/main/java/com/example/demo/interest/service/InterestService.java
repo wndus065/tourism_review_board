@@ -15,15 +15,13 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public interface InterestService {
 	
-	void add(String memberId, int placeBoard_no);
-//	
-	void remove(int interestNo);
-//	
-//	InterestDTO read(int interestNo);
+	void add(String memberId, int placeBoard);	
 	
-	Page<InterestDTO> getList(int pageNumber,String memberId);
+	void remove(int interest_no);	
 	
-//	InterestDTO getInterestById(String interestId);
+	Page<InterestDTO> getList(int no,String memberId);
+	
+
 	
 	
 	
@@ -33,9 +31,9 @@ public interface InterestService {
 	
 	default Interest dtoToEntity(InterestDTO dto) {
 		Member member = Member.builder().id(dto.getId()).build();
-		PlaceBoard placeBoard = PlaceBoard.builder().no(dto.getNo()).build();
+		PlaceBoard placeBoard = PlaceBoard.builder().no(dto.getNo()).place(dto.getPlace()).title(dto.getTitle()).writer(dto.getWriter()).build();
 		Interest entity  = Interest.builder()
-				.interest_no(dto.getInterest_no())
+				.interestNo(dto.getInterest_no())
 				.member(member)
 				.placeBoard(placeBoard)
 				.build();
@@ -46,8 +44,11 @@ public interface InterestService {
 	default InterestDTO entityToDto(Interest entity) {
 		
 		InterestDTO dto = InterestDTO.builder()
-				.interest_no(entity.getInterest_no())
+				.interest_no(entity.getInterestNo())
 				.id(entity.getMember().getId())
+				.place(entity.getPlaceBoard().getPlace())
+				.writer(entity.getPlaceBoard().getWriter())
+				.title(entity.getPlaceBoard().getTitle())
 				.no(entity.getPlaceBoard().getNo())
 				.build();
 		return dto;
