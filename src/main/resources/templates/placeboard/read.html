@@ -4,7 +4,7 @@
 <th:block th:replace="layout/basic :: setContent(~{this::content} )">
 
 	<th:block th:fragment="content">
-
+		<input type="hidden" id="sessionId" th:value="${session.id}" />
 		<header>
 			<h2>장소게시판 조회</h2>
 		</header>
@@ -19,7 +19,8 @@
 			</div>
 			<div class="form-group">
 				<label>글 내용</label>
-				<textarea class="form-control" rows="5" name="content" th:value="${dto.content}" readonly>[[${dto.content}]]</textarea>
+				<textarea class="form-control" rows="5" name="content" th:value="${dto.content}"
+					readonly>[[${dto.content}]]</textarea>
 			</div>
 			<div class="form-group">
 				<label>글쓴이</label>
@@ -30,16 +31,17 @@
 				<input type="text" class="form-control"
 					th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
 			</div>
-			
+
 		</form>
-			<a th:href="@{/placeboard/modify(no = ${dto.no})}">
+		<th:block th:if="${session.id != null and session.id == dto.writer}">
+			<a th:href="@{/placeboard/modify(no=${dto.no})}">
 				<button type="button" class="btn btn-primary">수정</button>
 			</a>
-
-			<!-- 목록페이지 링크 수정 -->
-			<a th:href="@{/placeboard/list(page=${page})}">
-				<button type="button" class="btn btn-info">목록으로</button>
-			</a>
+		</th:block>
+		<!-- 목록페이지 링크 수정 -->
+		<a th:href="@{/placeboard/list(page=${page})}">
+			<button type="button" class="btn btn-info">목록으로</button>
+		</a>
 
 	</th:block>
 

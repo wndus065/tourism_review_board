@@ -2,6 +2,7 @@ package com.example.demo.placeBoard.controller;
 
 import java.security.Principal;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -64,7 +65,7 @@ public class PlaceBoardController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", page);
 	}
-
+	
 	@GetMapping("/modify")
 	public void modify(int no, Model model) {
 		PlaceBoardDTO dto = service.read(no);
