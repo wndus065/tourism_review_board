@@ -37,7 +37,8 @@ public class PlaceBoardController {
 	@GetMapping("/list")
 	public void list(@RequestParam(defaultValue = "0") int page, Model model) { //파라미터 추가
 		Page<PlaceBoardDTO> list = service.getList(page);
-		model.addAttribute("list", list);	
+		model.addAttribute("list", list);
+		model.addAttribute("currentPage", "placeboard");
 		System.out.println("전체 페이지 수: " + list.getTotalPages());
 		System.out.println("전체 게시물 수: " + list.getTotalElements());
 		System.out.println("현재 페이지 번호: " + (list.getNumber() + 1));
@@ -54,6 +55,7 @@ public class PlaceBoardController {
 	    PlaceBoardDTO dto = new PlaceBoardDTO();
 	    dto.setWriter(id);
 	    model.addAttribute("dto", dto);
+	    model.addAttribute("currentPage", "placeboard");
 	    return "/placeboard/register";
 	}
 
@@ -70,12 +72,14 @@ public class PlaceBoardController {
 		PlaceBoardDTO dto = service.read(no);
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", page);
+		model.addAttribute("currentPage", "placeboard");
 	}
 	
 	@GetMapping("/modify")
 	public void modify(int no, Model model) {
 		PlaceBoardDTO dto = service.read(no);
 		model.addAttribute("dto", dto);
+		model.addAttribute("currentPage", "placeboard");
 	}
 
 	@PostMapping("/modify")

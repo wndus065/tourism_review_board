@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 
 import com.example.demo.interest.dto.InterestDTO;
 import com.example.demo.interest.entity.Interest;
+import com.example.demo.map.entity.MapEntity;
 import com.example.demo.placeBoard.entity.PlaceBoard;
 
 import com.example.demo.user.entity.Member;
@@ -31,7 +32,8 @@ public interface InterestService {
 	
 	default Interest dtoToEntity(InterestDTO dto) {
 		Member member = Member.builder().id(dto.getId()).build();
-		PlaceBoard placeBoard = PlaceBoard.builder().no(dto.getNo()).place(dto.getPlace()).title(dto.getTitle()).writer(dto.getWriter()).build();
+		MapEntity mapEntity = MapEntity.builder().place(dto.getPlace()).build();
+		PlaceBoard placeBoard = PlaceBoard.builder().no(dto.getNo()).place(mapEntity).title(dto.getTitle()).writer(member).build();
 		Interest entity  = Interest.builder()
 				.interestNo(dto.getInterest_no())
 				.member(member)
@@ -46,8 +48,8 @@ public interface InterestService {
 		InterestDTO dto = InterestDTO.builder()
 				.interest_no(entity.getInterestNo())
 				.id(entity.getMember().getId())
-				.place(entity.getPlaceBoard().getPlace())
-				.writer(entity.getPlaceBoard().getWriter())
+				.place(entity.getPlaceBoard().getPlace().getPlace())
+				.writer(entity.getPlaceBoard().getWriter().getId())
 				.title(entity.getPlaceBoard().getTitle())
 				.no(entity.getPlaceBoard().getNo())
 				.build();
