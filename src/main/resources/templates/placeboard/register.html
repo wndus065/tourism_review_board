@@ -16,7 +16,9 @@
 			</div>
 			<div class="form-group">
 				<label>장소</label>
-				<textarea class="form-control" rows="5" name="place"></textarea>
+				<select title="장소명선택" name="filterCol" id="selt_filterCol" style="max-width: 100%">
+					<option>필터선택</option>
+					</select>
 			</div>
 			<div class="form-group">
 				<label>내용</label>
@@ -45,7 +47,7 @@
 					const title = $('input[name=title]').val();
 					const place = $('textarea[name="place"]').val();
 					const content = $('textarea[name=content]').val();
-					
+
 					// 값이 비어있으면 알림창 띄우고 함수 중단
 					if (!title || !place || !content) {
 						alert('비어있는 항목을 입력해주세요.');

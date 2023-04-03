@@ -36,7 +36,7 @@ public class MapController {
 	public void list(@RequestParam(defaultValue = "0")int page, Model model) {
 		Page<MapDTO> list = service.getlist(page);
 		model.addAttribute("list",list);
-		
+		model.addAttribute("currentPage", "map");
 		
 	}
 	@GetMapping("/read")
@@ -44,6 +44,7 @@ public class MapController {
 		MapDTO dto = service.read(place);
 		model.addAttribute("dto",dto);
 		model.addAttribute("page",page);
+		model.addAttribute("currentPage", "map");
 	}
 	
 	
@@ -69,6 +70,7 @@ public class MapController {
 	public void modify(String place, Model model) {
 		MapDTO dto = service.read(place);
 		model.addAttribute("dto",dto);
+		model.addAttribute("currentPage", "map");
 	}
 	
 	@PostMapping("/modify")

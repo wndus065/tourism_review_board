@@ -4,65 +4,66 @@
 <th:block th:replace="~{layout/basic :: setContent(~{this::content} )}">
 
 	<th:block th:fragment="content">
-	
-	
-	<div id="map" style="width:130%;height:600px;"></div>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ab9cyktgjv"></script>
 
-<script th:inline="javascript">
-var map = new naver.maps.Map('map', {
-    center: new naver.maps.LatLng(37.5129146,127.1028611),
-    zoom: 11
-});
-</script>
-<script th:inline="javascript">
-var markers = [];
-/* DTO에서 좌표 정보를 불러와서 마커 생성 */
-var markerDTOs = [[${mapDTOList}]];
 
-for (var i = 0; i < markerDTOs.length; i++) {
-    var latlng = new naver.maps.LatLng(markerDTOs[i].point_x, markerDTOs[i].point_y);
-    var marker = new naver.maps.Marker({
-        position: latlng,
-        map: map
-    });
-    
-    
-    markers.push(marker);
+		<div id="map" style="width:130%;height:600px;"></div>
+		<script type="text/javascript"
+			src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ab9cyktgjv"></script>
 
-    var contentString = '<a href="/placeboard/list" div style="padding:20px;">' + markerDTOs[i].place +'        '+ markerDTOs[i].address+ '</a>';
+		<script th:inline="javascript">
+			var map = new naver.maps.Map('map', {
+				center: new naver.maps.LatLng(37.5129146, 127.1028611),
+				zoom: 11
+			});
+		</script>
+		<script th:inline="javascript">
+			var markers = [];
+			/* DTO에서 좌표 정보를 불러와서 마커 생성 */
+			var markerDTOs = [[${mapDTOList}]];
 
-    naver.maps.Event.addListener(marker, "click", createClickListener(contentString, marker));
-  }
+			for (var i = 0; i < markerDTOs.length; i++) {
+				var latlng = new naver.maps.LatLng(markerDTOs[i].point_x, markerDTOs[i].point_y);
+				var marker = new naver.maps.Marker({
+					position: latlng,
+					map: map
+				});
 
-  function createClickListener(contentString, marker) {
-    return function() {
-      var infowindow = new naver.maps.InfoWindow({
-        content: contentString,
-        maxWidth: 140,
-        backgroundColor: "#eee",
-        borderColor: "#2db400",
-        borderWidth: 5,
-        anchorSize: new naver.maps.Size(30, 30),
-        anchorSkew: true,
-        anchorColor: "#eee",
-        pixelOffset: new naver.maps.Point(20, -20)
-      });
-      if (infowindow.getMap()) {
-        infowindow.close();
-      } else {
-        infowindow.open(map, marker);
-      }
-    };
-  }
-  
-	</script>
-	<div style="margin: 120px 0 0 250px;">
-	<h1 id="logo">
-				<a href="/request/list">요청 게시판 바로가기</a>
+
+				markers.push(marker);
+
+				var contentString = '<a href="/placeboard/list" div style="padding:20px;">' + markerDTOs[i].place + '        ' + markerDTOs[i].address + '</a>';
+
+				naver.maps.Event.addListener(marker, "click", createClickListener(contentString, marker));
+			}
+
+			function createClickListener(contentString, marker) {
+				return function () {
+					var infowindow = new naver.maps.InfoWindow({
+						content: contentString,
+						maxWidth: 140,
+						backgroundColor: "#eee",
+						borderColor: "#2db400",
+						borderWidth: 5,
+						anchorSize: new naver.maps.Size(30, 30),
+						anchorSkew: true,
+						anchorColor: "#eee",
+						pixelOffset: new naver.maps.Point(20, -20)
+					});
+					if (infowindow.getMap()) {
+						infowindow.close();
+					} else {
+						infowindow.open(map, marker);
+					}
+				};
+			}
+
+		</script>
+		<div style="margin: 120px 0 0 250px;">
+			<h1 id="logo">
+				<a href="/request/register">장소 등록 요청 바로가기</a>
 			</h1>
 
-	</div>
+		</div>
 
 	</th:block>
 </th:block>
