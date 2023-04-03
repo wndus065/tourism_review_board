@@ -63,12 +63,7 @@ public class MapController {
 		}
 	}
 	
-	@GetMapping("/find")
-	public void find(String place ,int page, Model model) {
-		MapDTO dto = service.read(place);
-		model.addAttribute("dto", dto);
-		model.addAttribute("page", page);
-	}
+	
 	
 	@GetMapping("/modify")
 	public void modify(String place, Model model) {

@@ -76,11 +76,29 @@
 						<button type="button" class="btn btn-primary">수정</button>
 					</a>
 
-					<!-- 목록페이지 링크 수정 -->
-					<a th:href="@{/placeboard/list(page=${page})}">
-						<button type="button" class="btn btn-info">목록으로</button>
-					</a>
-				</div>
+
+		<!-- 목록페이지 링크 수정 -->
+        <a th:href="@{/placeboard/list(page=${page})}">
+        	<button type="button" class="btn btn-info">목록으로</button>
+        </a>
+        <form th:action="@{/interboard/add(no= ${dto.no})}" th:method="POST">
+      <p>
+						<button type="submit">관심 등록</button>
+	</p>
+	</form>
+	<script th:inline="javascript">
+    	 $(document).ready(function(){
+    		 var msg = [[${msg}]]
+    		 if(msg != null){
+    		 alert(msg);
+    		 }
+    	});
+     
+</script>
+     
+    </th:block>
+
+				
 				<!-- 댓글 구현 하는 중 -->
 =======
 		</form>
@@ -113,11 +131,14 @@
 								</select>
 								<button type="submit">등록</button>
 							</form>
+<<<<<<< HEAD
 =======
 	</th:block>
 >>>>>>> refs/heads/feature.pk
 
 <<<<<<< HEAD
+=======
+>>>>>>> branch 'develop' of https://gitlab.com/greenart_project/project1.git
 						</div>
 						<hr>
 						<div class="form-group" id="commentList">
@@ -298,7 +319,7 @@
 					</script>
 					</section>
 				</div>
-			</div>
+			
 	</th:block>
 
 =======

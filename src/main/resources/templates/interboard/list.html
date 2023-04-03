@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="layout/basic :: setContent(~{this::content} )">
+
+	<th:block th:fragment="content">
+<style>
+table td {
+	background-color: transparent;
+}
+</style>
+		<header>
+			<h2>나의 관심 목록</h2>
+		</header>
+		<table>
+			<thead>
+				<tr>
+					<th>장소</th>
+					<th>제목</th>
+					<th>작성자</th>
+					
+					<th> 비고 </th>
+								</tr>
+			</thead>
+			<tbody>
+    <tr th:each="dto : ${list}">
+        <th style="background-color: transparent;">
+            <a th:href="@{/placeboard/read(no = ${dto.no}, page= ${list.number + 1})}">
+                [[${dto.place}]]
+            </a>
+        </th>
+        <td>[[${dto.title}]]</td>
+        <td>[[${dto.writer}]]</td>
+        
+        <td>
+        <form th:method="post" th:action="@{/interboard/remove(interest_no=${dto.interest_no})}">
+        <p>
+            <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+        </p>
+    </form></td>
+    </tr>
+</tbody>
+		</table>
+		<!-- Pagination -->
+		<div class="pagination">
+				<div class="pages">
+					<a th:href="@{/interboard/list(page = ${page})}"
+						th:class="${(list.number + 1) == page?'active':''}"
+						th:each="page: ${#numbers.sequence(1, list.totalPages)}">[[${page}]]</a>
+				</div>
+				</div>
+	</th:block>
+</th:block>

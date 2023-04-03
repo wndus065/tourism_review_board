@@ -1,8 +1,16 @@
 package com.example.demo.user.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.demo.interest.entity.Interest;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,5 +49,7 @@ public class Member extends BaseEntity{
 	// 회원 등급
 	@Column(length=30,nullable=false)
 	private String role;
+	
+	
 
 }
