@@ -61,7 +61,7 @@ public class InterestController {
 	}
 	@PostMapping("/add")
 	public String add(@RequestParam("no") Integer placeBoardNo, RedirectAttributes attributes, HttpServletRequest request) {
-	    String memberId = (String) request.getSession(false).getAttribute("id");
+	    String memberId = (String) request.getSession().getAttribute("id");
 	    if (memberId == null) {
 	        return "redirect:/login";
 	    }

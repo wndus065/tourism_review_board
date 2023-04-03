@@ -22,9 +22,6 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
-	
-	@Autowired 
-	private HttpServletRequest request;
 
 	@GetMapping("/member/list")
 	public String list(@RequestParam(defaultValue = "0") int page, Model model) {
@@ -84,9 +81,9 @@ public class MemberController {
 			HttpSession session = request.getSession();
 			session.setAttribute("id", id);
 
-			return "redirect:/";
+			return "home/index";
 		} else {
-			model.addAttribute("msg", "아이디 또는 비밀번호가 옳지 않습니다.");
+			redirectAttributes.addFlashAttribute("msg", "아이디 또는 비밀번호가 옳지 않습니다.");
 
 			return "redirect:/login";
 		}

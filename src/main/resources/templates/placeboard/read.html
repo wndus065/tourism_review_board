@@ -3,39 +3,48 @@
 
 <th:block th:replace="layout/basic :: setContent(~{this::content} )">
 
-    <th:block th:fragment="content">
+	<th:block th:fragment="content">
+		<body onload="loadCommentList()">
+		<input type="hidden" id="sessionId" th:value="${session.id}" />
+			<h2>placeboard Read Page</h2>
 
-        <h1 class="mt-4">placeboard Read Page</h1>
+			<div class="row">
 
-        <div class="form-group">
-            <label >번호</label>
-            <input type="text" class="form-control" name="no" th:value="${dto.no}" readonly >
-        </div>
+				<div class="col-7">
+					<div class="form-group">
+						<label>번호</label> <input type="text" class="form-control"
+							name="no" th:value="${dto.no}" readonly>
+					</div>
 
-        <div class="form-group">
-            <label >제목</label>
-            <input type="text" class="form-control" name="title" th:value="${dto.title}" readonly >
-        </div>
-        <div class="form-group">
-            <label >글 내용</label>
-            <textarea class="form-control" rows="5" name="content" readonly>[[${dto.content}]]</textarea>
-        </div>
-        <div class="form-group">
-            <label >글쓴이</label>
-            <input type="text" class="form-control" name="writer" th:value="${dto.writer}" readonly>
-        </div>
-        <div class="form-group">
-            <label >등록일</label>
-            <input type="text" class="form-control" name="regDate" th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-        </div>
-        <div class="form-group">
-            <label >수정일</label>
-            <input type="text" class="form-control" name="modDate" th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-        </div>
+					<div class="form-group">
+						<label>제목</label> <input type="text" class="form-control"
+							name="title" th:value="${dto.title}" readonly>
+					</div>
+					<div class="form-group">
+						<label>글 내용</label>
+						<textarea class="form-control" rows="5" name="content" readonly>[[${dto.content}]]</textarea>
+					</div>
+					<div class="form-group">
+						<label>글쓴이</label> <input type="text" class="form-control"
+							name="writer" th:value="${dto.writer}" readonly>
+					</div>
+					<div class="form-group">
+						<label>등록일</label> <input type="text" class="form-control"
+							name="regDate"
+							th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}"
+							readonly>
+					</div>
+					<div class="form-group">
+						<label>수정일</label> <input type="text" class="form-control"
+							name="modDate"
+							th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}"
+							readonly>
+					</div>
 
-        <a th:href="@{/placeboard/modify(no = ${dto.no})}">
-        	<button type="button" class="btn btn-primary">수정</button>
-        </a>
+					<a th:href="@{/placeboard/modify(no = ${dto.no})}">
+						<button type="button" class="btn btn-primary">수정</button>
+					</a>
+
 
 		<!-- 목록페이지 링크 수정 -->
         <a th:href="@{/placeboard/list(page=${page})}">
@@ -57,5 +66,208 @@
 </script>
      
     </th:block>
+
+				
+				<!-- 댓글 구현 하는 중 -->
+
+				<div class="col-2">
+					<section class="box text-style1" style="width: 500px">
+						<div class="form-group" id="commentForm">
+							<form>
+								<input type="hidden" id="placeNo" name="placeNo"
+									th:value="${dto.no}" /> <input type="hidden" id="writer"
+									th:value="${session.id}" />
+								<textarea id="comment" name="comment" placeholder="댓글을 입력하세요"></textarea>
+								<select id="grade" name="grade">
+									<option value="5">5점</option>
+									<option value="4">4점</option>
+									<option value="3">3점</option>
+									<option value="2">2점</option>
+									<option value="1">1점</option>
+								</select>
+								<button type="submit">등록</button>
+							</form>
+						</div>
+						<hr>
+						<div class="form-group" id="commentList">
+							<div th:each="dto : ${commentList}">
+								<div class="row">
+									<div class="col-10">
+										<p>
+											<strong>[[${dto.writer}]]</strong> ([[${dto.grade}]])
+										</p>
+										<p>[[${dto.comment}]]</p>
+										<p style="color: gray">[[${#temporals.format(dto.regDate,
+											'yyyy/MM/dd HH:mm:ss')}]]</p>
+									</div>
+									<div class="col-2 d-flex flex-column">
+										<div>
+											<button class="editCommentBtn" data-comment-no="${dto.commentNo}" style="height: 40px; writing-mode: horizontal-tb;">수정</button>
+										</div>
+										<div style="margin-top: 10px;">
+											<button class="deleteCommentBtn" data-comment-no="${dto.commentNo}" style="height: 40px; writing-mode: horizontal-tb;">삭제</button>
+										</div>
+									</div>
+									<hr>
+								</div>
+							</div>
+						</div>
+
+
+						<script>
+					function updateCommentList(commentList) {
+					    let commentHtml = '';
+					    const sessionId = $("#sessionId").val();
+					    
+					    for (let i = 0; i < commentList.length; i++) {
+					        const comment = commentList[i];
+					        let editDeleteButtons ='';
+					        
+					        if(comment.writer == sessionId){
+					            editDeleteButtons = `<div class="col-2 d-flex flex-column">
+		                              <div>
+		                                <button class="editCommentBtn" data-comment-no="${comment.commentNo}" style="height: 40px; width: 85px">수정</button>
+		                              </div>
+		                              <div style="margin-top: 10px;">
+		                                <button class="deleteCommentBtn" data-comment-no="${comment.commentNo}" style="height: 40px; width: 85px">삭제</button>
+		                              </div>
+		                            </div>`;
+					        }
+					        commentHtml += `<div class="row">
+					        					<div class="form-group col-10">
+					                            	<p><strong>${comment.writer}</strong> : ${comment.grade}</p>
+					                            	<p>${comment.comment}</p>
+					                            	<p style="color: gray">${comment.regDate}</p>
+					                        	</div>
+					                        	${editDeleteButtons}
+											</div>
+					                        <hr>`;
+					    }
+					    $('#commentList').html(commentHtml);
+					}
+					
+					// 페이지 로드 시 댓글 목록을 서버로부터 가져오는 함수 추가
+					function loadCommentList() {
+					  const placeNo = $("#placeNo").val();
+					  $.ajax({
+					    type: "GET",
+					    url: "/comment/list",
+					    data: { placeNo },
+					    success: function (response) {
+					      if (response.success) {
+					        const commentList = response.data;
+					        updateCommentList(commentList);
+					      } else {
+					        alert("댓글 목록을 가져오는데 실패했습니다.");
+					      }
+					    },
+					    error: function () {
+					      alert("댓글 목록을 가져오는데 실패했습니다.");
+					    },
+					  });
+					}
+
+					// 댓글 등록 이벤트 처리
+					$(document).on("submit", "#commentForm form", function (event) {
+					  event.preventDefault(); // 기본 이벤트 동작 방지
+
+					  const placeNo = $("#placeNo").val();
+					  const comment = $("#comment").val();
+					  const grade = $("#grade").val();
+					  const writer = $("#writer").val(); // writer 값을 읽어옵니다.
+					  const data = { placeNo, writer, comment, grade };
+
+					  $.ajax({
+					    type: "POST",
+					    url: "/comment/register",
+					    data: data,
+					    success: function (response) {
+					      if (response.success) {
+					        $("#comment").val(""); // 댓글 입력 필드 초기화
+					        $("#grade").val("5"); // 평점 선택 필드 초기화
+					        const commentList = response.data;
+					        loadCommentList(); // 페이지 로드 시 서버로부터 댓글 목록을 가져옴
+					      } else {
+					        alert("댓글 등록에 실패했습니다.");
+					      }
+					    },
+					    error: function () {
+					      alert("댓글 등록에 실패했습니다.");
+					    },
+					  });
+					});
+					
+					// 댓글 수정 버튼 클릭 이벤트 처리
+					$(document).on("click", ".editCommentBtn", function (event) {
+					  const commentNo = $(this).data("comment-no");
+					  const commentRow = $(this).closest(".row");
+					  const commentText = commentRow.find("p").eq(1).text();
+					  const saveButton = `<button class="saveCommentBtn" data-comment-no="${commentNo}" style="height: 40px; width: 85px">저장</button>`;
+
+					  commentRow.find("p").eq(1).replaceWith(`<textarea>${commentText}</textarea>`);
+					  $(this).replaceWith(saveButton);
+					});
+
+					// 댓글 저장 버튼 클릭 이벤트 처리
+					$(document).on("click", ".saveCommentBtn", function (event) {
+					  const commentNo = $(this).data("comment-no");
+					  const commentRow = $(this).closest(".row");
+					  const newCommentText = commentRow.find("textarea").val();
+					  
+					  $.ajax({
+					    type: "PUT",
+					    url: "/comment/update",
+					    data: JSON.stringify({
+					        commentNo: commentNo,
+					        comment: newCommentText
+					      }),
+					    contentType: "application/json",
+					    success: function (response) {
+					      if (response.success) {
+					        loadCommentList();
+					      } else {
+					        alert("댓글 수정에 실패했습니다.");
+					      }
+					    },
+					    error: function () {
+					      alert("댓글 수정에 실패했습니다.");
+					    },
+					  });
+					  // 수정 버튼으로 다시 변경
+					  const editButton = `<button class="editCommentBtn" data-comment-no="${commentNo}" style="height: 40px; width: 85px">수정</button>`;
+					  $(this).replaceWith(editButton);
+
+					  // 댓글 내용을 <p>로 변경
+					  const commentText = commentRow.find("textarea").val();
+					  commentRow.find("textarea").replaceWith(`<p>${commentText}</p>`);
+					});
+					
+					// 댓글 삭제 버튼 클릭 이벤트 처리
+					$(document).on("click", ".deleteCommentBtn", function (event) {
+					  const commentNo = $(this).data("comment-no");
+
+					  if (confirm("댓글을 삭제하시겠습니까?")) {
+					    $.ajax({
+					      type: "DELETE",
+					      url: "/comment/remove?commentNo="+commentNo,
+					      data: { commentNo },
+					      success: function (response) {
+					        if (response.success) {
+					          loadCommentList();
+					        } else {
+					          alert("댓글 삭제에 실패했습니다.");
+					        }
+					      },
+					      error: function () {
+					        alert("댓글 삭제에 실패했습니다.");
+					      },
+					    });
+					  }
+					});
+					</script>
+					</section>
+				</div>
+			
+	</th:block>
 
 </th:block>

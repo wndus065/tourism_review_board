@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -15,12 +16,13 @@ import com.example.demo.requestBoard.service.RequestBoardService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
+@RequestMapping("/request")
 public class RequestBoardController {
 
 	@Autowired
 	private RequestBoardService service;
 
-	@GetMapping("/request/list")
+	@GetMapping("/list")
 	public void list(@RequestParam(defaultValue = "0") int page, Model model) {
 		Page<RequestBoardDTO> list = service.getList(page);
 		model.addAttribute("list", list);
@@ -31,7 +33,7 @@ public class RequestBoardController {
 		System.out.println("페이지에 표시할 게시물 수 : " + list.getNumberOfElements());
 	}
 
-	@GetMapping("/request/read")
+	@GetMapping("/read")
 	public void read(int no, @RequestParam(defaultValue = "0") int page, Model model) {
 		RequestBoardDTO dto = service.read(no);
 		model.addAttribute("dto", dto);
@@ -39,7 +41,7 @@ public class RequestBoardController {
 		model.addAttribute("currentPage", "request");
 	}
 
-	@GetMapping("/request/register")
+	@GetMapping("/register")
 	public String register(HttpServletRequest request, Model model) {
 	    String id = (String) request.getSession().getAttribute("id");
 	    if (id == null) {
@@ -52,7 +54,7 @@ public class RequestBoardController {
 	    return "/request/register";
 	}
 
-	@PostMapping("/request/register")
+	@PostMapping("/register")
 	public String registerPost(RequestBoardDTO dto, RedirectAttributes rttr) {
 		int no = service.register(dto);
 		rttr.addFlashAttribute("result", no);

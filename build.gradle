@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
 	id 'war'
-	id 'org.springframework.boot' version '3.0.4'
+	id 'org.springframework.boot' version '3.0.2'
 	id 'io.spring.dependency-management' version '1.1.0'
 }
 
@@ -20,21 +20,33 @@ repositories {
 }
 
 dependencies {
-	
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+<<<<<<< HEAD
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.1.2'
 	 implementation 'org.modelmapper:modelmapper:3.0.0'
 	
 	
 
+=======
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' 
+	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.1.2'	
+>>>>>>> branch 'develop' of https://gitlab.com/greenart_project/project1.git
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+
+
+
+
+
+
+
