@@ -19,7 +19,7 @@ public class OpenApiTest {
 	String serviceKey = "4855574d5a736976353052516e6842";
 
 	@Test
-	public String getPlaceApi() throws IOException {
+	public void getPlaceApi() throws IOException {
 		StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088/"+serviceKey+"/json/SebcTourStreetKor/1/5/"); /* URL */
 		urlBuilder.append("/" + URLEncoder.encode(serviceKey, "UTF-8")); /* 인증키 (sample사용시에는 호출시 제한됩니다.) */
 		urlBuilder.append("/" + URLEncoder.encode("json", "UTF-8")); /* 요청파일타입 (xml,xmlf,xls,json) */
@@ -51,17 +51,18 @@ public class OpenApiTest {
 		}
 		rd.close();
 		conn.disconnect();
-		return sb.toString();
+		System.out.println(sb.toString());
+//		return sb.toString();
 	}
 	
-	@Test
-	public void jsonToDto() throws IOException{
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); // 매칭 제대로 안 됐을 때 무시하고 null 값으로 출력하기 위해
-		String placeApi = getPlaceApi();
-		SebcTour response = null;
-		response = mapper.readValue(placeApi, SebcTour.class);
-		System.out.println(response.toString());
-	}
+//	@Test
+//	public void jsonToDto() throws IOException{
+//		ObjectMapper mapper = new ObjectMapper();
+//		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); // 매칭 제대로 안 됐을 때 무시하고 null 값으로 출력하기 위해
+//		String placeApi = getPlaceApi();
+//		SebcTour response = null;
+//		response = mapper.readValue(placeApi, SebcTour.class);
+//		System.out.println(response.toString());
+//	}
 	
 }

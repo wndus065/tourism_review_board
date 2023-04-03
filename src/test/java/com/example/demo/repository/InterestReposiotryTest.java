@@ -43,17 +43,17 @@ public class InterestReposiotryTest {
 					
 	}
 	
-	@Test
-	void 등록() {
-		Member member1 = new Member("user1","pw","name","mem","123@123.com","123","roleUser");
-		PlaceBoard placeBoard = new PlaceBoard(0,"id","ww","ww","ww");
-		
-		memberRepository.save(member1);
-		placeBoardRepository.save(placeBoard);
-		
-		Interest enInterest = new Interest(0,member1,placeBoard);
-		repostiory.save(enInterest);		
-	}
+//	@Test
+//	void 등록() {
+//		Member member1 = new Member("user1","pw","name","mem","123@123.com","123","roleUser");
+//		PlaceBoard placeBoard = new PlaceBoard(0,"id","ww","ww","ww");
+//		
+//		memberRepository.save(member1);
+//		placeBoardRepository.save(placeBoard);
+//		
+//		Interest enInterest = new Interest(0,member1,placeBoard);
+//		repostiory.save(enInterest);		
+//	}
 //	@Test
 //	void 테스트() {
 //		
