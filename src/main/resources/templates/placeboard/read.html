@@ -4,10 +4,41 @@
 <th:block th:replace="layout/basic :: setContent(~{this::content} )">
 
 	<th:block th:fragment="content">
+<<<<<<< HEAD
 		<body onload="loadCommentList()">
 		<input type="hidden" id="sessionId" th:value="${session.id}" />
 			<h2>placeboard Read Page</h2>
+=======
+		<input type="hidden" id="sessionId" th:value="${session.id}" />
+		<header>
+			<h2>장소게시판 조회</h2>
+		</header>
+		<form>
+			<div class="form-group">
+				<label>제목</label>
+				<input type="text" class="form-control" name="title" th:value="${dto.title}" readonly>
+			</div>
+			<div class="form-group">
+				<label>장소</label>
+				<input type="text" class="form-control" name="place" th:value="${dto.place}" readonly>
+			</div>
+			<div class="form-group">
+				<label>글 내용</label>
+				<textarea class="form-control" rows="5" name="content" th:value="${dto.content}"
+					readonly>[[${dto.content}]]</textarea>
+			</div>
+			<div class="form-group">
+				<label>글쓴이</label>
+				<input type="text" class="form-control" name="writer" th:value="${dto.writer}" readonly>
+			</div>
+			<div class="form-group">
+				<label>등록일</label>
+				<input type="text" class="form-control"
+					th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+			</div>
+>>>>>>> refs/heads/feature.pk
 
+<<<<<<< HEAD
 			<div class="row">
 
 				<div class="col-7">
@@ -51,7 +82,20 @@
 					</a>
 				</div>
 				<!-- 댓글 구현 하는 중 -->
+=======
+		</form>
+		<th:block th:if="${session.id != null and session.id == dto.writer}">
+			<a th:href="@{/placeboard/modify(no=${dto.no})}">
+				<button type="button" class="btn btn-primary">수정</button>
+			</a>
+		</th:block>
+		<!-- 목록페이지 링크 수정 -->
+		<a th:href="@{/placeboard/list(page=${page})}">
+			<button type="button" class="btn btn-info">목록으로</button>
+		</a>
+>>>>>>> refs/heads/feature.pk
 
+<<<<<<< HEAD
 				<div class="col-2">
 					<section class="box text-style1" style="width: 500px">
 						<div class="form-group" id="commentForm">
@@ -69,7 +113,11 @@
 								</select>
 								<button type="submit">등록</button>
 							</form>
+=======
+	</th:block>
+>>>>>>> refs/heads/feature.pk
 
+<<<<<<< HEAD
 						</div>
 						<hr>
 						<div class="form-group" id="commentList">
@@ -253,4 +301,6 @@
 			</div>
 	</th:block>
 
+=======
+>>>>>>> refs/heads/feature.pk
 </th:block>

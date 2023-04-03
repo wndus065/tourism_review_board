@@ -25,5 +25,4 @@ public class PlaceBoardDTO {
     private LocalDateTime regDate;
     private LocalDateTime modDate;
     
-    
 }

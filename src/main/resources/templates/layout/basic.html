@@ -86,7 +86,7 @@ th {
 			<nav id="nav">
 				<ul>
 					<li><a href="#">문화 거리 한눈에 보기</a></li>
-					<li><a href="#">장소 게시판</a></li>
+					<li th:class="${currentPage == 'placeboard' ? 'current' : ''}"><a th:href="@{/placeboard/list}">장소 게시판</a></li>
 					<li th:class="${currentPage == 'memberA' ? 'current' : ''}"><a th:href="@{/member/list}">관리자 : 회원 목록</a></li>
 					<li th:class="${currentPage == 'request' ? 'current' : ''}"><a th:href="@{/request/list}">관리자 : 요청 목록</a></li>
 					<li><a href="#">사용자 : 관심 목록</a></li>

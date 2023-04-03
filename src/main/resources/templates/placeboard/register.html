@@ -3,31 +3,66 @@
 
 <th:block th:replace="layout/basic :: setContent(~{this::content} )">
 
-    <th:block th:fragment="content">
+	<th:block th:fragment="content">
 
-        <h1 class="mt-4">placeboard Register Page</h1>
+		<header>
+			<h2>장소게시판 등록</h2>
+		</header>
 
-        <form th:action="@{/placeboard/register}" th:method="post">
-            <div class="form-group">
-                <label >제목</label>
-                <input type="text" class="form-control" name="title">
-            </div>
-            <div class="form-group">
-                <label >장소</label>
-                <textarea class="form-control" rows="5" name="place"></textarea>
-            </div>
-            <div class="form-group">
-                <label >내용</label>
-                <textarea class="form-control" rows="5" name="content"></textarea>
-            </div>
-            <div class="form-group">
-                <label >작성자</label>
-                <input type="text" class="form-control" name="writer">
-            </div>
+		<form>
+			<div class="form-group">
+				<label>제목</label>
+				<input type="text" class="form-control" name="title">
+			</div>
+			<div class="form-group">
+				<label>장소</label>
+				<textarea class="form-control" rows="5" name="place"></textarea>
+			</div>
+			<div class="form-group">
+				<label>내용</label>
+				<textarea class="form-control" rows="5" name="content"></textarea>
+			</div>
+			<div class="form-group">
+				<label>작성자</label>
+				<input type="text" class="form-control" name="writer" th:value="${dto.writer}" readonly>
+			</div>
+		</form>
 
-            <button type="submit" class="btn btn-primary">등록</button>
-        </form>
+		<button type="submit" class="btn btn-primary registBtn">등록</button>
 
-    </th:block>
+		<script th:inline="javascript">
+			$(document).ready(function () {
+				var form = $('form'); // form 태그 객체
+
+				// 등록 버튼 클릭 이벤트 처리
+				$('.registBtn').click(function () {
+					// 등록 확인 창 띄우기
+					if (!confirm('등록하시겠습니까?')) {
+						return;
+					}
+
+					// 제목, 내용, 장소 값 가져오기
+					const title = $('input[name=title]').val();
+					const place = $('textarea[name="place"]').val();
+					const content = $('textarea[name=content]').val();
+					
+					// 값이 비어있으면 알림창 띄우고 함수 중단
+					if (!title || !place || !content) {
+						alert('비어있는 항목을 입력해주세요.');
+						return;
+					}
+
+					// 폼 데이터 설정 및 전송
+					form.attr('action', '/placeboard/register')
+						.attr('method', 'post')
+						.submit();
+				});
+			});
+
+
+
+		</script>
+
+	</th:block>
 
 </th:block>

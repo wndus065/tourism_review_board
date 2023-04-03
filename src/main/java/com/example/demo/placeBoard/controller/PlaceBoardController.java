@@ -3,14 +3,14 @@ package com.example.demo.placeBoard.controller;
 import java.security.Principal;
 import java.util.List;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -19,6 +19,10 @@ import com.example.demo.comment.dto.CommentDTO;
 import com.example.demo.comment.service.CommentService;
 import com.example.demo.placeBoard.dto.PlaceBoardDTO;
 import com.example.demo.placeBoard.service.PlaceBoardService;
+import com.example.demo.requestBoard.dto.RequestBoardDTO;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/placeboard")
@@ -41,13 +45,22 @@ public class PlaceBoardController {
 	}
 
 	@GetMapping("/register")
-	public void register() {
+	public String register(HttpServletRequest request, Model model) {
+	    String id = (String) request.getSession().getAttribute("id");
+	    if (id == null) {
+	        // 로그인 되어 있지 않은 경우 로그인 페이지로 리다이렉트
+	        return "redirect:/login";
+	    }
+	    PlaceBoardDTO dto = new PlaceBoardDTO();
+	    dto.setWriter(id);
+	    model.addAttribute("dto", dto);
+	    return "/placeboard/register";
 	}
 
 	@PostMapping("/register")
-	public String registerPost(PlaceBoardDTO dto, RedirectAttributes redirectAttributes, Principal principal) {
+	public String registerPost(PlaceBoardDTO dto, RedirectAttributes redirectAttributes) {
 		
-		boolean no = service.register(dto);
+		int no = service.register(dto);
 		redirectAttributes.addFlashAttribute("msg", no);
 		return "redirect:/placeboard/list";
 	}
@@ -58,7 +71,7 @@ public class PlaceBoardController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", page);
 	}
-
+	
 	@GetMapping("/modify")
 	public void modify(int no, Model model) {
 		PlaceBoardDTO dto = service.read(no);
@@ -72,7 +85,7 @@ public class PlaceBoardController {
 		return "redirect:/placeboard/read";
 	}
 
-	@GetMapping("/remove") //?no=6
+	@GetMapping("/remove")
 	public String removePost(int no) {
 		service.remove(no);
 		return "redirect:/placeboard/list";
