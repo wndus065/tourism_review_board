@@ -1,27 +1,14 @@
 package com.example.demo.placeBoard.entity;
 
-<<<<<<< HEAD
+
 import com.example.demo.map.entity.MapEntity;
 import com.example.demo.user.entity.Member;
-=======
-import java.util.ArrayList;
-import java.util.List;
-
-import com.example.demo.interest.entity.Interest;
->>>>>>> branch 'develop' of https://gitlab.com/greenart_project/project1.git
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-<<<<<<< HEAD
 import jakarta.persistence.ManyToOne;
-=======
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
->>>>>>> branch 'develop' of https://gitlab.com/greenart_project/project1.git
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

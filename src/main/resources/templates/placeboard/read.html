@@ -4,116 +4,77 @@
 <th:block th:replace="layout/basic :: setContent(~{this::content} )">
 
 	<th:block th:fragment="content">
-<<<<<<< HEAD
+
 		<body onload="loadCommentList()">
-		<input type="hidden" id="sessionId" th:value="${session.id}" />
-			<h2>placeboard Read Page</h2>
-=======
-		<input type="hidden" id="sessionId" th:value="${session.id}" />
-		<header>
-			<h2>장소게시판 조회</h2>
-		</header>
-		<form>
-			<div class="form-group">
-				<label>제목</label>
-				<input type="text" class="form-control" name="title" th:value="${dto.title}" readonly>
-			</div>
-			<div class="form-group">
-				<label>장소</label>
-				<input type="text" class="form-control" name="place" th:value="${dto.place}" readonly>
-			</div>
-			<div class="form-group">
-				<label>글 내용</label>
-				<textarea class="form-control" rows="5" name="content" th:value="${dto.content}"
-					readonly>[[${dto.content}]]</textarea>
-			</div>
-			<div class="form-group">
-				<label>글쓴이</label>
-				<input type="text" class="form-control" name="writer" th:value="${dto.writer}" readonly>
-			</div>
-			<div class="form-group">
-				<label>등록일</label>
-				<input type="text" class="form-control"
-					th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-			</div>
->>>>>>> refs/heads/feature.pk
+			<input type="hidden" id="sessionId" th:value="${session.id}" />
 
-<<<<<<< HEAD
-			<div class="row">
+			<header>
+				<h2>장소게시판 조회</h2>
+			</header>
+			<form>
 
-				<div class="col-7">
-					<div class="form-group">
-						<label>번호</label> <input type="text" class="form-control"
-							name="no" th:value="${dto.no}" readonly>
-					</div>
+				<div class="row">
 
-					<div class="form-group">
-						<label>제목</label> <input type="text" class="form-control"
-							name="title" th:value="${dto.title}" readonly>
-					</div>
-					<div class="form-group">
-						<label>글 내용</label>
-						<textarea class="form-control" rows="5" name="content" readonly>[[${dto.content}]]</textarea>
-					</div>
-					<div class="form-group">
-						<label>글쓴이</label> <input type="text" class="form-control"
-							name="writer" th:value="${dto.writer}" readonly>
-					</div>
-					<div class="form-group">
-						<label>등록일</label> <input type="text" class="form-control"
-							name="regDate"
-							th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}"
-							readonly>
-					</div>
-					<div class="form-group">
-						<label>수정일</label> <input type="text" class="form-control"
-							name="modDate"
-							th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}"
-							readonly>
-					</div>
+					<div class="col-7">
+						<div class="form-group">
+							<label>번호</label> <input type="text" class="form-control" name="no" th:value="${dto.no}"
+								readonly>
+						</div>
 
-					<a th:href="@{/placeboard/modify(no = ${dto.no})}">
-						<button type="button" class="btn btn-primary">수정</button>
-					</a>
+						<div class="form-group">
+							<label>제목</label> <input type="text" class="form-control" name="title"
+								th:value="${dto.title}" readonly>
+						</div>
+						<div class="form-group">
+							<label>글 내용</label>
+							<textarea class="form-control" rows="5" name="content"
+								readonly>[[${dto.content}]]</textarea>
+						</div>
+						<div class="form-group">
+							<label>글쓴이</label> <input type="text" class="form-control" name="writer"
+								th:value="${dto.writer}" readonly>
+						</div>
+						<div class="form-group">
+							<label>등록일</label> <input type="text" class="form-control" name="regDate"
+								th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+						</div>
+						<div class="form-group">
+							<label>수정일</label> <input type="text" class="form-control" name="modDate"
+								th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+						</div>
 
-
-		<!-- 목록페이지 링크 수정 -->
-        <a th:href="@{/placeboard/list(page=${page})}">
-        	<button type="button" class="btn btn-info">목록으로</button>
-        </a>
-        <form th:action="@{/interboard/add(no= ${dto.no})}" th:method="POST">
-      <p>
-						<button type="submit">관심 등록</button>
-	</p>
-	</form>
-	<script th:inline="javascript">
-    	 $(document).ready(function(){
-    		 var msg = [[${msg}]]
-    		 if(msg != null){
-    		 alert(msg);
-    		 }
-    	});
-     
-</script>
-     
-    </th:block>
-
-				
-				<!-- 댓글 구현 하는 중 -->
-=======
-		</form>
-		<th:block th:if="${session.id != null and session.id == dto.writer}">
-			<a th:href="@{/placeboard/modify(no=${dto.no})}">
-				<button type="button" class="btn btn-primary">수정</button>
+			</form>
+			<th:block th:if="${session.id != null and session.id == dto.writer}">
+				<a th:href="@{/placeboard/modify(no=${dto.no})}">
+					<button type="button" class="btn btn-primary">수정</button>
+				</a>
+			</th:block>
+			<!-- 목록페이지 링크 수정 -->
+			<a th:href="@{/placeboard/list(page=${page})}">
+				<button type="button" class="btn btn-info">목록으로</button>
 			</a>
-		</th:block>
-		<!-- 목록페이지 링크 수정 -->
-		<a th:href="@{/placeboard/list(page=${page})}">
-			<button type="button" class="btn btn-info">목록으로</button>
-		</a>
->>>>>>> refs/heads/feature.pk
 
-<<<<<<< HEAD
+
+
+			<form th:action="@{/interboard/add(no= ${dto.no})}" th:method="POST">
+				<p>
+					<button type="submit">관심 등록</button>
+				</p>
+			</form>
+			<script th:inline="javascript">
+				$(document).ready(function () {
+					var msg = [[${msg}]]
+					if (msg != null) {
+						alert(msg);
+					}
+				});
+
+			</script>
+
+	</th:block>
+
+
+	<!-- 댓글 구현 하는 중 -->
 				<div class="col-2">
 					<section class="box text-style1" style="width: 500px">
 						<div class="form-group" id="commentForm">
@@ -131,14 +92,6 @@
 								</select>
 								<button type="submit">등록</button>
 							</form>
-<<<<<<< HEAD
-=======
-	</th:block>
->>>>>>> refs/heads/feature.pk
-
-<<<<<<< HEAD
-=======
->>>>>>> branch 'develop' of https://gitlab.com/greenart_project/project1.git
 						</div>
 						<hr>
 						<div class="form-group" id="commentList">
@@ -164,17 +117,15 @@
 								</div>
 							</div>
 						</div>
-
-
 						<script>
 					function updateCommentList(commentList) {
 					    let commentHtml = '';
 					    const sessionId = $("#sessionId").val();
-					    
+					   
 					    for (let i = 0; i < commentList.length; i++) {
 					        const comment = commentList[i];
 					        let editDeleteButtons ='';
-					        
+					       
 					        if(comment.writer == sessionId){
 					            editDeleteButtons = `<div class="col-2 d-flex flex-column">
 		                              <div>
@@ -218,17 +169,14 @@
 					    },
 					  });
 					}
-
 					// 댓글 등록 이벤트 처리
 					$(document).on("submit", "#commentForm form", function (event) {
 					  event.preventDefault(); // 기본 이벤트 동작 방지
-
 					  const placeNo = $("#placeNo").val();
 					  const comment = $("#comment").val();
 					  const grade = $("#grade").val();
 					  const writer = $("#writer").val(); // writer 값을 읽어옵니다.
 					  const data = { placeNo, writer, comment, grade };
-
 					  $.ajax({
 					    type: "POST",
 					    url: "/comment/register",
@@ -255,17 +203,15 @@
 					  const commentRow = $(this).closest(".row");
 					  const commentText = commentRow.find("p").eq(1).text();
 					  const saveButton = `<button class="saveCommentBtn" data-comment-no="${commentNo}" style="height: 40px; width: 85px">저장</button>`;
-
 					  commentRow.find("p").eq(1).replaceWith(`<textarea>${commentText}</textarea>`);
 					  $(this).replaceWith(saveButton);
 					});
-
 					// 댓글 저장 버튼 클릭 이벤트 처리
 					$(document).on("click", ".saveCommentBtn", function (event) {
 					  const commentNo = $(this).data("comment-no");
 					  const commentRow = $(this).closest(".row");
 					  const newCommentText = commentRow.find("textarea").val();
-					  
+					 
 					  $.ajax({
 					    type: "PUT",
 					    url: "/comment/update",
@@ -288,7 +234,6 @@
 					  // 수정 버튼으로 다시 변경
 					  const editButton = `<button class="editCommentBtn" data-comment-no="${commentNo}" style="height: 40px; width: 85px">수정</button>`;
 					  $(this).replaceWith(editButton);
-
 					  // 댓글 내용을 <p>로 변경
 					  const commentText = commentRow.find("textarea").val();
 					  commentRow.find("textarea").replaceWith(`<p>${commentText}</p>`);
@@ -297,7 +242,6 @@
 					// 댓글 삭제 버튼 클릭 이벤트 처리
 					$(document).on("click", ".deleteCommentBtn", function (event) {
 					  const commentNo = $(this).data("comment-no");
-
 					  if (confirm("댓글을 삭제하시겠습니까?")) {
 					    $.ajax({
 					      type: "DELETE",
@@ -319,9 +263,6 @@
 					</script>
 					</section>
 				</div>
-			
+			</div>
 	</th:block>
-
-=======
->>>>>>> refs/heads/feature.pk
 </th:block>
