@@ -76,20 +76,20 @@ public class MemberController {
 		return "/member/login";
 	}
 
-	@PostMapping("/login")
-	public String loginPost(@RequestParam("id") String id, @RequestParam("password") String pw,
-			RedirectAttributes redirectAttributes, @Autowired HttpServletRequest request, Model model) {
-		if (service.read(id) != null && service.read(id).getPassword().equals(pw)) {
-			HttpSession session = request.getSession();
-			session.setAttribute("id", id);
-
-			return "home/index";
-		} else {
-			redirectAttributes.addFlashAttribute("msg", "아이디 또는 비밀번호가 옳지 않습니다.");
-
-			return "redirect:/login";
-		}
-	}
+//	@PostMapping("/login")
+//	public String loginPost(@RequestParam("id") String id, @RequestParam("password") String pw,
+//			RedirectAttributes redirectAttributes, @Autowired HttpServletRequest request, Model model) {
+//		if (service.read(id) != null && service.read(id).getPassword().equals(pw)) {
+//			HttpSession session = request.getSession();
+//			session.setAttribute("id", id);
+//
+//			return "/";
+//		} else {
+//			redirectAttributes.addFlashAttribute("msg", "아이디 또는 비밀번호가 옳지 않습니다.");
+//
+//			return "redirect:/login";
+//		}
+//	}
 
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {

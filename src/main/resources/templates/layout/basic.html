@@ -58,9 +58,9 @@ th {
 				<div class="inner">
 					<div>You have to Log in.</div>
 					<button class="login-btn">
-   			 <a th:if="${#authentication.principal != null}" th:href="@{/logout}">로그아웃</a>
-  		 	 <a th:if="${#authentication.principal == null}" th:href="@{/login}">로그인</a>
-			</button>
+ 				 <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/logout}">로그아웃</a>
+ 				<a th:if="${#authorization.expression('!isAuthenticated()')}" th:href="@{/login}">로그인</a>
+				</button>
 					<h1>
 						<a th:href="@{/register}">회원가입</a>
 					</h1>

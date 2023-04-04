@@ -17,9 +17,9 @@ public class UserDetailsServicelmpl implements UserDetailsService {
 	private MemberService service;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		MemberDTO dto = service.read(username);
-		if(dto == null) {
+	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+		MemberDTO dto = service.read(id);
+ 		if(dto == null) {
 			throw new UsernameNotFoundException("");
 		}else {
 		return new CustomUser(dto);	
