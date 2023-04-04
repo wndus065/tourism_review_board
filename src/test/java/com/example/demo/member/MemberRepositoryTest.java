@@ -25,6 +25,7 @@ public class MemberRepositoryTest {
 		}
 	}
 	
+	
 	@Test
 	public void 데이터단건조회() {
 		Optional<Member> result = repository.findById("user1");

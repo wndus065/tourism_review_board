@@ -37,5 +37,10 @@ public class MemberServiceTest {
 					"123456-1234567", null, null, "roleUser"));
 		}
 	}
+	@Test
+	public void 테스트() {
+		MemberDTO member = new MemberDTO("user4","1234","name",null,"mem@aaa.aaa","123456-123546",null,null,"ROLE_ADMIN");
+		service.register(member);
+	}
 
 }

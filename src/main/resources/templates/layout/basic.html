@@ -58,8 +58,9 @@ th {
 				<div class="inner">
 					<div>You have to Log in.</div>
 					<button class="login-btn">
-						<a th:href="@{/login}">로그인</a>
-					</button>
+   			 <a th:if="${#authentication.principal != null}" th:href="@{/logout}">로그아웃</a>
+  		 	 <a th:if="${#authentication.principal == null}" th:href="@{/login}">로그인</a>
+			</button>
 					<h1>
 						<a th:href="@{/register}">회원가입</a>
 					</h1>
@@ -87,8 +88,8 @@ th {
 				<ul>
 					<li><a href="#">문화 거리 한눈에 보기</a></li>
 					<li th:class="${currentPage == 'placeboard' ? 'current' : ''}"><a th:href="@{/placeboard/list}">장소 게시판</a></li>
-					<li th:class="${currentPage == 'memberA' ? 'current' : ''}"><a th:href="@{/member/list}">관리자 : 회원 목록</a></li>
-					<li th:class="${currentPage == 'request' ? 'current' : ''}"><a th:href="@{/request/list}">관리자 : 요청 목록</a></li>
+					<li th:class="${currentPage == 'memberA' ? 'current' : ''}"><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/member/list}">관리자 : 회원 목록</a></li>
+					<li th:class="${currentPage == 'request' ? 'current' : ''}"><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/request/list}">관리자 : 요청 목록</a></li>
 					<li><a href="#">사용자 : 관심 목록</a></li>
 					<li><a href="#">사용자 : 내 정보</a></li>
 				</ul>

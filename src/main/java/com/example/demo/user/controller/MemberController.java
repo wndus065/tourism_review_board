@@ -2,6 +2,8 @@ package com.example.demo.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -116,6 +118,18 @@ public class MemberController {
 		service.remove(id);
 		session.invalidate();
 		return "redirect:/";
+	}
+	@GetMapping("/home/index")
+	public String home(Model model, HttpSession session) {
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    if (auth != null && auth.isAuthenticated()) {
+	        // 로그인 상태
+	        model.addAttribute("isLogin", true);
+	    } else {
+	        // 로그아웃 상태
+	        model.addAttribute("isLogin", false);
+	    }
+	    return "home";
 	}
 	
 }
