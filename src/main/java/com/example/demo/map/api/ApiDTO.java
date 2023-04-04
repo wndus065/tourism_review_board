@@ -29,9 +29,9 @@ public class ApiDTO {
 	@AllArgsConstructor
 	@Builder
 	public static class Result {
-		@JsonProperty("code")
-		private String CODE;
-		@JsonProperty("message")
-		private String MESSAGE;
+		@JsonProperty("CODE")
+		private String code;
+		@JsonProperty("MESSAGE")
+		private String message;
 	}
 }

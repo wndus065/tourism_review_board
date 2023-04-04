@@ -27,8 +27,8 @@ public interface ApiService {
 	}
 	
 	List<ApiDTO> getList();
-//	void modify(ApiDTO dto);
-//	void remove(String mainKey);
-//	void register(ApiDTO dto);
+	void modify(ApiDTO dto);
+	void remove(String mainKey);
+	void register(ApiDTO dto);
 	
 }

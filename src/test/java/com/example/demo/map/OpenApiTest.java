@@ -20,7 +20,7 @@ public class OpenApiTest {
 
 	@Test
 	public void getPlaceApi() throws IOException {
-		StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088/"+serviceKey+"/json/SebcTourStreetKor/1/5/"); /* URL */
+		StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088/"+serviceKey+"/json/SebcTourStreetKor/1/134/"); /* URL */
 		urlBuilder.append("/" + URLEncoder.encode(serviceKey, "UTF-8")); /* 인증키 (sample사용시에는 호출시 제한됩니다.) */
 		urlBuilder.append("/" + URLEncoder.encode("json", "UTF-8")); /* 요청파일타입 (xml,xmlf,xls,json) */
 		urlBuilder.append("/" + URLEncoder.encode("SebcTourStreet", "UTF-8")); /* 서비스명 (대소문자 구분 필수입니다.) */
