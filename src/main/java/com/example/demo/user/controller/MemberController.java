@@ -1,5 +1,7 @@
 package com.example.demo.user.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.user.dto.MemberDTO;
@@ -76,20 +79,20 @@ public class MemberController {
 		return "/member/login";
 	}
 
-//	@PostMapping("/login")
-//	public String loginPost(@RequestParam("id") String id, @RequestParam("password") String pw,
-//			RedirectAttributes redirectAttributes, @Autowired HttpServletRequest request, Model model) {
-//		if (service.read(id) != null && service.read(id).getPassword().equals(pw)) {
-//			HttpSession session = request.getSession();
-//			session.setAttribute("id", id);
-//
-//			return "/";
-//		} else {
-//			redirectAttributes.addFlashAttribute("msg", "아이디 또는 비밀번호가 옳지 않습니다.");
-//
-//			return "redirect:/login";
-//		}
-//	}
+	@PostMapping("/login")
+	public String loginPost(@RequestParam("id") String id, @RequestParam("password") String pw,
+			RedirectAttributes redirectAttributes, @Autowired HttpServletRequest request, Model model) {
+		if (service.read(id) != null && service.read(id).getPassword().equals(pw)) {
+			HttpSession session = request.getSession();
+			session.setAttribute("id", id);
+
+			return "/";
+		} else {
+			redirectAttributes.addFlashAttribute("msg", "아이디 또는 비밀번호가 옳지 않습니다.");
+
+			return "redirect:/login";
+		}
+	}
 
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
@@ -130,6 +133,18 @@ public class MemberController {
 	        model.addAttribute("isLogin", false);
 	    }
 	    return "home";
+	}
+	
+	@GetMapping("/idcheck")
+	public @ResponseBody HashMap<String, Boolean> idCheck(String id){
+		HashMap<String, Boolean> result = new HashMap<String , Boolean>();
+		MemberDTO memberDto = service.read(id);
+		if(memberDto != null) {
+			result.put("isDuplicate", true);
+		}else {
+			result.put("isDuplicate", false);
+		}
+		return result;
 	}
 	
 }

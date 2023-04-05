@@ -15,14 +15,14 @@ public class UserDetailsServicelmpl implements UserDetailsService {
 	
 	@Autowired
 	private MemberService service;
-
+    
 	@Override
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 		MemberDTO dto = service.read(id);
  		if(dto == null) {
 			throw new UsernameNotFoundException("");
 		}else {
-		return new CustomUser(dto);	
+			return new CustomUser(dto);	
 		}
 		
 	}

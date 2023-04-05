@@ -40,9 +40,9 @@ p {
     </div>
   </section>
  <div style="display:flex; flex-direction: row;">
-   <form th:method="post" th:action="@{/map/modify}">
+   <form th:method="post"  th:action="@{/map/modify}">
         <p>
-            <button type="submit" onclick="return confirm('정말 수정하시겠습니까?')">수정</button>
+            <button type="submit"  onclick="return confirm('정말 수정하시겠습니까?')">수정</button>
         </p>   
     </form>
     <form th:method="post" th:action="@{/map/remove(place=${dto.place})}">

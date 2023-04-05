@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,15 +10,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.example.demo.user.service.MemberService;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	
+	@Autowired
+	MemberService memverService;
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		http.authorizeHttpRequests()
         .requestMatchers("/login").permitAll()
-	      .requestMatchers("/register").permitAll()
+	      .requestMatchers("/register","/idcheck").permitAll()
 	      .requestMatchers("/logout").permitAll()//로그인을 하지않은 익명의 사용자도 접근 허용
 	    	.requestMatchers("/").permitAll();
 		
@@ -45,9 +51,9 @@ public class SecurityConfig {
 
 	  http.formLogin()
 	  .loginPage("/login")
-	  .permitAll()
-	  .and()
-	  .logout()
+	  .usernameParameter("id")
+	  .passwordParameter("password");
+	 http.logout()
 	  .permitAll();
       http.csrf().disable(); 
      

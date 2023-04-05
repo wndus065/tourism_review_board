@@ -19,6 +19,9 @@ p {
 		<section class="box text-style1" style="width: 500px">
 			<div class="inner">
 				<form th:action="@{/login}" th:method="POST">
+				<div class="alert alert-danger" th:if="${param.error != null}">
+							<p>ID 또는 비밀번호를 확인해주세요.</p>
+					</div>
 					<p>
 						<label for="id">아이디</label>
 					</p>
