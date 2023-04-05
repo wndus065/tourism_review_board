@@ -17,6 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.comment.dto.CommentDTO;
 import com.example.demo.comment.service.CommentService;
+import com.example.demo.map.dto.MapDTO;
+import com.example.demo.map.entity.MapEntity;
+import com.example.demo.map.service.MapService;
 import com.example.demo.placeBoard.dto.PlaceBoardDTO;
 import com.example.demo.placeBoard.service.PlaceBoardService;
 import com.example.demo.requestBoard.dto.RequestBoardDTO;
@@ -33,6 +36,10 @@ public class PlaceBoardController {
 	
 	@Autowired
 	private CommentService commentService;
+	
+	@Autowired
+	private MapService mapService;
+	
 
 	@GetMapping("/list")
 	public void list(@RequestParam(defaultValue = "0") int page, Model model) { //파라미터 추가
@@ -56,15 +63,21 @@ public class PlaceBoardController {
 	    dto.setWriter(id);
 	    model.addAttribute("dto", dto);
 	    model.addAttribute("currentPage", "placeboard");
+	    
+	    
+		//관광지 목록 보내기
+		Page<MapDTO> result  = mapService.getlist(0);
+		List<MapDTO> list = result.getContent();
+		
+		model.addAttribute("placelist", list);
 	    return "/placeboard/register";
 	}
 
 	@PostMapping("/register")
 	public String registerPost(PlaceBoardDTO dto, RedirectAttributes redirectAttributes) {
-		
-		int no = service.register(dto);
-		redirectAttributes.addFlashAttribute("msg", no);
-		return "redirect:/placeboard/list";
+	    int no = service.register(dto);
+	    redirectAttributes.addFlashAttribute("msg", no);
+	    return "redirect:/placeboard/list";
 	}
 
 	@GetMapping("/read")

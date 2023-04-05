@@ -2,6 +2,7 @@ package com.example.demo.map.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ public class MapController {
 	List<MapDTO> markers = service.getAllMarkers();	
 		
 	model.addAttribute("mapDTOList",markers);
+	model.addAttribute("currentPage", "map");
 		return "/map/map";
 	}
 	@GetMapping("/list")
@@ -64,8 +66,6 @@ public class MapController {
 		}
 	}
 	
-	
-	
 	@GetMapping("/modify")
 	public void modify(String place, Model model) {
 		MapDTO dto = service.read(place);
@@ -87,13 +87,6 @@ public class MapController {
 		System.out.println("지움");
 		return "redirect:/map/list";
 	}
-	
-	
-	
-	
-	
-	
-	
 	 
 
 }
