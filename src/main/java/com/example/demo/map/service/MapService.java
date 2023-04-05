@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.map.api.ApiDTO;
+import com.example.demo.map.api.ApiEntity;
 import com.example.demo.map.dto.MapDTO;
 import com.example.demo.map.entity.MapEntity;
 import com.example.demo.map.repository.MapRepository;
@@ -57,6 +59,22 @@ public interface MapService {
     			.point_y(dto.getPoint_y())
     			.build();
     	return entity;
+    }
+    
+    default MapDTO apiToMap(ApiDTO apiDTO) {
+    	if(apiDTO == null || apiDTO.getRow() == null || apiDTO.getRow().isEmpty()) {
+    		return null;
+    	}
+    	
+    	ApiEntity apiEntity = apiDTO.getRow().get(0);
+    	
+    	return MapDTO.builder()
+    			.place(apiEntity.getNmDp())
+    			.address(apiEntity.getAddKor())
+    			.point_x(apiEntity.getWgs84Y())
+    			.point_y(apiEntity.getWgs84X())
+    			.place_key(apiEntity.getMainKey())
+    			.build();
     }
 
 }

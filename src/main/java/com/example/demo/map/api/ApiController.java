@@ -34,23 +34,4 @@ public class ApiController {
 		return ResponseEntity.ok(list);
 	}
 	
-//	@GetMapping("/sync")
-//    public String syncApiDataToMap() {
-//        List<ApiDTO> apiList = apiService.getList();
-//        List<MapDTO> mapList = apiList.stream()
-//                .map(apiDto -> {
-//                    MapDTO mapDto = new MapDTO();
-//                    mapDto.setPlace(apiDto.getNameKor());
-//                    mapDto.setAddress(apiDto.getAddKor());
-//                    mapDto.setPointX(apiDto.getWgs84X());
-//                    mapDto.setPointY(apiDto.getWgs84Y());
-//                    return mapDto;
-//                })
-//                .collect(Collectors.toList());
-//
-//        mapService.syncMapData(mapList);
-//
-//        return "redirect:/map/main";
-//    }
-	
 }

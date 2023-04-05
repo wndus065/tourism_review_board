@@ -34,25 +34,14 @@ public class MapController {
 	
 	@GetMapping("/main")	
 	public String main(Model model) {
-
 		List<ApiDTO> apiList = apiService.getList();
+//		List<MapDTO> markers = new ArrayList<>();
+		for(ApiDTO apiDTO : apiList) {
+			MapDTO mapDTO = service.apiToMap(apiDTO);
+			service.register(mapDTO);
+		}
 	List<MapDTO> markers = service.getAllMarkers();	
-		
-	List<MapEntity> mapEntities = new ArrayList<>();
-	for (ApiDTO apiDTO : apiList) {
-	    for (ApiEntity apiEntity : apiDTO.getRow()) {
-	        // 각 Entity의 변수를 가져와 MapEntity에 저장
-	        MapEntity mapEntity = new MapEntity();
-	        mapEntity.setPlace(apiEntity.getNameKor());
-	        mapEntity.setAddress(apiEntity.getAddKor());
-	        mapEntity.setPoint_x(apiEntity.getWgs84Y());
-	        mapEntity.setPoint_y(apiEntity.getWgs84X());
-	        // MapEntity 리스트에 추가
-	        mapEntities.add(mapEntity);
-	    }
-	}
 	
-	model.addAttribute("apiList", apiList);
 	model.addAttribute("mapDTOList",markers);
 		return "/map/map";
 	}
