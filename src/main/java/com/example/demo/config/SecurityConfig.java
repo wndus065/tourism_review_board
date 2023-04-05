@@ -47,7 +47,11 @@ public class SecurityConfig {
 		  
 		  .requestMatchers("/request/*").hasAnyRole("ADMIN","USER")
 		  
-          .requestMatchers("/interboard/*").hasAnyRole("ADMIN","USER");
+          .requestMatchers("/interboard/*").hasAnyRole("ADMIN","USER")
+          
+          .requestMatchers("/comment/*").hasAnyRole("ADMIN","USER");
+          
+          
 
 	  http.formLogin()
 	  .loginPage("/login")

@@ -1,5 +1,6 @@
 package com.example.demo.comment.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +37,8 @@ public class CommentController {
 
 	@PostMapping("/register")
 	@ResponseBody
-	public Map<String, Object> register(CommentDTO commentDto, HttpServletRequest request) {
-		String id = (String) request.getSession().getAttribute("id");
+	public Map<String, Object> register(CommentDTO commentDto, Principal principal) {
+		String id = principal.getName();
 		commentDto.setWriter(id);
 		int commentNo = service.register(commentDto, id);
 		HashMap<String, Object> map = new HashMap<String, Object>();

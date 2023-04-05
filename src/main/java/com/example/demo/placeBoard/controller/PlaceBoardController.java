@@ -46,8 +46,8 @@ public class PlaceBoardController {
 	}
 
 	@GetMapping("/register")
-	public String register(HttpServletRequest request, Model model) {
-	    String id = (String) request.getSession().getAttribute("id");
+	public String register(Principal principal, Model model) {
+	    String id = principal.getName();
 	    if (id == null) {
 	        // 로그인 되어 있지 않은 경우 로그인 페이지로 리다이렉트
 	        return "redirect:/login";
@@ -68,18 +68,24 @@ public class PlaceBoardController {
 	}
 
 	@GetMapping("/read")
-	public void read(int no, @RequestParam(defaultValue = "0") int page, Model model) { //파라미터 추가
-		PlaceBoardDTO dto = service.read(no);
-		model.addAttribute("dto", dto);
-		model.addAttribute("page", page);
-		model.addAttribute("currentPage", "placeboard");
+	public void read(int no, @RequestParam(defaultValue = "0") int page, Model model, org.springframework.security.core.Authentication authentication) {
+	    PlaceBoardDTO dto = service.read(no);
+	    model.addAttribute("dto", dto);
+	    model.addAttribute("page", page);
+	    model.addAttribute("currentPage", "placeboard");
+	    model.addAttribute("user", authentication.getName()); // 인증된 사용자의 이름을 추가
 	}
 	
 	@GetMapping("/modify")
-	public void modify(int no, Model model) {
-		PlaceBoardDTO dto = service.read(no);
-		model.addAttribute("dto", dto);
-		model.addAttribute("currentPage", "placeboard");
+	public String modifyForm(@RequestParam("no") int no, Model model, Principal principal) {
+	    String id = principal.getName(); // 사용자 ID 가져오기
+	    PlaceBoardDTO dto = service.read(no);
+	    if (dto.getWriter().equals(id)) {
+	        model.addAttribute("dto", dto);
+	        return "placeboard/modify";
+	    } else {
+	        return "redirect:/placeboard/read?no=" + no;
+	    }
 	}
 
 	@PostMapping("/modify")

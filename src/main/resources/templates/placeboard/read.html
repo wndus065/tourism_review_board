@@ -44,10 +44,10 @@
 						</div>
 
 					</form>
-					<th:block th:if="${session.id != null and session.id == dto.writer}">
-						<a th:href="@{/placeboard/modify(no=${dto.no})}">
-							<button type="button" class="btn btn-primary">수정</button>
-						</a>
+					<th:block th:if="${user != null and user == dto.writer}">
+  				  <a th:href="@{/placeboard/modify(no=${dto.no})}">
+        			<button type="button" class="btn btn-primary">수정</button>
+   				 </a>
 					</th:block>
 					<!-- 목록페이지 링크 수정 -->
 					<a th:href="@{/placeboard/list(page=${page})}">
