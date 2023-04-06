@@ -1,13 +1,19 @@
 package com.example.demo.user.controller;
 
+import java.security.Principal;
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.user.dto.MemberDTO;
@@ -45,9 +51,9 @@ public class MemberController {
 	}
 
 	@GetMapping("/member/readMine")
-	public void readMine(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("id");
+	public void readMine(Principal principal, Model model) {
+		
+		String id = principal.getName();
 
 		MemberDTO memberDto = service.read(id);
 		model.addAttribute("dto", memberDto);
@@ -81,7 +87,7 @@ public class MemberController {
 			HttpSession session = request.getSession();
 			session.setAttribute("id", id);
 
-			return "home/index";
+			return "/";
 		} else {
 			redirectAttributes.addFlashAttribute("msg", "아이디 또는 비밀번호가 옳지 않습니다.");
 
@@ -96,7 +102,8 @@ public class MemberController {
 	}
 
 	@GetMapping("/modify/{id}")
-	public String modify(@PathVariable String id, Model model) {
+	public String modify(@PathVariable String id, Model model,Principal principal) {
+		principal.getName().equals(id);
 		MemberDTO dto = service.read(id);
 		model.addAttribute("dto", dto);
 		return "/member/modify";
@@ -116,6 +123,30 @@ public class MemberController {
 		service.remove(id);
 		session.invalidate();
 		return "redirect:/";
+	}
+	@GetMapping("/home/index")
+	public String home(Model model, HttpSession session) {
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    if (auth != null && auth.isAuthenticated()) {
+	        // 로그인 상태
+	        model.addAttribute("isLogin", true);
+	    } else {
+	        // 로그아웃 상태
+	        model.addAttribute("isLogin", false);
+	    }
+	    return "home";
+	}
+	
+	@GetMapping("/idcheck")
+	public @ResponseBody HashMap<String, Boolean> idCheck(String id){
+		HashMap<String, Boolean> result = new HashMap<String , Boolean>();
+		MemberDTO memberDto = service.read(id);
+		if(memberDto != null) {
+			result.put("isDuplicate", true);
+		}else {
+			result.put("isDuplicate", false);
+		}
+		return result;
 	}
 	
 }

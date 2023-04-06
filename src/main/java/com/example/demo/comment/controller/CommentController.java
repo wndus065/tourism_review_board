@@ -1,5 +1,6 @@
 package com.example.demo.comment.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +23,8 @@ import com.example.demo.comment.dto.CommentDTO;
 import com.example.demo.comment.service.CommentService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,8 +40,9 @@ public class CommentController {
 
 	@PostMapping("/register")
 	@ResponseBody
-	public Map<String, Object> register(CommentDTO commentDto, HttpServletRequest request) {
-		String id = (String) request.getSession().getAttribute("id");
+	public Map<String, Object> register(CommentDTO commentDto, Principal principal,HttpSession session) {
+		String id = (String) session.getId();
+		session.setAttribute("id", id);
 		commentDto.setWriter(id);
 		int commentNo = service.register(commentDto, id);
 		HashMap<String, Object> map = new HashMap<String, Object>();

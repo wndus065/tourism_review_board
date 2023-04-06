@@ -95,6 +95,5 @@ public class MapController {
 		System.out.println("지움");
 		return "redirect:/map/list";
 	}
-	 
-
 }
+

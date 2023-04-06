@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.user.dto.MemberDTO;
@@ -48,6 +50,9 @@ public class MemberServiceImpl implements MemberService {
 			return false;
 		}
 		Member entity = dtoToEntity(dto);
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashpassword = passwordEncoder.encode(entity.getPassword());
+		entity.setPassword(hashpassword);
 		
 		repository.save(entity);
 		return true;

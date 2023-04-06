@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block th:replace="layout/basic :: setContent(~{this::content} )">
 
@@ -42,10 +42,10 @@
 						</div>
 
 					</form>
-					<th:block th:if="${session.id != null and session.id == dto.writer}">
-						<a th:href="@{/placeboard/modify(no=${dto.no})}">
-							<button type="button" class="btn btn-primary">수정</button>
-						</a>
+					<th:block th:if="${user != null and user == dto.writer}">
+  				  <a th:href="@{/placeboard/modify(no=${dto.no})}">
+        			<button type="button" class="btn btn-primary">수정</button>
+   				 </a>
 					</th:block>
 					<!-- 목록페이지 링크 수정 -->
 					<a th:href="@{/placeboard/list(page=${page})}">
@@ -93,6 +93,7 @@
 						<hr>
 						<div class="form-group" id="commentList">
 							<div th:each="dto : ${commentList}">
+							
 								<div class="row">
 									<div class="col-10">
 										<p>
@@ -110,6 +111,7 @@
 										<div style="margin-top: 10px;">
 											<button class="deleteCommentBtn" data-comment-no="${dto.commentNo}"
 												style="height: 40px; writing-mode: horizontal-tb;">삭제</button>
+												
 										</div>
 									</div>
 									<hr>
@@ -117,7 +119,8 @@
 							</div>
 						</div>
 						
-						<script>
+						<script th:inline="javascript">
+						
 							function updateCommentList(commentList) {
 								let commentHtml = '';
 								const sessionId = $("#sessionId").val();
