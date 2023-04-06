@@ -78,7 +78,7 @@
 						<div class="form-group" id="commentForm">
 							<form>
 								<input type="hidden" id="placeNo" name="placeNo" th:value="${dto.no}" /> <input
-									type="hidden" id="writer" th:value="${session.id}" />
+									type="hidden" id="writer" th:value="${dto.writer}" />
 								<textarea id="comment" name="comment" placeholder="댓글을 입력하세요"></textarea>
 								<select id="grade" name="grade">
 									<option value="5">5점</option>
@@ -104,11 +104,11 @@
 											'yyyy/MM/dd HH:mm:ss')}]]</p>
 									</div>
 									<div class="col-2 d-flex flex-column">
-										<div>
+										<div >
 											<button class="editCommentBtn" data-comment-no="${dto.commentNo}"
 												style="height: 40px; writing-mode: horizontal-tb;">수정</button>
 										</div>
-										<div style="margin-top: 10px;">
+										<div >
 											<button class="deleteCommentBtn" data-comment-no="${dto.commentNo}"
 												style="height: 40px; writing-mode: horizontal-tb;">삭제</button>
 												
@@ -123,7 +123,7 @@
 						
 							function updateCommentList(commentList) {
 								let commentHtml = '';
-								const sessionId = $("#sessionId").val();
+								const sessionId = [[${dto.writer}]];
 
 								for (let i = 0; i < commentList.length; i++) {
 									const comment = commentList[i];
@@ -178,7 +178,7 @@
 								const placeNo = $("#placeNo").val();
 								const comment = $("#comment").val();
 								const grade = $("#grade").val();
-								const writer = $("#writer").val(); // writer 값을 읽어옵니다.
+								const writer = $("#sessionId").val(); // writer 값을 읽어옵니다.
 								const data = {placeNo, writer, comment, grade};
 								$.ajax({
 									type: "POST",

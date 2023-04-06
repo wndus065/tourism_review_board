@@ -1,5 +1,7 @@
 package com.example.demo.interest.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,8 +30,8 @@ public class InterestController {
 
 	@GetMapping("/list")
 	public String getInterestList(@RequestParam(defaultValue = "1") int page, Model model,
-			HttpServletRequest request) {
-		String memberId = (String) request.getSession().getAttribute("id");
+			Principal principal) {
+		String memberId = principal.getName();
 		if (memberId == null) {
 			System.out.println("로그인정보가 없습니다.");
 		}
@@ -43,8 +45,8 @@ public class InterestController {
 		
 	}
 	@PostMapping("/add")
-	public String add(@RequestParam("no") Integer placeBoardNo, RedirectAttributes attributes, HttpServletRequest request) {
-	    String memberId = (String) request.getSession().getAttribute("id");
+	public String add(@RequestParam("no") Integer placeBoardNo, RedirectAttributes attributes, Principal principal) {
+	    String memberId = principal.getName();
 	    if (memberId == null) {
 	        return "redirect:/login";
 	    }
