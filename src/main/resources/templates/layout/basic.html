@@ -56,7 +56,9 @@ th {
 			<!-- Login -->
 			<section class="box text-style1" th:if="${session.id == null}">
 				<div class="inner">
-					<div>  환영합니다 !</div>
+					 
+					   <div th:if="${#authorization.expression('isAuthenticated()')}">환영합니다 [[${#authentication.name}]]님</div>
+ 							 				
 					
 					<button class="login-btn">
  				 <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/logout}">로그아웃</a>

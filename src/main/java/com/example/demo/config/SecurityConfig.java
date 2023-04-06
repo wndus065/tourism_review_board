@@ -12,8 +12,11 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.example.demo.user.service.MemberService;
 
+import lombok.Getter;
+
 @Configuration
 @EnableWebSecurity
+@Getter
 public class SecurityConfig {
 	
 	@Autowired
@@ -22,10 +25,11 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		http.authorizeHttpRequests()
+		.requestMatchers("/").permitAll()
         .requestMatchers("/login").permitAll()
 	      .requestMatchers("/register","/idcheck").permitAll()
-	      .requestMatchers("/logout").permitAll()//로그인을 하지않은 익명의 사용자도 접근 허용
-	    	.requestMatchers("/").permitAll();
+	      .requestMatchers("/logout").permitAll();//로그인을 하지않은 익명의 사용자도 접근 허용
+	    	
 		
 		
 		http.authorizeHttpRequests()
@@ -55,6 +59,7 @@ public class SecurityConfig {
 
 	  http.formLogin()
 	  .loginPage("/login")
+	  .permitAll()
 	  .usernameParameter("id")
 	  .passwordParameter("password");
 	 http.logout()

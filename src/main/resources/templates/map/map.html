@@ -57,12 +57,32 @@ for (var i = 0; i < markerDTOs.length; i++) {
   }
   
 	</script>
-	<div style="margin: 120px 0 0 250px;">
-	<h1 id="logo">
-				<a href="/request/list">요청 게시판 바로가기</a>
-			</h1>
-
-	</div>
-
+	<div>
+	<script>
+  function loadWeather() {
+    var xhr = new XMLHttpRequest();
+    var url = "https://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst";
+    var queryParams = "?" + encodeURIComponent("ServiceKey") + "=IQB7C38TSfgr5kAovrbwZXmc%2FcHfgBJ9GkvkTeOJ%2FjPnlxfBCO7DIfk%2BjXFzf9k3dZOrCj5ek%2FLHBCBKKpSvHw%3D%3D"; /* Service Key */
+    queryParams += "&" + encodeURIComponent("dataType") + "=" + encodeURIComponent("JSON"); /* 응답 데이터 타입 */
+    queryParams += "&" + encodeURIComponent("base_date") + "=" + encodeURIComponent("20220405"); /* 발표일 */
+    queryParams += "&" + encodeURIComponent("base_time") + "=" + encodeURIComponent("0500"); /* 발표시각 */
+    queryParams += "&" + encodeURIComponent("nx") + "=" + encodeURIComponent("60"); /* 예보지점 X 좌표 */
+    queryParams += "&" + encodeURIComponent("ny") + "=" + encodeURIComponent("127"); /* 예보지점 Y 좌표 */
+    xhr.open("GET", url + queryParams);
+    xhr.onreadystatechange = function() {
+      if (this.readyState === XMLHttpRequest.DONE) {
+        if (this.status === 200) {
+          var response = JSON.parse(xhr.responseText);
+          console.log(response);
+          /* 받은 데이터를 처리하는 코드를 여기에 작성합니다. */
+        } else {
+          console.error(xhr.statusText);
+        }
+      }
+    }
+    xhr.send();
+  }
+</script>
+</div>
 	</th:block>
 </th:block>
