@@ -29,6 +29,7 @@ public class MapServicelmpl implements MapService {
 	public boolean register(MapDTO dto) {				
 		String place = dto.getPlace();	
 		MapDTO getDto = find(place);
+		
 		if (getDto != null) {
 			System.out.println("이미 등록된 장소입니다.");
 			return false;

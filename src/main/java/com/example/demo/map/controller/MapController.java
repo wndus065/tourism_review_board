@@ -2,6 +2,7 @@ package com.example.demo.map.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -38,13 +39,14 @@ public class MapController {
 	List<MapDTO> markers = service.getAllMarkers();	
 	
 	model.addAttribute("mapDTOList",markers);
+	model.addAttribute("currentPage", "map");
 		return "/map/map";
 	}
 	@GetMapping("/list")
 	public void list(@RequestParam(defaultValue = "0")int page, Model model) {
 		Page<MapDTO> list = service.getlist(page);
 		model.addAttribute("list",list);
-		
+		model.addAttribute("currentPage", "map");
 		
 	}
 	@GetMapping("/read")
@@ -52,6 +54,7 @@ public class MapController {
 		MapDTO dto = service.read(place);
 		model.addAttribute("dto",dto);
 		model.addAttribute("page",page);
+		model.addAttribute("currentPage", "map");
 	}
 	
 	
@@ -71,12 +74,11 @@ public class MapController {
 		}
 	}
 	
-	
-	
 	@GetMapping("/modify")
 	public void modify(String place, Model model) {
 		MapDTO dto = service.read(place);
 		model.addAttribute("dto",dto);
+		model.addAttribute("currentPage", "map");
 	}
 	
 	@PostMapping("/modify")
@@ -93,13 +95,6 @@ public class MapController {
 		System.out.println("지움");
 		return "redirect:/map/list";
 	}
-	
-	
-	
-	
-	
-	
-	
 	 
 
 }

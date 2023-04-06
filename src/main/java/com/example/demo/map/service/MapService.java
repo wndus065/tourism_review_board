@@ -32,10 +32,6 @@ public interface MapService {
 	Page<MapDTO> getlist(int pageNumber);
 	
 	
-	
-    
-    
-    
     
     default MapDTO entityToDto(MapEntity entity) {
     	MapDTO dto = MapDTO.builder()
