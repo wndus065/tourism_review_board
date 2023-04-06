@@ -1,5 +1,6 @@
 package com.example.demo.user.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +51,9 @@ public class MemberController {
 	}
 
 	@GetMapping("/member/readMine")
-	public void readMine(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("id");
+	public void readMine(Principal principal, Model model) {
+		
+		String id = principal.getName();
 
 		MemberDTO memberDto = service.read(id);
 		model.addAttribute("dto", memberDto);
@@ -101,7 +102,8 @@ public class MemberController {
 	}
 
 	@GetMapping("/modify/{id}")
-	public String modify(@PathVariable String id, Model model) {
+	public String modify(@PathVariable String id, Model model,Principal principal) {
+		principal.getName().equals(id);
 		MemberDTO dto = service.read(id);
 		model.addAttribute("dto", dto);
 		return "/member/modify";

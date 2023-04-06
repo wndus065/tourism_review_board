@@ -39,7 +39,7 @@ public class SecurityConfig {
 		  .requestMatchers("/map/register","/map/modify").hasRole("ADMIN")
 		  
 		  
-		  .requestMatchers("/member/modify/*","/member/remove/*","/member/readMine").hasAnyRole("ADMIN","USER")
+		  .requestMatchers("/modify/*","/remove/*","/member/readMine").hasAnyRole("ADMIN","USER")
 		  .requestMatchers("/member/read","/member/list").hasRole("ADMIN")
 		  
 		  
