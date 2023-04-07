@@ -61,9 +61,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void modify(MemberDTO dto) {
 		Optional<Member> result = repository.findById(dto.getId());
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		if(result.isPresent()) {
 			Member entity = result.get();
-			entity.setPassword(dto.getPassword());
+		String hashpassword = passwordEncoder.encode(dto.getPassword());
+			entity.setPassword(hashpassword);
 			entity.setPhone(dto.getPhone());
 			entity.setEmail(dto.getEmail());
 			System.out.println(entity.toString());
