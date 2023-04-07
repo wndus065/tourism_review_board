@@ -41,6 +41,7 @@ public class CommentController {
 	@PostMapping("/register")
 	@ResponseBody
 	public Map<String, Object> register(CommentDTO commentDto, Principal principal, Model model) {
+		
 		String id = principal.getName();
 		model.addAttribute("userId", id);
 		commentDto.setWriter(id);
