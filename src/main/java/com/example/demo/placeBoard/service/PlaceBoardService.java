@@ -1,5 +1,7 @@
 package com.example.demo.placeBoard.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.example.demo.map.entity.MapEntity;
