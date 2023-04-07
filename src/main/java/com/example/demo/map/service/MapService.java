@@ -72,5 +72,7 @@ public interface MapService {
     			.place_key(apiEntity.getMainKey())
     			.build();
     }
+    
+    List<MapDTO> pickPlace();
 
 }

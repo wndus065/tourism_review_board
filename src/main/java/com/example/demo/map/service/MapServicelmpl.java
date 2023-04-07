@@ -135,6 +135,14 @@ public class MapServicelmpl implements MapService {
 		
 	}
 
-	
+	public List<MapDTO> pickPlace(){
+		List<MapEntity> result = mapRepository.findAll();
+		List<MapDTO> list = new ArrayList<>();
+		for(MapEntity entity : result) {
+			MapDTO dto = entityToDto(entity);
+			list.add(dto);
+		}
+		return list;
+	}
 
 }

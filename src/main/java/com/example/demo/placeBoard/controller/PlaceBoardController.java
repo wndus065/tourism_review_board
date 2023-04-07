@@ -66,8 +66,9 @@ public class PlaceBoardController {
 	    
 	    
 		//관광지 목록 보내기
-		Page<MapDTO> result  = mapService.getlist(0);
-		List<MapDTO> list = result.getContent();
+//		Page<MapDTO> result  = mapService.getlist(0);
+//		List<MapDTO> list = result.getContent();
+	    List<MapDTO> list = mapService.pickPlace();
 		
 		model.addAttribute("placelist", list);
 	    return "/placeboard/register";
