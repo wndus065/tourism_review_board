@@ -12,7 +12,7 @@
 		<header>
 			<h2>장소게시판 목록</h2>
 		</header>
-		<table>	
+		<table>
 			<thead>
 				<tr>
 					<th></th>
@@ -40,21 +40,30 @@
 
 			</tbody>
 		</table>
-
+		<form name="search-form" autocomplete="off">
+			<div style="display: flex; align-items: center;">
+				<select name="type" style="height: 36px;	 width: 120px; margin-right: 2px;">
+					<option selected value="">검색 내용 선택</option>
+					<option value="title">제목</option>
+					<option value="place">장소</option>
+					<option value="writer">작성자</option>
+					<option value="content">내용</option>
+				</select>
+				<input type="text" name="keyword" style="height: 36px; margin-right: 2px;"></input>
+				<input type="button" onclick="getSearchList()" class="btn btn-outline-primary mr-2" value="검색"
+					style="height: 36px; width: 120px; margin-right: 2px;"></input>
+				<input type="button" onclick="location.href='/placeboard/register'" class="btn btn-outline-primary mr-3"
+					value="글 쓰기" style="height: 36px; width: 120px; margin-right: 2px;"></input>
+			</div>
+		</form>
 		<!-- 페이징 추가 -->
 		<div class="pagination">
 			<div class="pages">
 				<a th:href="@{/placeboard/list(page = ${page})}" th:class="${(list.number + 1) == page?'active':''}"
 					th:each="page: ${#numbers.sequence(1, list.totalPages)}">[[${page}]]</a>
 			</div>
-
-
 		</div>
-		<span>
-			<a th:href="@{/placeboard/register}">
-				<button type="button" class="btn btn-outline-primary">글 등록</button>
-			</a>
-		</span>
+
 		<script th:inline="javascript">
 			$(document).ready(function () {
 				// 실행할 기능을 정의
@@ -63,6 +72,30 @@
 					alert(msg + "번 글이 등록되었습니다.");
 				}
 			});
+
+			function getSearchList() {
+				$.ajax({
+					type: 'GET',
+					url: "/getSearchList",
+					data: $("form[name=search-form]").serialize(),
+					success: function (result) {
+						//테이블 초기화
+						$('#placeboardtable > tbody').empty();
+						if (result.length >= 1) {
+							result.forEach(function (item) {
+								str = '<tr>'
+								str += "<td>" + placeboard.title + "</td>";
+								str += "<td>" + placeboard.place + "</td>";
+								str += "<td><a href = '/board/detail?idx=" + item.idx + "'>" + item.title + "</a></td>";
+								str += "<td>" + placeboard.writer + "</td>";
+								str += "<td>" + placeboard.content + "</td>";
+								str += "</tr>"
+								$('#placeboardtable').append(str);
+							})
+						}
+					}
+				})
+			}
 		</script>
 
 	</th:block>

@@ -1,5 +1,6 @@
 package com.example.demo.placeBoard.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,4 +78,10 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 	public void remove(int no) {
 		repository.deleteById(no);
 	}
+
+	@Override
+	 public List<PlaceBoardDTO> getSearchList(PlaceBoardDTO placeBoardDTO) throws Exception {
+        List<PlaceBoard> searchList = repository.getSearchList(placeBoardDTO);
+        return PlaceBoardDTO.toDTOList(searchList);
+    }
 }

@@ -19,6 +19,8 @@ public interface PlaceBoardService {
 
 	void remove(int no);
 	
+	public List<PlaceBoardDTO> getSearchList(PlaceBoardDTO placeBoardDTO) throws Exception;
+	
 	default PlaceBoardDTO entityToDto(PlaceBoard entity) {
 		
 		PlaceBoardDTO dto = PlaceBoardDTO.builder()
