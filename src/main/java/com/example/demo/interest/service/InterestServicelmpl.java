@@ -70,23 +70,12 @@ public class InterestServicelmpl implements InterestService {
 		return dtoPage;
 	}
 
+	@Override
+	public void delFkInter(int placeNo) {
+		List<Interest> list = interestRepository.findAllByPlaceBoard(PlaceBoard.builder().no(placeNo).build());
+		for(Interest delList : list) {
+			interestRepository.delete(delList);
+		}
+	}
 	
 	}
-
-	
-		
-	
-		
-
-	
-	
-	
-
-
-	
-
-	
-
-	
-
-

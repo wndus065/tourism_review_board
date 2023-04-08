@@ -23,7 +23,7 @@ public interface InterestService {
 	Page<InterestDTO> getList(int no,String memberId);
 	
 
-	
+	void delFkInter(int placeNo);
 	
 	
 	

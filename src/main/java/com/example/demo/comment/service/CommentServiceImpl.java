@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.comment.dto.CommentDTO;
 import com.example.demo.comment.entity.Comment;
 import com.example.demo.comment.repository.CommentRepository;
+import com.example.demo.placeBoard.dto.PlaceBoardDTO;
 import com.example.demo.placeBoard.entity.PlaceBoard;
 
 @Service
@@ -95,6 +96,14 @@ public class CommentServiceImpl implements CommentService {
 	    } catch (Exception e) {
 	        return false;
 	    }
+	}
+	
+	@Override
+	public void delFkCom(int placeNo) {
+		List<Comment> list = repository.findAllByPlaceNo(PlaceBoard.builder().no(placeNo).build());
+		for(Comment delList : list) {
+			repository.delete(delList);
+		}
 	}
 
 }

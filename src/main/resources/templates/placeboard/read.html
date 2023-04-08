@@ -56,7 +56,7 @@
 
 					<form th:action="@{/interboard/add(no= ${dto.no})}" th:method="POST">
 						<p>
-							<button type="submit">관심 등록</button>
+							<button type="submit" sec:authorize="hasRole('ROLE_USER')">관심 등록</button>
 						</p>
 					</form>
 					<script th:inline="javascript">

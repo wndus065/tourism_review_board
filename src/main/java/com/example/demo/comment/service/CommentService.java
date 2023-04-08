@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.demo.comment.dto.CommentDTO;
 import com.example.demo.comment.entity.Comment;
+import com.example.demo.placeBoard.dto.PlaceBoardDTO;
 import com.example.demo.placeBoard.entity.PlaceBoard;
 import com.example.demo.user.entity.Member;
 
@@ -51,5 +52,7 @@ public interface CommentService {
 //	void modify(CommentDTO dto);
 	boolean modify(CommentDTO dto);
 	boolean remove(int no);
+	
+	void delFkCom(int placeNo);
 
 }

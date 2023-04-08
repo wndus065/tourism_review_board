@@ -120,6 +120,10 @@ public class MemberController {
 	@GetMapping("/remove/{id}")
 	public String remove(@PathVariable String id,HttpSession session) {
 		System.out.println(id+"회원을 삭제합니다.");
+		
+		// 왜래키 삭제
+		
+		
 		service.remove(id);
 		session.invalidate();
 		return "redirect:/";
