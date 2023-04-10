@@ -31,7 +31,8 @@
 							[[${dto.no}]]
 						</a>
 					</th>
-					<td><p th:class="${InterYN == 'InterY' ? 'icon fa-heart' : ''}">&nbsp;[[${dto.place}]]</p></td>
+					<td th:if="${#lists.contains(interList.![placeBoard.no], dto.no)}"><p class="icon fa-heart">&nbsp;[[${dto.place}]]</p></td>
+					<td th:unless="${#lists.contains(interList.![placeBoard.no], dto.no)}"><p>[[${dto.place}]]</p></td>
 					<td>[[${dto.title}]]</td>
 					<td>[[${dto.writer}]]</td>
 					<td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>

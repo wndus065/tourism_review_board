@@ -82,15 +82,8 @@ public class InterestServicelmpl implements InterestService {
 	}
 	
 	@Override
-	public boolean checkInter(String memberId) {
-	    List<Interest> interList = interestRepository.getUsersInterList(memberId);
-	    if (interList.isEmpty()) {
-	        return false;
-	    }
-	    Member member = interList.get(0).getMember();
-	    boolean interested = interList.stream().anyMatch(interest -> interest.getPlaceBoard().getWriter().getId().equals(member.getId()));
-	    return interested;
+	public List<Interest> getInterestByMemId(String id){
+		return interestRepository.findAllByMemberId(id);
 	}
-
 
 }

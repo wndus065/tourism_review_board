@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.demo.comment.dto.CommentDTO;
 import com.example.demo.comment.service.CommentService;
 import com.example.demo.interest.dto.InterestDTO;
+import com.example.demo.interest.entity.Interest;
 import com.example.demo.interest.service.InterestService;
 import com.example.demo.map.dto.MapDTO;
 import com.example.demo.map.entity.MapEntity;
@@ -50,11 +51,10 @@ public class PlaceBoardController {
 	public void list(@RequestParam(defaultValue = "0") int page, Model model,Principal principal) { //파라미터 추가
 		String id = principal.getName();
 		Page<PlaceBoardDTO> list = service.getList(page);
-		if(interService.checkInter(id)) {
-			model.addAttribute("InterY");
-		} else {
-			model.addAttribute("InterN");
-		}
+		List<Interest> interList = interService.getInterestByMemId(id);
+		model.addAttribute("interList", interList);
+		model.addAttribute("logInid", id);
+		
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", "placeboard");
 		System.out.println("전체 페이지 수: " + list.getTotalPages());
@@ -96,11 +96,9 @@ public class PlaceBoardController {
 	public void read(int no, @RequestParam(defaultValue = "0") int page, Model model, org.springframework.security.core.Authentication authentication,Principal principal) {
 		String id = principal.getName();
 		PlaceBoardDTO dto = service.read(no);
-		if(interService.checkInter(id)) {
-			model.addAttribute("InterY", "InterYN");
-		} else {
-			model.addAttribute("InterN", "InterYN");
-		}
+		List<Interest> interList = interService.getInterestByMemId(id);
+		model.addAttribute("interList", interList);
+		
 	    model.addAttribute("dto", dto);
 	    model.addAttribute("page", page);
 	    model.addAttribute("currentPage", "placeboard");

@@ -26,8 +26,6 @@ public interface InterestRepository extends JpaRepository<Interest, Integer> {
 	List<Interest> findAllByPlaceBoard(PlaceBoard placeBoard);
 	List<Interest> findAllByMember(Member member);
 	
-	@Query("select i from Interest i where i.member.id = :memberId")
-	List<Interest> getUsersInterList(@Param("memberId") String memberId);
-
+	List<Interest> findAllByMemberId(String memberId);
 	
 }
