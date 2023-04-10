@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.example.demo.interest.entity.Interest;
 import com.example.demo.placeBoard.entity.PlaceBoard;
@@ -23,5 +25,9 @@ public interface InterestRepository extends JpaRepository<Interest, Integer> {
 
 	List<Interest> findAllByPlaceBoard(PlaceBoard placeBoard);
 	List<Interest> findAllByMember(Member member);
+	
+	@Query("select i from Interest i where i.member.id = :memberId")
+	List<Interest> getUsersInterList(@Param("memberId") String memberId);
+
 	
 }

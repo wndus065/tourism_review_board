@@ -47,8 +47,14 @@ public class PlaceBoardController {
 	
 
 	@GetMapping("/list")
-	public void list(@RequestParam(defaultValue = "0") int page, Model model) { //파라미터 추가
+	public void list(@RequestParam(defaultValue = "0") int page, Model model,Principal principal) { //파라미터 추가
+		String id = principal.getName();
 		Page<PlaceBoardDTO> list = service.getList(page);
+		if(interService.checkInter(id)) {
+			model.addAttribute("InterY");
+		} else {
+			model.addAttribute("InterN");
+		}
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", "placeboard");
 		System.out.println("전체 페이지 수: " + list.getTotalPages());
@@ -87,8 +93,14 @@ public class PlaceBoardController {
 	}
 
 	@GetMapping("/read")
-	public void read(int no, @RequestParam(defaultValue = "0") int page, Model model, org.springframework.security.core.Authentication authentication) {
-	    PlaceBoardDTO dto = service.read(no);
+	public void read(int no, @RequestParam(defaultValue = "0") int page, Model model, org.springframework.security.core.Authentication authentication,Principal principal) {
+		String id = principal.getName();
+		PlaceBoardDTO dto = service.read(no);
+		if(interService.checkInter(id)) {
+			model.addAttribute("InterY", "InterYN");
+		} else {
+			model.addAttribute("InterN", "InterYN");
+		}
 	    model.addAttribute("dto", dto);
 	    model.addAttribute("page", page);
 	    model.addAttribute("currentPage", "placeboard");

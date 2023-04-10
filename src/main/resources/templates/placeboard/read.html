@@ -16,8 +16,10 @@
 				<div class="col-7">
 					<form>
 						<div class="form-group">
-							<label>제목</label> <input type="text" class="form-control" name="title"
-								th:value="${dto.title}" readonly>
+							<div th:if="${InterY != null}"><label class="icon fa-heart">&nbsp;제목</label> <input type="text" class="form-control" name="title"
+								th:value="${dto.title}" readonly></div>
+							<div th:if="${InterN != null}"><label>제목</label> <input type="text" class="form-control" name="title"
+								th:value="${dto.title}" readonly></div>
 						</div>
 						<div class="form-group">
 							<label>장소<input type="text" class="form-control" name="place" th:value="${dto.place}"
