@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.demo.interest.entity.Interest;
 import com.example.demo.placeBoard.entity.PlaceBoard;
+import com.example.demo.user.entity.Member;
 
 
 public interface InterestRepository extends JpaRepository<Interest, Integer> {
@@ -21,5 +22,6 @@ public interface InterestRepository extends JpaRepository<Interest, Integer> {
 	Optional<Interest> findByMemberId(String memberId);
 
 	List<Interest> findAllByPlaceBoard(PlaceBoard placeBoard);
+	List<Interest> findAllByMember(Member member);
 	
 }

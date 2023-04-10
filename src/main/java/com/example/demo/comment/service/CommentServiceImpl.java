@@ -18,6 +18,7 @@ import com.example.demo.comment.entity.Comment;
 import com.example.demo.comment.repository.CommentRepository;
 import com.example.demo.placeBoard.dto.PlaceBoardDTO;
 import com.example.demo.placeBoard.entity.PlaceBoard;
+import com.example.demo.user.entity.Member;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -101,6 +102,14 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public void delFkCom(int placeNo) {
 		List<Comment> list = repository.findAllByPlaceNo(PlaceBoard.builder().no(placeNo).build());
+		for(Comment delList : list) {
+			repository.delete(delList);
+		}
+	}
+	
+	@Override
+	public void delFkComM(String id) {
+		List<Comment> list = repository.findAllByWriter(Member.builder().id(id).build());
 		for(Comment delList : list) {
 			repository.delete(delList);
 		}

@@ -54,5 +54,6 @@ public interface CommentService {
 	boolean remove(int no);
 	
 	void delFkCom(int placeNo);
+	void delFkComM(String id);
 
 }

@@ -45,5 +45,7 @@ public interface MemberService {
 
 	void modify(MemberDTO dto);
 	void remove(String id);
+	
+	void delFkMember(String id);
 
 }

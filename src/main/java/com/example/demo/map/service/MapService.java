@@ -75,4 +75,6 @@ public interface MapService {
     
     List<MapDTO> pickPlace();
 
+    void delFkMap(String place);
+    
 }

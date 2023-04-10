@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.comment.service.CommentService;
+import com.example.demo.interest.repository.InterestRepository;
+import com.example.demo.interest.service.InterestService;
+import com.example.demo.requestBoard.service.RequestBoardService;
 import com.example.demo.user.dto.MemberDTO;
 import com.example.demo.user.service.MemberService;
 
@@ -29,11 +33,20 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 
+	@Autowired
+	private RequestBoardService reqService;
+	
+	@Autowired
+	private CommentService comService;
+	
+	@Autowired
+	private InterestService interService;
+
 	@GetMapping("/member/list")
 	public String list(@RequestParam(defaultValue = "0") int page, Model model) {
 		Page<MemberDTO> list = service.getList(page);
 		model.addAttribute("list", list);
-		model.addAttribute("currentPage","memberA");
+		model.addAttribute("currentPage", "memberA");
 		System.out.println("전체 페이지 수 : " + list.getTotalPages());
 		System.out.println("전체 게시물 수 : " + list.getTotalElements());
 		System.out.println("현재 페이지 번호 : " + (list.getNumber() + 1));
@@ -46,13 +59,13 @@ public class MemberController {
 		MemberDTO dto = service.read(id);
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", page);
-		model.addAttribute("currentPage","memberA");
+		model.addAttribute("currentPage", "memberA");
 		return "/member/read";
 	}
 
 	@GetMapping("/member/readMine")
 	public void readMine(Principal principal, Model model) {
-		
+
 		String id = principal.getName();
 
 		MemberDTO memberDto = service.read(id);
@@ -102,55 +115,61 @@ public class MemberController {
 	}
 
 	@GetMapping("/modify/{id}")
-	public String modify(@PathVariable String id, Model model,Principal principal) {
+	public String modify(@PathVariable String id, Model model, Principal principal) {
 		principal.getName().equals(id);
 		MemberDTO dto = service.read(id);
 		model.addAttribute("dto", dto);
 		return "/member/modify";
 	}
-	
+
 	@PostMapping("/modify/{id}")
 	public String modifyPost(MemberDTO dto, RedirectAttributes redirectAttributes) {
 		service.modify(dto);
-		redirectAttributes.addAttribute("id",dto.getId());
+		redirectAttributes.addAttribute("id", dto.getId());
 		System.out.println(dto.toString());
 		return "redirect:/member/readMine";
 	}
-	
+
 	@GetMapping("/remove/{id}")
-	public String remove(@PathVariable String id,HttpSession session) {
-		System.out.println(id+"회원을 삭제합니다.");
+	public String remove(@PathVariable String id, HttpSession session) {
+		System.out.println(id + "회원을 삭제합니다.");
+
+		// 외래키 삭제 단
+		reqService.delFkReq(id);
+		comService.delFkComM(id);
+		interService.delFkInterM(id);
 		
-		// 왜래키 삭제
-		
-		
+		// 외래키 삭제 복
+		service.delFkMember(id);
+
 		service.remove(id);
 		session.invalidate();
 		return "redirect:/";
 	}
+
 	@GetMapping("/home/index")
 	public String home(Model model, HttpSession session) {
-	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    if (auth != null && auth.isAuthenticated()) {
-	        // 로그인 상태
-	        model.addAttribute("isLogin", true);
-	    } else {
-	        // 로그아웃 상태
-	        model.addAttribute("isLogin", false);
-	    }
-	    return "home";
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && auth.isAuthenticated()) {
+			// 로그인 상태
+			model.addAttribute("isLogin", true);
+		} else {
+			// 로그아웃 상태
+			model.addAttribute("isLogin", false);
+		}
+		return "home";
 	}
-	
+
 	@GetMapping("/idcheck")
-	public @ResponseBody HashMap<String, Boolean> idCheck(String id){
-		HashMap<String, Boolean> result = new HashMap<String , Boolean>();
+	public @ResponseBody HashMap<String, Boolean> idCheck(String id) {
+		HashMap<String, Boolean> result = new HashMap<String, Boolean>();
 		MemberDTO memberDto = service.read(id);
-		if(memberDto != null) {
+		if (memberDto != null) {
 			result.put("isDuplicate", true);
-		}else {
+		} else {
 			result.put("isDuplicate", false);
 		}
 		return result;
 	}
-	
+
 }

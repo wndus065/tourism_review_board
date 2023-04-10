@@ -31,41 +31,36 @@ import jakarta.servlet.http.HttpServletRequest;
 public class InterestServicelmpl implements InterestService {
 	@Autowired
 	private InterestRepository interestRepository;
-	
+
 	@Autowired
 	private MemberRepository memberRepository;
-	
+
 	@Autowired
 	private PlaceBoardRepository placeBoardRepository;
 
-	 @Override
-	    public void add(String memberId, int placeBoardNo) {
-	        Member member = memberRepository.findById(memberId).orElse(null);
-	        PlaceBoard placeBoard = placeBoardRepository.findById(placeBoardNo).orElse(null);
-	        if (member == null || placeBoard == null) {
-	            System.out.println("일치하지 않는 정보입니다.");
-	            throw new IllegalArgumentException("Invalid member or placeBoard");
-	        }
-	        Interest entity = Interest.builder()
-	                .member(member)
-	                .placeBoard(placeBoard)
-	                .build();
-	        interestRepository.save(entity);
-	    }
+	@Override
+	public void add(String memberId, int placeBoardNo) {
+		Member member = memberRepository.findById(memberId).orElse(null);
+		PlaceBoard placeBoard = placeBoardRepository.findById(placeBoardNo).orElse(null);
+		if (member == null || placeBoard == null) {
+			System.out.println("일치하지 않는 정보입니다.");
+			throw new IllegalArgumentException("Invalid member or placeBoard");
+		}
+		Interest entity = Interest.builder().member(member).placeBoard(placeBoard).build();
+		interestRepository.save(entity);
+	}
 
 	@Override
 	public void remove(int interest_no) {
 		interestRepository.deleteById(interest_no);
 	}
 
-
-
 	@Override
 	public Page<InterestDTO> getList(int page, String memberId) {
-		
-		int pageNum = (page == 0) ? 0 :page -1;
-		Pageable pageable = PageRequest.of(pageNum, 10 , Sort.by("interestNo").descending());
-		Page<Interest> entityPage = interestRepository.findByMemberId(memberId,pageable);
+
+		int pageNum = (page == 0) ? 0 : page - 1;
+		Pageable pageable = PageRequest.of(pageNum, 10, Sort.by("interestNo").descending());
+		Page<Interest> entityPage = interestRepository.findByMemberId(memberId, pageable);
 		Page<InterestDTO> dtoPage = entityPage.map(entity -> entityToDto(entity));
 		return dtoPage;
 	}
@@ -73,9 +68,17 @@ public class InterestServicelmpl implements InterestService {
 	@Override
 	public void delFkInter(int placeNo) {
 		List<Interest> list = interestRepository.findAllByPlaceBoard(PlaceBoard.builder().no(placeNo).build());
-		for(Interest delList : list) {
+		for (Interest delList : list) {
 			interestRepository.delete(delList);
 		}
 	}
-	
+
+	@Override
+	public void delFkInterM(String id) {
+		List<Interest> list = interestRepository.findAllByMember(Member.builder().id(id).build());
+		for (Interest delList : list) {
+			interestRepository.delete(delList);
+		}
 	}
+
+}
