@@ -40,9 +40,11 @@ public class CommentController {
 
 	@PostMapping("/register")
 	@ResponseBody
-	public Map<String, Object> register(CommentDTO commentDto, Principal principal, Model model) {
+	public Map<String, Object> register(CommentDTO commentDto, Principal principal,Model model) {
 		String id = principal.getName();
+		
 		model.addAttribute("userId", id);
+		
 		commentDto.setWriter(id);
 		int commentNo = service.register(commentDto, id);
 		HashMap<String, Object> map = new HashMap<String, Object>();

@@ -6,7 +6,7 @@
 	<th:block th:fragment="content">
 
 		<body onload="loadCommentList()">
-			<input type="hidden" id="sessionId" th:value="${session.id}" />
+			<input type="hidden" id="sessionId" th:value="${userId}" />  <!--  여기도 수정 해야됌 -->
 
 			<header>
 				<h2>장소게시판 조회</h2>
@@ -123,7 +123,8 @@
 						
 							function updateCommentList(commentList) {
 								let commentHtml = '';
-								const sessionId = [[${dto.writer}]];
+								 const sessionId = [[${userId}]]    //여기수정해야됌.
+								  
 
 								for (let i = 0; i < commentList.length; i++) {
 									const comment = commentList[i];
