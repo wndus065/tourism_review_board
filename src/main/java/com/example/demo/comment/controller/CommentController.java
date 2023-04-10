@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,8 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.comment.dto.CommentDTO;
 import com.example.demo.comment.service.CommentService;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +39,10 @@ public class CommentController {
 
 	@PostMapping("/register")
 	@ResponseBody
-	public Map<String, Object> register(CommentDTO commentDto, Principal principal,Model model) {
+
+	public Map<String, Object> register(CommentDTO commentDto, Principal principal, Model model) {
+		
+
 		String id = principal.getName();
 		
 		model.addAttribute("userId", id);

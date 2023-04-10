@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -6,7 +7,7 @@
 	<th:block th:fragment="content">
 	
 	
-	<div id="map" style="width:130%;height:600px;"></div>
+	<div id="map" style="width:130%;height:500px;"></div>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ab9cyktgjv"></script>
 
 <script th:inline="javascript">
@@ -57,37 +58,145 @@ for (var i = 0; i < markerDTOs.length; i++) {
   }
   
 	</script>
-	<div>
-	<script>
-  function loadWeather() {
-    var xhr = new XMLHttpRequest();
-    var url = "https://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst";
-    var queryParams = "?" + encodeURIComponent("ServiceKey") + "=IQB7C38TSfgr5kAovrbwZXmc%2FcHfgBJ9GkvkTeOJ%2FjPnlxfBCO7DIfk%2BjXFzf9k3dZOrCj5ek%2FLHBCBKKpSvHw%3D%3D"; /* Service Key */
-    queryParams += "&" + encodeURIComponent("dataType") + "=" + encodeURIComponent("JSON"); /* 응답 데이터 타입 */
-    queryParams += "&" + encodeURIComponent("base_date") + "=" + encodeURIComponent("20220405"); /* 발표일 */
-    queryParams += "&" + encodeURIComponent("base_time") + "=" + encodeURIComponent("0500"); /* 발표시각 */
-    queryParams += "&" + encodeURIComponent("nx") + "=" + encodeURIComponent("60"); /* 예보지점 X 좌표 */
-    queryParams += "&" + encodeURIComponent("ny") + "=" + encodeURIComponent("127"); /* 예보지점 Y 좌표 */
-    xhr.open("GET", url + queryParams);
-    xhr.onreadystatechange = function() {
-      if (this.readyState === XMLHttpRequest.DONE) {
-        if (this.status === 200) {
-          var response = JSON.parse(xhr.responseText);
-          console.log(response);
-          /* 받은 데이터를 처리하는 코드를 여기에 작성합니다. */
-        } else {
-          console.error(xhr.statusText);
-        }
-      }
-    }
-    xhr.send();
+	<!--  날씨정보 -->
+	<style>	
+  .weather-container {
+    display: flex;
+    justify-content: flex-end;
+  	margin-left : 150px;
+    justify-content: space-between;
+    font-family: 'Noto Sans KR', sans-serif;
   }
-</script>
-<div style="margin: 120px 0 0 250px;">
-				<h1 id="logo">
-					<a href="/request/register">장소 요청 바로가기</a>
-				</h1>
-			</div>
+  
+    .weather-icon i {
+        display: block;
+       
+    }
+    
+
+    .weather-date {
+    
+     font-size: 20px;
+     font-weight: bold;
+      margin: 10px;
+    }
+
+    .current-temp {
+    	display: inline;
+        font-size: 30px;
+        font-weight: bold;
+       
+    }
+
+    .temp-min,
+    .temp-max {
+    	font-weight : bold;
+        font-size: 20px;
+        margin-top: 10px;
+    }
+  
+  .weather-day{
+   	font-size:20px;
+  	font-weight: bold;
+  	}
+  .weather-info {
+    display: flex;
+    flex-direction: column;
+  }
+    .weather-icon {
+    font-size: 5rem; /* 원하는 크기로 조정 */
+   
+  }
+</style>
+
+<div class="current-temp">현재온도<span id="current-temp-value"></span></div>
+
+<div class="weather-container">
+  <div class="weather-day">&nbsp;</div>
+  <div class="weather-info">
+    <div class="weather-icon"></div>
+   
+    <div class="temp-max"></div>
+  </div>
+  <div class="weather-day">&nbsp;</div>
+  <div class="weather-info">
+    <div class="weather-icon"></div>
+    <div></div>
+    
+    <div class="temp-max"></div>
+  </div>
+  <div class="weather-day">&nbsp;</div>
+  <div class="weather-info">
+    <div class="weather-icon"></div>
+     <div></div>
+    
+    <div class="temp-max"></div>
+  </div>
+  <div class="weather-day">&nbsp;</div>
+  <div class="weather-info">
+    <div class="weather-icon"></div>
+   <div></div>
+   
+    <div class="temp-max"></div>
+  </div>
+  <div class="weather-day">&nbsp;</div>
+  <div class="weather-info">
+    <div class="weather-icon"></div>
+    <div></div>
+    
+    <div class="temp-max"></div>
+  </div>
+  
 </div>
+<script th:inline="javascript">
+  var weatherIcon = {
+    '01' : 'fas fa-sun',
+    '02' : 'fas fa-cloud-sun',
+    '03' : 'fas fa-cloud',
+    '04' : 'fas fa-cloud-meatball',
+    '09' : 'fas fa-cloud-sun-rain',
+    '10' : 'fas fa-cloud-showers-heavy',
+    '11' : 'fas fa-poo-storm',
+    '13' : 'far fa-snowflake',
+    '50' : 'fas fa-smog'
+  };
+
+  var apiURI = "https://api.openweathermap.org/data/2.5/forecast?lat=37.511322&lon=127.098146&appid=aa0ea7fbe0c1e13669114c7af508193a&units=metric"
+	  $.ajax({
+		  url: apiURI,
+		  dataType: "json",
+		  type: "GET",
+		  async: "false",
+		  success: function(resp) {
+		    var dailyWeather = resp.list.filter(function(weather, index) {
+		      return index % 8 === 0;
+		    });
+		    var $weatherDays = $('.weather-day');
+		    var $weatherIcons = $('.weather-icon');
+		    var $currentTemps = $('.current-temp');
+		    var $tempMins = $('.temp-min');
+		    var $tempMaxs = $('.temp-max');
+
+		    for (var i = 0; i < $weatherDays.length; i++) {
+		      var date = new Date(dailyWeather[i].dt_txt);
+		      var month = date.getMonth() + 1;
+		      var day = date.getDate();
+		      var $weatherDay = $('<div>').text(month + '/' + day);
+		      $weatherDays.eq(i).append($weatherDay);
+		      var $weatherIcon = $('<i>').addClass(weatherIcon[dailyWeather[i].weather[0].icon.substr(0, 2)]);
+		      $weatherIcons.eq(i).append($weatherIcon);
+		      var $currentTemp = $('<div>').text(Math.floor(dailyWeather[i].main.temp) + 'º');
+		      $currentTemps.eq(i).append($currentTemp);
+		      var $tempMin = $('<div>').text('최저 온도 ' + Math.floor(dailyWeather[i].main.temp_min) + 'ºC');
+		      $tempMins.eq(i).append($tempMin);
+		      var $tempMax = $('<div>').text('최고 온도 ' + Math.floor(dailyWeather[i].main.temp_max) + 'ºC');
+		      $tempMaxs.eq(i).append($tempMax);
+		    }
+		  }
+		});
+      </script>
+
+     
 	</th:block>
 </th:block>
+>>>>>>> refs/heads/feature.weatherApi
