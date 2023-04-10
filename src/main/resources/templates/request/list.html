@@ -45,6 +45,5 @@ table td {
 				<a th:href="@{/request/list(page = ${page})}" th:class="${(list.number + 1) == page?'active':''} " th:each="page: ${#numbers.sequence(1, list.totalPages)}">[[${page}]]</a>
 			</div>
 		</div>
-		<button><a th:href="@{/request/register}">요청 등록</a></button>
 	</th:block>
 </th:block>

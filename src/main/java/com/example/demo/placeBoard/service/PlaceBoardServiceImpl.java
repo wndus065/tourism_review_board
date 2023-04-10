@@ -1,5 +1,6 @@
 package com.example.demo.placeBoard.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +10,25 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.comment.service.CommentService;
+import com.example.demo.interest.service.InterestService;
+import com.example.demo.map.entity.MapEntity;
 import com.example.demo.placeBoard.dto.PlaceBoardDTO;
 import com.example.demo.placeBoard.entity.PlaceBoard;
 import com.example.demo.placeBoard.repository.PlaceBoardRepository;
+import com.example.demo.user.entity.Member;
 
 @Service
 public class PlaceBoardServiceImpl implements PlaceBoardService {
 
 	@Autowired
 	private PlaceBoardRepository repository;
+	
+	@Autowired
+	private CommentService commentService;
+	
+	@Autowired
+	private InterestService interService;
 
 	@Override
 	public int register(PlaceBoardDTO dto) {
@@ -76,5 +87,25 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 	@Override
 	public void remove(int no) {
 		repository.deleteById(no);
+	}
+	
+	@Override
+	public void delFkPost(String writerNo) {
+		List<PlaceBoard> list = repository.findAllByWriter(Member.builder().id(writerNo).build());
+		for(PlaceBoard post : list) {
+			commentService.delFkCom(post.getNo());
+			interService.delFkInter(post.getNo());
+			repository.delete(post);
+		}
+	}
+	
+	@Override
+	public void delFkPostP(String place) {
+		List<PlaceBoard> list = repository.findAllByPlace(MapEntity.builder().place(place).build());
+		for(PlaceBoard post : list) {
+			commentService.delFkCom(post.getNo());
+			interService.delFkInter(post.getNo());
+			repository.delete(post);
+		}
 	}
 }

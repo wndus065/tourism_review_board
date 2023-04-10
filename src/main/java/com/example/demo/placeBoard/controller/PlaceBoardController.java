@@ -17,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.comment.dto.CommentDTO;
 import com.example.demo.comment.service.CommentService;
+import com.example.demo.interest.dto.InterestDTO;
+import com.example.demo.interest.service.InterestService;
 import com.example.demo.map.dto.MapDTO;
 import com.example.demo.map.entity.MapEntity;
 import com.example.demo.map.service.MapService;
@@ -39,6 +41,9 @@ public class PlaceBoardController {
 	
 	@Autowired
 	private MapService mapService;
+	
+	@Autowired
+	private InterestService interService;
 	
 
 	@GetMapping("/list")
@@ -66,8 +71,9 @@ public class PlaceBoardController {
 	    
 	    
 		//관광지 목록 보내기
-		Page<MapDTO> result  = mapService.getlist(0);
-		List<MapDTO> list = result.getContent();
+//		Page<MapDTO> result  = mapService.getlist(0);
+//		List<MapDTO> list = result.getContent();
+	    List<MapDTO> list = mapService.pickPlace();
 		
 		model.addAttribute("placelist", list);
 	    return "/placeboard/register";
@@ -110,6 +116,11 @@ public class PlaceBoardController {
 
 	@GetMapping("/remove")
 	public String removePost(int no) {
+
+		// 왜래키 삭제
+		interService.delFkInter(no);
+		commentService.delFkCom(no);
+		
 		service.remove(no);
 		return "redirect:/placeboard/list";
 	}

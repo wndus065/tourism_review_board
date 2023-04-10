@@ -91,6 +91,10 @@ public class MapController {
 	
 	@PostMapping("/remove")
 	public String removePost(String place) {
+		
+		// 외래키 삭제
+		service.delFkMap(place);
+		
 		service.remove(place);
 		System.out.println("지움");
 		return "redirect:/map/list";

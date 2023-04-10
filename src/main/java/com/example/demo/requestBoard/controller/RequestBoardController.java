@@ -1,5 +1,7 @@
 package com.example.demo.requestBoard.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -42,8 +44,8 @@ public class RequestBoardController {
 	}
 
 	@GetMapping("/register")
-	public String register(HttpServletRequest request, Model model) {
-	    String id = (String) request.getSession().getAttribute("id");
+	public String register(Principal pricipal, Model model) {
+	    String id = pricipal.getName();
 	    if (id == null) {
 	        // 로그인 되어 있지 않은 경우 로그인 페이지로 리다이렉트
 	        return "redirect:/login";

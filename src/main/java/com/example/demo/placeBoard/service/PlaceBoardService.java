@@ -51,4 +51,7 @@ public interface PlaceBoardService {
 		return entity;
 	}
 	
+	void delFkPost(String writerNo);
+	void delFkPostP(String place);
+	
 }

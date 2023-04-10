@@ -49,4 +49,6 @@ public interface RequestBoardService {
 		return entity;
 	}
 
+	void delFkReq(String id);
+	
 }

@@ -15,15 +15,30 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.comment.entity.Comment;
+import com.example.demo.comment.repository.CommentRepository;
+import com.example.demo.interest.entity.Interest;
+import com.example.demo.interest.repository.InterestRepository;
 import com.example.demo.map.dto.MapDTO;
 import com.example.demo.map.entity.*;
 import com.example.demo.map.repository.MapRepository;
+import com.example.demo.placeBoard.entity.PlaceBoard;
+import com.example.demo.placeBoard.repository.PlaceBoardRepository;
 
 @Service
 public class MapServicelmpl implements MapService {
 
 	@Autowired
 	private MapRepository mapRepository;
+	
+	@Autowired
+	private PlaceBoardRepository placeRepository;
+	
+	@Autowired
+	private CommentRepository comRepository;
+	
+	@Autowired
+	private InterestRepository interRepository;
 
 	@Override
 	public boolean register(MapDTO dto) {				
@@ -135,6 +150,34 @@ public class MapServicelmpl implements MapService {
 		
 	}
 
+	public List<MapDTO> pickPlace(){
+		List<MapEntity> result = mapRepository.findAll();
+		List<MapDTO> list = new ArrayList<>();
+		for(MapEntity entity : result) {
+			MapDTO dto = entityToDto(entity);
+			list.add(dto);
+		}
+		return list;
+	}
 	
+	@Override
+	public void delFkMap(String place) {
+		List<PlaceBoard> postList = placeRepository.findAllByPlace(MapEntity.builder().place(place).build());
+		for(PlaceBoard placeBoard : postList) {
+			List<Comment> commentList = comRepository.findAllByPlaceNo(placeBoard);
+		    for(Comment comment : commentList) {
+		    	comRepository.delete(comment);
+		    }
+
+		    List<Interest> interestList = interRepository.findAllByPlaceBoard(placeBoard);
+		    for(Interest interest : interestList) {
+		    	interRepository.delete(interest);
+		    }
+
+		    placeRepository.delete(placeBoard);
+		}
+
+	}
+
 
 }

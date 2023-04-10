@@ -1,5 +1,6 @@
 package com.example.demo.requestBoard.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.requestBoard.dto.RequestBoardDTO;
 import com.example.demo.requestBoard.entity.RequestBoard;
 import com.example.demo.requestBoard.repository.RequestBoardRepository;
+import com.example.demo.user.entity.Member;
 
 @Service
 public class RequestBoardServiceImpl implements RequestBoardService{
@@ -63,4 +65,13 @@ public class RequestBoardServiceImpl implements RequestBoardService{
 		
 		return entity.getNo();
 	}
+	
+	@Override
+	public void delFkReq(String id) {
+		List<RequestBoard> reqList = repository.findAllByWriter(Member.builder().id(id).build());
+		for(RequestBoard list : reqList) {
+			repository.delete(list);
+		}
+	}
+	
 }

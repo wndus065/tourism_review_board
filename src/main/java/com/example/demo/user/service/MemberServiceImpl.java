@@ -1,5 +1,6 @@
 package com.example.demo.user.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.comment.entity.Comment;
+import com.example.demo.comment.repository.CommentRepository;
+import com.example.demo.comment.service.CommentService;
+import com.example.demo.interest.entity.Interest;
+import com.example.demo.interest.repository.InterestRepository;
+import com.example.demo.placeBoard.entity.PlaceBoard;
+import com.example.demo.placeBoard.repository.PlaceBoardRepository;
+import com.example.demo.placeBoard.service.PlaceBoardService;
+import com.example.demo.requestBoard.entity.RequestBoard;
+import com.example.demo.requestBoard.repository.RequestBoardRepository;
+import com.example.demo.requestBoard.service.RequestBoardService;
 import com.example.demo.user.dto.MemberDTO;
 import com.example.demo.user.entity.Member;
 import com.example.demo.user.repository.MemberRepository;
@@ -20,6 +33,15 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberRepository repository;
+	
+	@Autowired
+	private PlaceBoardRepository placeRepository;
+	
+	@Autowired
+	private CommentRepository comRepository;
+	
+	@Autowired
+	private InterestRepository interRepository;
 
 	@Override
 	public Page<MemberDTO> getList(int page) {
@@ -78,5 +100,25 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println(id+"회원을 삭제합니다.");
 		repository.deleteById(id);
 	}
+	
+	@Override
+	public void delFkMember(String id) {
+		List<PlaceBoard> postList = placeRepository.findAllByWriter(Member.builder().id(id).build());
+		for(PlaceBoard placeBoard : postList) {
+		    List<Comment> commentList = comRepository.findAllByPlaceNo(placeBoard);
+		    for(Comment comment : commentList) {
+		    	comRepository.delete(comment);
+		    }
+
+		    List<Interest> interestList = interRepository.findAllByPlaceBoard(placeBoard);
+		    for(Interest interest : interestList) {
+		    	interRepository.delete(interest);
+		    }
+
+		    placeRepository.delete(placeBoard);
+		}
+
+	}
+
 
 }

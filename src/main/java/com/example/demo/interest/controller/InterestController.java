@@ -37,6 +37,7 @@ public class InterestController {
 		}
 		Pageable pageable = PageRequest.of(page - 1, 10, Sort.by("interestNo").descending());
 		Page<InterestDTO> interestList = interestService.getList(page, memberId);
+		model.addAttribute("currentPage", "interA");
 		model.addAttribute("list", interestList);
 		return "interboard/list";
 	}
