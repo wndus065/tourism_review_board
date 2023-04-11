@@ -10,7 +10,7 @@
 			}
 		</style>
 		<header>
-			<h2>장소게시판 목록</h2>
+			<h2>리뷰 게시판</h2>
 		</header>
 		<table>	
 			<thead>
@@ -21,6 +21,7 @@
 					<th>작성자</th>
 					<th>등록일</th>
 					<th>수정일</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -31,12 +32,13 @@
 							[[${dto.no}]]
 						</a>
 					</th>
-					<td th:if="${#lists.contains(interList.![placeBoard.no], dto.no)}"><p>&#128150;&nbsp;[[${dto.place}]]</p></td>
-					<td th:unless="${#lists.contains(interList.![placeBoard.no], dto.no)}"><p>[[${dto.place}]]</p></td>
+					<td>[[${dto.place}]]</td>
 					<td>[[${dto.title}]]</td>
 					<td>[[${dto.writer}]]</td>
 					<td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
 					<td>[[${#temporals.format(dto.modDate, 'yyyy/MM/dd')}]]</td>
+					<td th:if="${#lists.contains(interList.![placeBoard.no], dto.no)}">&#128150;</td>
+					<td th:unless="${#lists.contains(interList.![placeBoard.no], dto.no)}"></td>
 				
 				</tr>
 
