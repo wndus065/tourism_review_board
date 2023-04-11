@@ -7,10 +7,7 @@
 
 		<body onload="loadCommentList()">
 			<input type="hidden" id="sessionId" th:value="${userId}" />  <!--  여기도 수정 해야됌 -->
-		
-			<header>
-				<h2>장소게시판 조회</h2>
-			</header>
+				
 			
 			<div class="row">
 				<div class="col-7">
@@ -22,13 +19,13 @@
 							<div th:unless="${#lists.contains(interList.![placeBoard.no], dto.no)}"><label>제목</label> <input type="text" class="form-control" name="title"
 								th:value="${dto.title}" readonly></div>
 						
-							<label>장소<input type="text" class="inner" name="place" th:value="${dto.place}"
+							<label>장소<input type="text" class="inner" name="place" th:value="${dto.place}" 
 								readonly></label>
 							<label>글 내용</label>
-							<textarea class="inner" name="content"
+							<textarea class="inner" name="content" style="font-weight:bold;"
 								readonly>[[${dto.content}]]</textarea>	
 						
-							<label>글쓴이</label> <input type="text" class="inner" name="writer"
+							<label>글쓴이</label> <input type="text" class="inner" name="writer" 
 								th:value="${dto.writer}" readonly>
 						
 							<label>등록일</label> <input type="text" class="inner" name="regDate"
@@ -87,6 +84,7 @@
 									<option value="1">1점</option>
 								</select>
 								<button type="submit">등록</button>
+								
 							</form>
 						</div>
 						<hr>

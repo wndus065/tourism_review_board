@@ -43,7 +43,7 @@ public class MapServicelmpl implements MapService {
 	@Override
 	public boolean register(MapDTO dto) {				
 		String place = dto.getPlace();	
-		MapDTO getDto = find(place);
+		MapDTO getDto = read(place);
 		
 		if (getDto != null) {
 			System.out.println("이미 등록된 장소입니다.");
@@ -124,16 +124,7 @@ public class MapServicelmpl implements MapService {
 				.collect(Collectors.toList());
 	}
 
-	@Override
-	public MapDTO find(String place) {
-		Optional<MapEntity> result = mapRepository.findById(place);
-		if(result.isPresent()) {
-			MapEntity entity = result.get();
-			return entityToDto(entity);
-		}else {
-			return null;
-		}
-	}
+	
 		
 	
 

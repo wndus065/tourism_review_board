@@ -84,7 +84,7 @@ public class MapController {
 	@PostMapping("/modify")
 	public String modifyPost(MapDTO dto , RedirectAttributes redirectAttributes) {
 		
-//		redirectAttributes.addAttribute("place", dto.getPlace());
+
 		service.modify(dto);
 		return "redirect:/map/list";
 	}

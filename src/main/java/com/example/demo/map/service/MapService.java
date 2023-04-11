@@ -21,7 +21,6 @@ public interface MapService {
 	
 	List<MapDTO> getAllMarkers();
 	
-	MapDTO find(String place);
 	
 	MapDTO read(String place);
 	

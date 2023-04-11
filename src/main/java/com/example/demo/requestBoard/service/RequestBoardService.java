@@ -17,7 +17,6 @@ public interface RequestBoardService {
 
 	    RequestBoardDTO.RequestBoardDTOBuilder builder = RequestBoardDTO.builder()
 	            .no(entity.getNo())
-//	            .id(entity.getId())
 	            .place(entity.getPlace())
 	            .address(entity.getAddress())
 	            .comment(entity.getComment())

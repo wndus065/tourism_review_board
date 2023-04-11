@@ -42,22 +42,6 @@ public class RequestBoardServiceImpl implements RequestBoardService{
 		}
 	}
 	
-//	외래키 설정 이전의 register
-//	@Override
-//	public boolean register(RequestBoardDTO dto) {
-//		int no = dto.getNo();
-//		RequestBoardDTO getDto = read(no);
-//		if(getDto != null) {
-//			return false;
-//		}
-//		RequestBoard entity = dtoToEntity(dto);
-//		
-//		repository.save(entity);
-//		return true;
-//	}
-
-	
-//	외래키 적용 register
 	@Override
 	public int register (RequestBoardDTO dto) {
 		RequestBoard entity = dtoToEntity(dto);

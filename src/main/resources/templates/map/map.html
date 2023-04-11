@@ -5,14 +5,17 @@
 
 	<th:block th:fragment="content">
 	
-	
-<div id="map" style="width:140%;height:600px;"></div>
+	<h2 style="text-shadow:1px 1px 10px #d1ebdb">마커를 클릭해보세요 !</h2>
+<div id="map" style="width:120%;height:600px; border:5px solid green;"></div>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ab9cyktgjv"></script>
 
 <script th:inline="javascript">
 var map = new naver.maps.Map('map', {
     center: new naver.maps.LatLng(37.5129146,127.1028611),
     zoom: 11
+});
+var infoWindow = new naver.maps.InfoWindow({
+    content: '마커를 클릭하세요 !'
 });
 </script>
 <script th:inline="javascript">
@@ -35,34 +38,44 @@ for (var i = 0; i < markerDTOs.length; i++) {
     naver.maps.Event.addListener(marker, "click", createClickListener(contentString, marker));
   }
 
-  function createClickListener(contentString, marker) {
-    return function() {
-      var infowindow = new naver.maps.InfoWindow({
-        content: contentString,
-        maxWidth: 140,
-        backgroundColor: "#eee",
-        borderColor: "#2db400",
-        borderWidth: 5,
-        anchorSize: new naver.maps.Size(30, 30),
-        anchorSkew: true,
-        anchorColor: "#eee",
-        pixelOffset: new naver.maps.Point(20, -20)
-      });
-      if (infowindow.getMap()) {
-        infowindow.close();
-      } else {
-        infowindow.open(map, marker);
-      }
-    };
+var currentInfoWindow = null;
+
+function createClickListener(contentString, marker) {
+  return function() {
+    if (currentInfoWindow) {
+      currentInfoWindow.close();
+    }
+
+    var infowindow = new naver.maps.InfoWindow({
+      content: contentString,
+      maxWidth: 140,
+      backgroundColor: "#eee",
+      borderColor: "#2db400",
+      borderWidth: 5,
+      anchorSize: new naver.maps.Size(30, 30),
+      anchorSkew: true,
+      anchorColor: "#eee",
+      pixelOffset: new naver.maps.Point(20, -20)
+    });
+
+    currentInfoWindow = infowindow;
+    infowindow.open(map, marker);
+  };
+}
+
+naver.maps.Event.addListener(map, "click", function() {
+  if (currentInfoWindow) {
+    currentInfoWindow.close();
+    currentInfoWindow = null;
   }
-  
+});
 	</script>
 	<!--  날씨정보 -->
 	<style>	
   .weather-container {
     display: flex;
     justify-content: flex-end;
-  	margin-left : 150px;
+  	
     justify-content: space-between;
     font-family: 'Noto Sans KR', sans-serif;
   }
@@ -73,11 +86,15 @@ for (var i = 0; i < markerDTOs.length; i++) {
     }
    
     .current-temp {
-    	display: inline;
+    	display: flex;
         font-size: 30px;
         font-weight: bold;
+        align-items: center;
        
     }
+     .current-temp span {
+    	margin-left: 10px;
+  }
 
     .temp-max {
     	font-weight : bold;
@@ -102,42 +119,42 @@ for (var i = 0; i < markerDTOs.length; i++) {
   }
 </style>
 
-<div class="current-temp">현재온도<span id="current-temp-value"></span></div>
-
-<div class="weather-container">
-
-  <div class="weather-day"></div> 
-  <div class="weather-info">
-    <div class="weather-icon"></div>   
-    <div class="temp-max"></div>
-    
-  </div>
-  <div class="weather-day"></div>
-  <div class="weather-info">
-    <div class="weather-icon"></div>   
-    <div class="temp-max"></div>
-    
-  </div>
-  <div class="weather-day"></div>
-  <div class="weather-info">
-    <div class="weather-icon"></div>   
-    <div class="temp-max"></div>
-    
-  </div>
-  <div class="weather-day"></div>
-  <div class="weather-info">
-    <div class="weather-icon"></div>
-    <div class="temp-max"></div>
-    
-  </div>
-  <div class="weather-day"></div>
-  <div class="weather-info">
-    <div class="weather-icon"></div>
-    <div class="temp-max"></div>
-    
-  </div>
-  
+<div class="current-temp">
+  현재온도
+  <span id="current-temp-value"></span>
 </div>
+
+<table style="background-color:#e8e7e5;">
+  <tr>
+    <td class="weather-day"></td> 
+    <td class="weather-day"></td>
+    <td class="weather-day"></td>
+    <td class="weather-day"></td>
+    <td class="weather-day"></td>
+  </tr>
+  <tr>
+    <td>
+      <div class="weather-icon"></div>   
+      <div class="temp-max"></div>
+    </td>
+    <td>
+      <div class="weather-icon"></div>   
+      <div class="temp-max"></div>
+    </td>
+    <td>
+      <div class="weather-icon"></div>   
+      <div class="temp-max"></div>
+    </td>
+    <td>
+      <div class="weather-icon"></div>   
+      <div class="temp-max"></div>
+    </td>
+    <td>
+      <div class="weather-icon"></div>   
+      <div class="temp-max"></div>
+    </td>
+  </tr>
+</table>
 <script th:inline="javascript">
   var weatherIcon = {
     '01' : 'fas fa-sun',

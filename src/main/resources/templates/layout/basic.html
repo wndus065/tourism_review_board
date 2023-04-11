@@ -13,10 +13,7 @@ table {
 	border-collapse: collapse;
 	width: 120%;
 }
-button {
-display:block;
-margin:auto;
-}
+
 
 th, td {
 	padding: 8px;
@@ -80,11 +77,11 @@ th {
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
-					<li th:class="${currentPage == 'map' ? 'current' : ''}"><a th:href="@{/map/main}">지도 한눈에 보기</a></li>
-					<li th:class="${currentPage == 'placeboard' ? 'current' : ''}"><a th:href="@{/placeboard/list}">장소 후기 게시판</a></li>
+					<li th:class="${currentPage == 'map' ? 'current' : ''}"><a th:href="@{/map/main}">서울 문화거리 지도</a></li>
+					<li th:class="${currentPage == 'placeboard' ? 'current' : ''}"><a th:href="@{/placeboard/list}">문화거리 리뷰 게시판</a></li>
 					<li th:class="${currentPage == 'memberA' ? 'current' : ''}" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/member/list}">회원 목록</a></li>
-					<li th:class="${currentPage == 'request' ? 'current' : ''}" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/request/list}">요청 목록</a></li>
-					<li th:class="${currentPage == 'interA' ? 'current' : ''}" sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/interboard/list}">관심 목록</a></li>
+					<li th:class="${currentPage == 'request' ? 'current' : ''}" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/request/list}">장소 요청 목록</a></li>
+					<li th:class="${currentPage == 'interA' ? 'current' : ''}" sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/interboard/list}">내 관심 목록</a></li>
 					<li th:class="${currentPage == 'request' ? 'current' : ''}" sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/request/register}">장소 요청</a></li>
 					<li><a th:href="@{/member/readMine}">내 정보</a></li>
 				</ul>
