@@ -7,41 +7,41 @@
 
 		<body onload="loadCommentList()">
 			<input type="hidden" id="sessionId" th:value="${userId}" />  <!--  여기도 수정 해야됌 -->
-
+		
 			<header>
 				<h2>장소게시판 조회</h2>
 			</header>
+			
 			<div class="row">
-
 				<div class="col-7">
 					<form>
-						<div class="form-group">
-							<label>제목</label> <input type="text" class="form-control" name="title"
+					<section class="box text-style1" style="width: 500px">
+						<div class="inner">
+							<label>제목</label> <input type="text" class="inner" name="title"
 								th:value="${dto.title}" readonly>
-						</div>
-						<div class="form-group">
-							<label>장소<input type="text" class="form-control" name="place" th:value="${dto.place}"
-								readonly>
-						</div>
-						<div class="form-group">
+						
+							<label>장소<input type="text" class="inner" name="place" th:value="${dto.place}"
+								readonly></label>
+								
+						
 							<label>글 내용</label>
-							<textarea class="form-control" rows="5" name="content"
+							<textarea class="inner" name="content"
 								readonly>[[${dto.content}]]</textarea>	
-						</div>
-						<div class="form-group">
-							<label>글쓴이</label> <input type="text" class="form-control" name="writer"
+						
+							<label>글쓴이</label> <input type="text" class="inner" name="writer"
 								th:value="${dto.writer}" readonly>
-						</div>
-						<div class="form-group">
-							<label>등록일</label> <input type="text" class="form-control" name="regDate"
+						
+							<label>등록일</label> <input type="text" class="inner" name="regDate"
 								th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-						</div>
-						<div class="form-group">
-							<label>수정일</label> <input type="text" class="form-control" name="modDate"
+						
+							<label>수정일</label> <input type="text" class="inner" name="modDate"
 								th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
 						</div>
-
+						
+			</section>
 					</form>
+					
+				<div style="display: inline-block;">
 					<th:block th:if="${user != null and user == dto.writer}">
   				  <a th:href="@{/placeboard/modify(no=${dto.no})}">
         			<button type="button" class="btn btn-primary">수정</button>
@@ -56,7 +56,7 @@
 
 					<form th:action="@{/interboard/add(no= ${dto.no})}" th:method="POST">
 						<p>
-							<button type="submit" sec:authorize="hasRole('ROLE_USER')">관심 등록</button>
+							<button type="submit" sec:authorize="hasRole('ROLE_USER')">관심등록</button>
 						</p>
 					</form>
 					<script th:inline="javascript">
@@ -68,6 +68,7 @@
 						});
 
 					</script>
+				</div>	
 				</div>
 
 

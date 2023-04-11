@@ -13,6 +13,10 @@ table {
 	border-collapse: collapse;
 	width: 120%;
 }
+button {
+display:block;
+margin:auto;
+}
 
 th, td {
 	padding: 8px;
@@ -57,16 +61,17 @@ th {
 			<section class="box text-style1" th:if="${session.id == null}">
 				<div class="inner">
 					 
-					   <div th:if="${#authorization.expression('isAuthenticated()')}">환영합니다 [[${#authentication.name}]]님</div>
+					   <div th:if="${#authorization.expression('isAuthenticated()')}">어서오세요 ! [[${#authentication.name}]]님!</div>
  							 				
 					
 					<button class="login-btn">
  				 <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/logout}">로그아웃</a>
- 				<a th:if="${#authorization.expression('!isAuthenticated()')}" th:href="@{/login}">로그인</a>
+ 			     <a th:if="${#authorization.expression('!isAuthenticated()')}" th:href="@{/login}">로그인</a>
 				</button>
 					<h1>
 						<a th:if="${#authorization.expression('!isAuthenticated()')}" th:href="@{/register}">회원가입</a>
 					</h1>
+					
 				</div>
 			</section>
 			
@@ -80,7 +85,8 @@ th {
 					<li th:class="${currentPage == 'memberA' ? 'current' : ''}" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/member/list}">회원 목록</a></li>
 					<li th:class="${currentPage == 'request' ? 'current' : ''}" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/request/list}">요청 목록</a></li>
 					<li th:class="${currentPage == 'interA' ? 'current' : ''}" sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/interboard/list}">관심 목록</a></li>
-					<li><a th:href="@{/member/readMine}">사용자 : 내 정보</a></li>
+					<li th:class="${currentPage == 'request' ? 'current' : ''}" sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/request/register}">장소 요청</a></li>
+					<li><a th:href="@{/member/readMine}">내 정보</a></li>
 				</ul>
 			</nav>
 

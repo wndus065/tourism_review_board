@@ -2388,8 +2388,8 @@ input, select, textarea {
 		/* Basic */
 
 			body {
-				height: 100%;
-				line-height: 1.75em;
+				height: 120%;
+				line-height: 3.0em;
 			}
 
 			input, textarea, select {

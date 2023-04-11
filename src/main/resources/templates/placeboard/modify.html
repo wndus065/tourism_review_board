@@ -63,6 +63,9 @@
 			});
 			
             $(".removeBtn").click(function(){
+            	if(!confirm("정말 삭제 하시겠습니까?")){
+                    return ;
+            	}
             	form
                     .attr("action", "/placeboard/remove")
                     .attr("method","get")
