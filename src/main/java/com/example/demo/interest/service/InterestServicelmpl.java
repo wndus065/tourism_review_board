@@ -80,5 +80,10 @@ public class InterestServicelmpl implements InterestService {
 			interestRepository.delete(delList);
 		}
 	}
+	
+	@Override
+	public List<Interest> getInterestByMemId(String id){
+		return interestRepository.findAllByMemberId(id);
+	}
 
 }

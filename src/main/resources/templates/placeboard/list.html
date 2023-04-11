@@ -31,7 +31,8 @@
 							[[${dto.no}]]
 						</a>
 					</th>
-					<td>[[${dto.place}]]</td>
+					<td th:if="${#lists.contains(interList.![placeBoard.no], dto.no)}"><p>&#128150;&nbsp;[[${dto.place}]]</p></td>
+					<td th:unless="${#lists.contains(interList.![placeBoard.no], dto.no)}"><p>[[${dto.place}]]</p></td>
 					<td>[[${dto.title}]]</td>
 					<td>[[${dto.writer}]]</td>
 					<td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>

@@ -26,7 +26,7 @@ public interface InterestService {
 	void delFkInter(int placeNo);
 	void delFkInterM(String id);
 	
-	
+	List<Interest> getInterestByMemId(String id);
 	
 	
 	

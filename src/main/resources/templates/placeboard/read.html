@@ -17,13 +17,13 @@
 					<form>
 					<section class="box text-style1" style="width: 500px">
 						<div class="inner">
-							<label>제목</label> <input type="text" class="inner" name="title"
-								th:value="${dto.title}" readonly>
+							<div th:if="${#lists.contains(interList.![placeBoard.no], dto.no)}"><label>&#128150;&nbsp;제목</label> <input type="text" class="form-control" name="title"
+								th:value="${dto.title}" readonly></div>
+							<div th:unless="${#lists.contains(interList.![placeBoard.no], dto.no)}"><label>제목</label> <input type="text" class="form-control" name="title"
+								th:value="${dto.title}" readonly></div>
 						
 							<label>장소<input type="text" class="inner" name="place" th:value="${dto.place}"
 								readonly></label>
-								
-						
 							<label>글 내용</label>
 							<textarea class="inner" name="content"
 								readonly>[[${dto.content}]]</textarea>	
@@ -51,10 +51,8 @@
 					<a th:href="@{/placeboard/list(page=${page})}">
 						<button type="button" class="btn btn-info">목록으로</button>
 					</a>
-
-
-
-					<form th:action="@{/interboard/add(no= ${dto.no})}" th:method="POST">
+					
+					<form th:unless="${#lists.contains(interList.![placeBoard.no], dto.no)}" th:action="@{/interboard/add(no= ${dto.no})}" th:method="POST">
 						<p>
 							<button type="submit" sec:authorize="hasRole('ROLE_USER')">관심등록</button>
 						</p>
