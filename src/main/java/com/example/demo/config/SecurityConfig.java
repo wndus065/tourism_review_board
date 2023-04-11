@@ -33,7 +33,7 @@ public class SecurityConfig {
 		
 		
 		http.authorizeHttpRequests()
-		.requestMatchers("/assets/**", "/images/**", "/path/**").permitAll();
+		.requestMatchers("/assets/**", "/images/**", "/path/**","/uploadfile/**").permitAll();
 	    	
 
 			

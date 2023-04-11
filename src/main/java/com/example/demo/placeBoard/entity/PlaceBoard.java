@@ -41,7 +41,7 @@ public class PlaceBoard extends BaseEntity {
     @Column(length = 500) //글내용
     private String content;
     
- 
+    private String imgPath;
     
    
 	
