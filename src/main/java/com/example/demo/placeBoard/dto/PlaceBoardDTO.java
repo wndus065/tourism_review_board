@@ -25,7 +25,5 @@ public class PlaceBoardDTO {
     private LocalDateTime regDate;
     private LocalDateTime modDate;
     
-    //검색필터
-    private String type;
-    private String keyword;
+    
 }

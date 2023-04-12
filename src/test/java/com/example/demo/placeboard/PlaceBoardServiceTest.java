@@ -18,17 +18,17 @@ public class PlaceBoardServiceTest {
 	@Autowired
 	PlaceBoardService service;
 
-	@Test
-	public void 방명록30개추가() {
-		for(int i=0; i<30; i++) {
-			service.register(new PlaceBoardDTO(i, "또치", "서울", "서울", "놀러왔따", null, null));	
-		}
-	}
-	
-	@Test
-	public void 등록() {
-		service.register(new PlaceBoardDTO(0, "id0", "63빌딩", "서울", "놀러왔따", null, null));	
-	}
+//	@Test
+//	public void 방명록30개추가() {
+//		for(int i=0; i<30; i++) {
+//			service.register(new PlaceBoardDTO(i, "또치", "서울", "서울", "놀러왔따", null, null));	
+//		}
+//	}
+//	
+//	@Test
+//	public void 등록() {
+//		service.register(new PlaceBoardDTO(0, "id0", "63빌딩", "서울", "놀러왔따", null, null));	
+//	}
 	
 	@Test
 	public void 일번페이지_목록조회하기() {

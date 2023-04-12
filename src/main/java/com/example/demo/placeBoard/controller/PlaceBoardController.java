@@ -2,10 +2,13 @@ package com.example.demo.placeBoard.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +25,10 @@ import com.example.demo.map.dto.MapDTO;
 import com.example.demo.map.entity.MapEntity;
 import com.example.demo.map.service.MapService;
 import com.example.demo.placeBoard.dto.PlaceBoardDTO;
+import com.example.demo.placeBoard.entity.PlaceBoard;
 import com.example.demo.placeBoard.service.PlaceBoardService;
 import com.example.demo.requestBoard.dto.RequestBoardDTO;
+import com.example.demo.user.entity.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -41,18 +46,25 @@ public class PlaceBoardController {
 	@Autowired
 	private MapService mapService;
 
-	@GetMapping("/getSearchList")
-	@ResponseBody
-	private List<PlaceBoardDTO> getSearchList(@RequestParam("type") String type, 
-			@RequestParam("keyword") String keyword, Model model) throws Exception{
-		PlaceBoardDTO placeBoardDTO = new PlaceBoardDTO();
-		placeBoardDTO.setType(type);
-		placeBoardDTO.setKeyword(keyword);
-		return service.getSearchList(placeBoardDTO);
-	}
+//	@GetMapping("/getSearchList")
+//    @ResponseBody
+//    public List<PlaceBoardDTO> getSearchList(@RequestParam(required = false) Member writer,
+//                                             @RequestParam(required = false) MapEntity place,
+//                                             @RequestParam(required = false) String title,
+//                                             @RequestParam(required = false) String content) {
+//        List<PlaceBoardDTO> placeBoardDTOList = service.getSearchList(writer, place, title, content);
+//        return placeBoardDTOList;
+//    }
+
+//	@GetMapping("/search")
+//	@ResponseBody
+//	public List<PlaceBoardDTO> search(@RequestParam("keyword") String keyword) {
+//	    List<PlaceBoard> placeBoardList = service.search(keyword);
+//	    return placeBoardList.stream().map(placeBoard -> service.entityToDto(placeBoard)).collect(Collectors.toList());
+//	}
 
 	@GetMapping("/list")
-	public void list(@RequestParam(defaultValue = "0") int page, Model model) { // 파라미터 추가
+	public void list(@RequestParam(defaultValue = "0") int page, Model model, @RequestParam(defaultValue = "") String place) { // 파라미터 추가
 		Page<PlaceBoardDTO> list = service.getList(page);
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", "placeboard");

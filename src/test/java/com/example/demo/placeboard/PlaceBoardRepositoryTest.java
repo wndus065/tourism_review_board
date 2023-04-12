@@ -57,5 +57,14 @@ public class PlaceBoardRepositoryTest {
 	public void 데이터삭제() {
 		repository.deleteById(3);
 	}
+	
+//	@Test
+//	public void 데이터검색() {
+//		List<PlaceBoard> result = repository.findByContentContaining("asdf");
+//		if(result.isPresent()) {
+//			PlaceBoard placeboard = result.get();
+//			System.out.println(placeboard);
+//		}
+//	}
 
 }

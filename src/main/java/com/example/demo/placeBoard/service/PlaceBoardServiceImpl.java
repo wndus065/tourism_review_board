@@ -1,5 +1,6 @@
 package com.example.demo.placeBoard.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,9 +11,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.map.entity.MapEntity;
 import com.example.demo.placeBoard.dto.PlaceBoardDTO;
 import com.example.demo.placeBoard.entity.PlaceBoard;
 import com.example.demo.placeBoard.repository.PlaceBoardRepository;
+import com.example.demo.user.entity.Member;
 
 @Service
 public class PlaceBoardServiceImpl implements PlaceBoardService {
@@ -78,10 +81,5 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 	public void remove(int no) {
 		repository.deleteById(no);
 	}
-
-	@Override
-	 public List<PlaceBoardDTO> getSearchList(PlaceBoardDTO placeBoardDTO) throws Exception {
-        List<PlaceBoard> searchList = repository.getSearchList(placeBoardDTO);
-        return PlaceBoardDTO.toDTOList(searchList);
-    }
+	
 }
