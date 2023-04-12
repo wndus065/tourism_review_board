@@ -2,6 +2,8 @@ package com.example.demo.placeBoard.dto;
 
 import java.time.LocalDateTime;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,5 +26,7 @@ public class PlaceBoardDTO {
     private String content;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
+    private MultipartFile uploadFile;
+    private String imgPath;
     
 }

@@ -7,7 +7,6 @@
 
 		<body onload="loadCommentList()">
 			<input type="hidden" id="sessionId" th:value="${userId}" />  <!--  여기도 수정 해야됌 -->
-				
 			
 			<div class="row">
 				<div class="col-7">
@@ -24,6 +23,10 @@
 							<label>글 내용</label>
 							<textarea class="inner" name="content" style="font-weight:bold;"
 								readonly>[[${dto.content}]]</textarea>	
+							<!-- 이미지 보여주기 -->
+							<div class="form-group">
+								<img th:src="@{'/uploadfile/'+${dto.imgPath}}" style="width: 100%">
+							</div>
 						
 							<label>글쓴이</label> <input type="text" class="inner" name="writer" 
 								th:value="${dto.writer}" readonly>

@@ -15,6 +15,7 @@ import com.example.demo.interest.service.InterestService;
 import com.example.demo.map.entity.MapEntity;
 import com.example.demo.placeBoard.dto.PlaceBoardDTO;
 import com.example.demo.placeBoard.entity.PlaceBoard;
+import com.example.demo.placeBoard.image.util.FileUtil;
 import com.example.demo.placeBoard.repository.PlaceBoardRepository;
 import com.example.demo.user.entity.Member;
 
@@ -29,10 +30,17 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 	
 	@Autowired
 	private InterestService interService;
+	
+	@Autowired
+	private FileUtil fileUtil;
 
 	@Override
 	public int register(PlaceBoardDTO dto) {
 		PlaceBoard entity = dtoToEntity(dto);
+		
+		String imgPath = fileUtil.fileUpload(dto.getUploadFile());
+		entity.setImgPath(imgPath);
+		
 		System.out.println(entity);
 		repository.save(entity);
 
