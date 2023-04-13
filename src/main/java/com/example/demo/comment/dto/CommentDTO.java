@@ -2,9 +2,6 @@ package com.example.demo.comment.dto;
 
 import java.time.LocalDateTime;
 
-import com.example.demo.placeBoard.entity.PlaceBoard;
-import com.example.demo.user.entity.Member;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

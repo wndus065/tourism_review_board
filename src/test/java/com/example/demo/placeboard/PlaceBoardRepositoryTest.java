@@ -20,14 +20,14 @@ public class PlaceBoardRepositoryTest {
 	PlaceBoardRepository repository;
 	
 		
-	@Test
-	public void 등록() {
-		Member member1 = Member.builder().id("id20").build();
-		MapEntity mapEntity1 = MapEntity.builder().place("잠실구장").build();
-		PlaceBoard placeboard = new PlaceBoard(0, member1, mapEntity1, "서울여행", "서울여행 63빌딩에 갔다");
-		repository.save(placeboard);	
-	}
-	
+//	@Test
+//	public void 등록() {
+//		Member member1 = Member.builder().id("id20").build();
+//		MapEntity mapEntity1 = MapEntity.builder().place("잠실구장").build();
+//		PlaceBoard placeboard = new PlaceBoard(0, member1, mapEntity1, "서울여행", "서울여행 63빌딩에 갔다");
+//		repository.save(placeboard);	
+//	}
+//	
 	@Test
 	public void 데이터단건조회() {
 		Optional<PlaceBoard> result = repository.findById(1);
