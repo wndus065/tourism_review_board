@@ -29,4 +29,5 @@ public class PlaceBoardDTO {
     private MultipartFile uploadFile;
     private String imgPath;
     
+    
 }

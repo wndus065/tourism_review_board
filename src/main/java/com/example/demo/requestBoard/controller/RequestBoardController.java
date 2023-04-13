@@ -60,7 +60,7 @@ public class RequestBoardController {
 	public String registerPost(RequestBoardDTO dto, RedirectAttributes rttr) {
 		int no = service.register(dto);
 		rttr.addFlashAttribute("result", no);
-		return "redirect:/request/list";
+		return "redirect:/placeboard/list";
 	}
 
 }

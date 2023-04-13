@@ -1,5 +1,6 @@
 package com.example.demo.placeBoard.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,6 +97,7 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 	public void remove(int no) {
 		repository.deleteById(no);
 	}
+
 	
 	@Override
 	public void delFkPost(String writerNo) {
@@ -116,4 +118,26 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 			repository.delete(post);
 		}
 	}
+
+
+	@Override
+	public List<PlaceBoard> searchByContent(String content) {
+		return repository.findByContentContaining(content);
+	}
+
+	@Override
+	public List<PlaceBoard> searchByPlace(MapEntity place) {
+		return repository.findByPlace(place);
+	}
+
+	@Override
+	public List<PlaceBoard> searchByTitle(String title) {
+		return repository.findByTitleContaining(title);
+	}
+
+	@Override
+	public List<PlaceBoard> searchByWriter(Member writer) {
+		return repository.findByWriter(writer);
+	}
+	
 }
