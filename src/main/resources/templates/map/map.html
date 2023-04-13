@@ -4,12 +4,14 @@
 <th:block th:replace="~{layout/basic :: setContent(~{this::content} )}">
 
 	<th:block th:fragment="content">
-	
-	<h2 style="text-shadow:1px 1px 10px #d1ebdb">마커를 클릭해보세요 !</h2>
-<div id="map" style="width:120%;height:600px; border:5px solid green;"></div>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ab9cyktgjv"></script>
 
-<script th:inline="javascript">
+		<h2 style="text-shadow: 1px 1px 10px #d1ebdb">마커를 클릭해보세요 !</h2>
+		<div id="map"
+			style="width: 120%; height: 600px; border: 5px solid green;"></div>
+		<script type="text/javascript"
+			src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=s5xy1mstuu"></script>
+
+		<script th:inline="javascript">
 var map = new naver.maps.Map('map', {
     center: new naver.maps.LatLng(37.5129146,127.1028611),
     zoom: 11
@@ -18,7 +20,7 @@ var infoWindow = new naver.maps.InfoWindow({
     content: '마커를 클릭하세요 !'
 });
 </script>
-<script th:inline="javascript">
+		<script th:inline="javascript">
 var markers = [];
 /* DTO에서 좌표 정보를 불러와서 마커 생성 */
 var markerDTOs = [[${mapDTOList}]];
@@ -33,7 +35,7 @@ for (var i = 0; i < markerDTOs.length; i++) {
     
     markers.push(marker);
 
-    var contentString = '<a href="/placeboard/list" div style="padding:20px;">' + markerDTOs[i].place +'        '+ markerDTOs[i].address+ '</a>';
+    var contentString = '<h3 style="font-size:20px"><a href="/placeboard/list" div style="padding:20px;">' + markerDTOs[i].place + '</a></h3><p>'+ markerDTOs[i].address + '<br>(클릭하면 리뷰 게시판으로 이동됩니다.)</p>';
 
     naver.maps.Event.addListener(marker, "click", createClickListener(contentString, marker));
   }
@@ -47,16 +49,20 @@ function createClickListener(contentString, marker) {
     }
 
     var infowindow = new naver.maps.InfoWindow({
-      content: contentString,
-      maxWidth: 140,
-      backgroundColor: "#eee",
-      borderColor: "#2db400",
-      borderWidth: 5,
-      anchorSize: new naver.maps.Size(30, 30),
-      anchorSkew: true,
-      anchorColor: "#eee",
-      pixelOffset: new naver.maps.Point(20, -20)
-    });
+    	content: contentString,
+    	maxWidth: 300,
+    	backgroundColor: "#fff",
+    	borderWidth: 0,
+    	anchorSize: new naver.maps.Size(30, 30),
+    	anchorSkew: true,
+    	anchorColor: "#fff",
+    	pixelOffset: new naver.maps.Point(20, -20),
+    	borderRadius: "5px",
+    	boxShadow: "rgba(0,0,0,0.3) 3px 3px 10px"
+   		});
+
+    	// CSS 스타일 적용
+		infowindow.setContent('<div style="padding:10px; font-size:14px; color:#333; border: 2px solid #ccc;">'+contentString+'</div>');
 
     currentInfoWindow = infowindow;
     infowindow.open(map, marker);
@@ -70,92 +76,88 @@ naver.maps.Event.addListener(map, "click", function() {
   }
 });
 	</script>
-	<!--  날씨정보 -->
-	<style>	
-  .weather-container {
-    display: flex;
-    justify-content: flex-end;
-  	
-    justify-content: space-between;
-    font-family: 'Noto Sans KR', sans-serif;
-  }
-  
-    .weather-icon i {
-        display: block;
-       
-    }
-   
-    .current-temp {
-    	display: flex;
-        font-size: 30px;
-        font-weight: bold;
-        align-items: center;
-       
-    }
-     .current-temp span {
-    	margin-left: 10px;
-  }
+		<!--  날씨정보 -->
+		<style>
+.weather-container {
+	display: flex;
+	justify-content: flex-end;
+	justify-content: space-between;
+	font-family: 'Noto Sans KR', sans-serif;
+}
 
-    .temp-max {
-    	font-weight : bold;
-        font-size: 20px;
-        margin-top: 10px;
-    }
-  
-  .weather-day{
- 
-   position:relative static;
-   	font-size:20px;
-  	font-weight: bold;
-  	}
-  .weather-info {
-    display: flex;
-    flex-direction: column;
-  }
-    .weather-icon {
-    font-size: 3rem; /* 원하는 크기로 조정 */
-    
-   
-  }
+.weather-icon i {
+	display: block;
+}
+
+.current-temp {
+	display: flex;
+	font-size: 30px;
+	font-weight: bold;
+	align-items: center;
+}
+
+.current-temp span {
+	margin-left: 10px;
+}
+
+.temp-max {
+	font-weight: bold;
+	font-size: 20px;
+	margin-top: 10px;
+}
+
+.weather-day {
+	position: relative static;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.weather-info {
+	display: flex;
+	flex-direction: column;
+}
+
+.weather-icon {
+	font-size: 3rem; /* 원하는 크기로 조정 */
+}
 </style>
 
-<div class="current-temp">
-  현재온도
-  <span id="current-temp-value"></span>
-</div>
+		<div class="current-temp">
+			현재온도 <span id="current-temp-value"></span>
+		</div>
 
-<table style="background-color:#e8e7e5;">
-  <tr>
-    <td class="weather-day"></td> 
-    <td class="weather-day"></td>
-    <td class="weather-day"></td>
-    <td class="weather-day"></td>
-    <td class="weather-day"></td>
-  </tr>
-  <tr>
-    <td>
-      <div class="weather-icon"></div>   
-      <div class="temp-max"></div>
-    </td>
-    <td>
-      <div class="weather-icon"></div>   
-      <div class="temp-max"></div>
-    </td>
-    <td>
-      <div class="weather-icon"></div>   
-      <div class="temp-max"></div>
-    </td>
-    <td>
-      <div class="weather-icon"></div>   
-      <div class="temp-max"></div>
-    </td>
-    <td>
-      <div class="weather-icon"></div>   
-      <div class="temp-max"></div>
-    </td>
-  </tr>
-</table>
-<script th:inline="javascript">
+		<table style="background-color: #e8e7e5;">
+			<tr>
+				<td class="weather-day"></td>
+				<td class="weather-day"></td>
+				<td class="weather-day"></td>
+				<td class="weather-day"></td>
+				<td class="weather-day"></td>
+			</tr>
+			<tr>
+				<td>
+					<div class="weather-icon"></div>
+					<div class="temp-max"></div>
+				</td>
+				<td>
+					<div class="weather-icon"></div>
+					<div class="temp-max"></div>
+				</td>
+				<td>
+					<div class="weather-icon"></div>
+					<div class="temp-max"></div>
+				</td>
+				<td>
+					<div class="weather-icon"></div>
+					<div class="temp-max"></div>
+				</td>
+				<td>
+					<div class="weather-icon"></div>
+					<div class="temp-max"></div>
+				</td>
+			</tr>
+		</table>
+		<script th:inline="javascript">
   var weatherIcon = {
     '01' : 'fas fa-sun',
     '02' : 'fas fa-cloud-sun',
@@ -203,7 +205,7 @@ naver.maps.Event.addListener(map, "click", function() {
 		});
       </script>
 
-     
+
 	</th:block>
 
 </th:block>
