@@ -81,36 +81,30 @@ p {
 		</section>
 		<script th:inline="javascript">
 		function idCheck(){
-	  		let id = document.getElementById("id"); //html에서 아이디필드 가져오기
-			let idvalidation = document.getElementById("idvalidation"); //html에서 메세지필드 가져오기
-			let registerBtn = document.getElementById("registerBtn"); //html에서 등록버튼 가져오기
-			$.ajax({ //ajax호출하여 아이디체크 request 호출하기
-	            url:'/idcheck?id=' + id.value, //idcheck?id=user1
-	            type:'GET',
-	            success:function(result){ //결과를 화면에 반영하기
-	            	let isDuplicate = result.isDuplicate;
-	                if(isDuplicate==true){
-	                	//중복메세지 보여주고 등록버튼 비활성화
-	                	idvalidation.hidden = false;
-	                	registerBtn.disabled = true;
-	                	
-	                }else{
-	                	//중복메세지 숨기고 등록버튼 활성화
-	                	idvalidation1.hidden = false;
-	                	registerBtn.disabled = false;
-	                }
-	            },
-	            error:function(e){
-	                console.log('에러발생');
-	            }
-	        });
+		    let id = document.getElementById("id");
+		    let idvalidation = document.getElementById("idvalidation");
+		    let idvalidation1 = document.getElementById("idvalidation1"); // 수정된 부분
+		    let registerBtn = document.getElementById("registerBtn");
+		    $.ajax({
+		        url:'/idcheck?id=' + id.value,
+		        type:'GET',
+		        success:function(result){
+		            let isDuplicate = result.isDuplicate;
+		            if(isDuplicate){
+		                idvalidation.hidden = false;
+		                idvalidation1.hidden = true; // 수정된 부분
+		                registerBtn.disabled = true;
+		            }else{
+		                idvalidation.hidden = true;
+		                idvalidation1.hidden = false; // 수정된 부분
+		                registerBtn.disabled = false;
+		            }
+		        },
+		        error:function(e){
+		            console.log('에러발생');
+		        }
+		    });
 		}
-			$(document).ready(function(){
-   		 		var msg = [[${msg}]]
-   		 		if(msg != null){
-   		 			alert(msg);
-   		 		}
-   			});
 		</script>
 
 	</th:block>

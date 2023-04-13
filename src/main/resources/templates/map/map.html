@@ -11,8 +11,8 @@
 
 <script th:inline="javascript">
 var map = new naver.maps.Map('map', {
-    center: new naver.maps.LatLng(37.5129146,127.1028611),
-    zoom: 11
+    center: new naver.maps.LatLng(37.5659,126.9774),
+    zoom: 12
 });
 var infoWindow = new naver.maps.InfoWindow({
     content: '마커를 클릭하세요 !'
@@ -33,8 +33,7 @@ for (var i = 0; i < markerDTOs.length; i++) {
     
     markers.push(marker);
 
-    var contentString = '<a href="/placeboard/list" div style="padding:20px;">' + markerDTOs[i].place +'        '+ markerDTOs[i].address+ '</a>';
-
+    var contentString = '<div style="padding:10px;"><a href="/placeboard/list">' + markerDTOs[i].place + markerDTOs[i].address+ '</a><br><small style="color: gray;">(클릭하면 리뷰 게시판으로 이동됩니다.)</small></div>';
     naver.maps.Event.addListener(marker, "click", createClickListener(contentString, marker));
   }
 
@@ -48,7 +47,7 @@ function createClickListener(contentString, marker) {
 
     var infowindow = new naver.maps.InfoWindow({
       content: contentString,
-      maxWidth: 140,
+      maxWidth: 250,
       backgroundColor: "#eee",
       borderColor: "#2db400",
       borderWidth: 5,
@@ -114,9 +113,9 @@ naver.maps.Event.addListener(map, "click", function() {
   }
     .weather-icon {
     font-size: 3rem; /* 원하는 크기로 조정 */
-    
-   
+       
   }
+
 </style>
 
 <div class="current-temp">
