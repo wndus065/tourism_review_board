@@ -1,4 +1,4 @@
-package com.example.demo.placeBoard.image.util;
+package com.example.demo.placeBoard.util;
 
 import java.io.File;
 import java.io.IOException;

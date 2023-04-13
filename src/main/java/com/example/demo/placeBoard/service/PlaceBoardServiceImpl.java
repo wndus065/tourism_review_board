@@ -15,8 +15,8 @@ import com.example.demo.interest.service.InterestService;
 import com.example.demo.map.entity.MapEntity;
 import com.example.demo.placeBoard.dto.PlaceBoardDTO;
 import com.example.demo.placeBoard.entity.PlaceBoard;
-import com.example.demo.placeBoard.image.util.FileUtil;
 import com.example.demo.placeBoard.repository.PlaceBoardRepository;
+import com.example.demo.placeBoard.util.FileUtil;
 import com.example.demo.user.entity.Member;
 
 @Service
