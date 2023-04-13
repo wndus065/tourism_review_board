@@ -24,7 +24,7 @@
 							<textarea class="inner" name="content" style="font-weight:bold;"
 								readonly>[[${dto.content}]]</textarea>	
 							<!-- 이미지 보여주기 -->
-							<div class="form-group">
+							<div class="form-group" th:if="${dto.imgPath != null}">
 								<img th:src="@{'/uploadfile/'+${dto.imgPath}}" style="width: 100%">
 							</div>
 						
