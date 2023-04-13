@@ -127,6 +127,10 @@
 
 								for (let i = 0; i < commentList.length; i++) {
 									const comment = commentList[i];
+									const date = new Date(comment.regDate);
+									const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+									const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+									const formattedDateTime = `${formattedDate} / ${formattedTime}`;
 									let editDeleteButtons = '';
 
 									if (comment.writer == sessionId) {
@@ -141,9 +145,9 @@
 									}
 									commentHtml += `<div class="row">
 					        					<div class="form-group col-10">
-					                            	<p><strong>${comment.writer}</strong> : ${comment.grade}</p>
+					                            	<p><strong>${comment.writer}</strong> 평점: ${comment.grade}</p>
 					                            	<p>${comment.comment}</p>
-					                            	<p style="color: gray">${comment.regDate}</p>
+					                            	<p style="color: gray">${formattedDateTime}</p>
 					                        	</div>
 					                        	${editDeleteButtons}
 											</div>
