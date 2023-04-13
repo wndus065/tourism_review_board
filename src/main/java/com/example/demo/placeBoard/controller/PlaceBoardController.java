@@ -2,10 +2,13 @@ package com.example.demo.placeBoard.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.comment.dto.CommentDTO;
@@ -24,8 +28,10 @@ import com.example.demo.map.dto.MapDTO;
 import com.example.demo.map.entity.MapEntity;
 import com.example.demo.map.service.MapService;
 import com.example.demo.placeBoard.dto.PlaceBoardDTO;
+import com.example.demo.placeBoard.entity.PlaceBoard;
 import com.example.demo.placeBoard.service.PlaceBoardService;
 import com.example.demo.requestBoard.dto.RequestBoardDTO;
+import com.example.demo.user.entity.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -36,10 +42,10 @@ public class PlaceBoardController {
 
 	@Autowired
 	private PlaceBoardService service;
-	
+
 	@Autowired
 	private CommentService commentService;
-	
+
 	@Autowired
 	private MapService mapService;
 	
@@ -47,8 +53,43 @@ public class PlaceBoardController {
 	private InterestService interService;
 	
 
+	// 콘텐츠 검색
+    @GetMapping("/search/content")
+    public String searchByContent(Model model, @RequestParam("keyword") String content) {
+        List<PlaceBoard> placeBoards = service.searchByContent(content);
+        model.addAttribute("placeBoards", placeBoards);
+        return "placeboard/list";
+    }
+
+    // 제목 검색
+    @GetMapping("/search/title")
+    public String searchByTitle(Model model, @RequestParam("keyword") String title) {
+        List<PlaceBoard> placeBoards = service.searchByTitle(title);
+        model.addAttribute("placeBoards", placeBoards);
+        return "placeboard/list";
+    }
+
+//    // 장소 검색
+//    @GetMapping("/search/place")
+//    public String searchByPlace(Model model, @RequestParam("place") MapEntity place) {
+//        MapEntity mapEntity = MapEntity.builder().place(dto.getPlace()).build();
+//        List<PlaceBoard> placeBoards = service.searchByPlace(place);
+//        model.addAttribute("placeBoards", placeBoards);
+//        return "placeboard/list";
+//    }
+//
+//    // 작성자 검색
+//    @GetMapping("/search/writer")
+//    public String searchByWriter(Model model, @RequestParam("writer") Member writer) {
+//        Member member = Member.builder().id(writer).build();
+//        List<PlaceBoard> placeBoards = service.searchByWriter(writer);
+//        model.addAttribute("placeBoards", placeBoards);
+//        return "placeboard/list";
+//    }
+
+
 	@GetMapping("/list")
-	public void list(@RequestParam(defaultValue = "0") int page, Model model,Principal principal) { //파라미터 추가
+	public void list(@RequestParam(defaultValue = "0") int page, Model model, Principal principal, @RequestParam(defaultValue = "") String place) { // 파라미터 추가
 		String id = principal.getName();
 		Page<PlaceBoardDTO> list = service.getList(page);
 		List<Interest> interList = interService.getInterestByMemId(id);
@@ -80,16 +121,16 @@ public class PlaceBoardController {
 //		Page<MapDTO> result  = mapService.getlist(0);
 //		List<MapDTO> list = result.getContent();
 	    List<MapDTO> list = mapService.pickPlace();
-		
+
 		model.addAttribute("placelist", list);
-	    return "/placeboard/register";
+		return "/placeboard/register";
 	}
 
 	@PostMapping("/register")
 	public String registerPost(PlaceBoardDTO dto, RedirectAttributes redirectAttributes) {
-	    int no = service.register(dto);
-	    redirectAttributes.addFlashAttribute("msg", no);
-	    return "redirect:/placeboard/list";
+		int no = service.register(dto);
+		redirectAttributes.addFlashAttribute("msg", no);
+		return "redirect:/placeboard/list";
 	}
 
 	@GetMapping("/read")
@@ -112,17 +153,17 @@ public class PlaceBoardController {
 	    model.addAttribute("user", authentication.getName()); // 인증된 사용자의 이름을 추가
 	}
 
-	
+
 	@GetMapping("/modify")
 	public String modifyForm(@RequestParam("no") int no, Model model, Principal principal) {
-	    String id = principal.getName(); // 사용자 ID 가져오기
-	    PlaceBoardDTO dto = service.read(no);
-	    if (dto.getWriter().equals(id)) {
-	        model.addAttribute("dto", dto);
-	        return "placeboard/modify";
-	    } else {
-	        return "redirect:/placeboard/read?no=" + no;
-	    }
+		String id = principal.getName(); // 사용자 ID 가져오기
+		PlaceBoardDTO dto = service.read(no);
+		if (dto.getWriter().equals(id)) {
+			model.addAttribute("dto", dto);
+			return "placeboard/modify";
+		} else {
+			return "redirect:/placeboard/read?no=" + no;
+		}
 	}
 
 	@PostMapping("/modify")

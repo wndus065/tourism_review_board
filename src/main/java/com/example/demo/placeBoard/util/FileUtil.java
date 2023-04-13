@@ -17,7 +17,6 @@ public class FileUtil {
 	
 	@Value("${imgPath}")
 	String path;
-//	String path = "C:\\Users\\user\\Desktop\\BackEnd_Project\\uploadfile";
 	
 	public String fileUpload(MultipartFile multipartFile) {
 		Path copyOfLocation = null;
