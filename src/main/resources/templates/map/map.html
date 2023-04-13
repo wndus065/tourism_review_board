@@ -33,7 +33,7 @@ for (var i = 0; i < markerDTOs.length; i++) {
     
     markers.push(marker);
 
-    var contentString = '<div style="padding:10px;"><a href="/placeboard/list">' + markerDTOs[i].place + markerDTOs[i].address+ '</a><br><small style="color: gray;">(클릭하면 리뷰 게시판으로 이동됩니다.)</small></div>';
+    var contentString = '<div style="padding:10px;"><a href="/placeboard/list">' + markerDTOs[i].place + markerDTOs[i].address+ '</a>';
     naver.maps.Event.addListener(marker, "click", createClickListener(contentString, marker));
   }
 
