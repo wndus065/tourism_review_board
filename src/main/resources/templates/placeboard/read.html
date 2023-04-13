@@ -24,8 +24,9 @@
 							<textarea class="inner" name="content" style="font-weight:bold;"
 								readonly>[[${dto.content}]]</textarea>	
 							<!-- 이미지 보여주기 -->
+							<hr>
 							<div class="form-group" th:if="${dto.imgPath != null}">
-								<img th:src="@{'/uploadfile/'+${dto.imgPath}}" style="width: 100%">
+								<img th:src="@{'/uploadfile/'+${dto.imgPath}}" style="width: 100%; border-radius: 16px;">
 							</div>
 						
 							<label>글쓴이</label> <input type="text" class="inner" name="writer" 
@@ -131,6 +132,10 @@
 									const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
 									const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
 									const formattedDateTime = `${formattedDate} / ${formattedTime}`;
+									let stars = '';
+									 for(let j=0; j< comment.grade; j++){
+										 stars += '&#11088;';
+									 }
 									let editDeleteButtons = '';
 
 									if (comment.writer == sessionId) {
@@ -145,7 +150,7 @@
 									}
 									commentHtml += `<div class="row">
 					        					<div class="form-group col-10">
-					                            	<p><strong>${comment.writer}</strong> 평점: ${comment.grade}</p>
+					                            	<p><strong>${comment.writer}</strong> ${stars}</p>
 					                            	<p>${comment.comment}</p>
 					                            	<p style="color: gray">${formattedDateTime}</p>
 					                        	</div>
