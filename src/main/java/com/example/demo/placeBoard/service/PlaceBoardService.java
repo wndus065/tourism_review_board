@@ -29,6 +29,7 @@ public interface PlaceBoardService {
 				.content(entity.getContent())
 				.regDate(entity.getRegDate()) 
 				.modDate(entity.getModDate())
+				.imgPath(entity.getImgPath())
 				.build();
 
 		return dto;

@@ -93,17 +93,25 @@ public class PlaceBoardController {
 	}
 
 	@GetMapping("/read")
-	public void read(int no, @RequestParam(defaultValue = "0") int page, Model model, org.springframework.security.core.Authentication authentication,Principal principal) {
-		String id = principal.getName();
-		PlaceBoardDTO dto = service.read(no);
-		List<Interest> interList = interService.getInterestByMemId(id);
-		model.addAttribute("interList", interList);
-		
+	public void read(int no, @RequestParam(defaultValue = "0") int page, Model model, org.springframework.security.core.Authentication authentication, Principal principal) {
+	    String id = principal.getName();
+	    PlaceBoardDTO dto = service.read(no);
+	    List<Interest> interList = interService.getInterestByMemId(id);
+	    model.addAttribute("interList", interList);
+	    
+	    // 이미지 경로를 가져와 model에 추가
+	    String imgPath = dto.getImgPath();
+	    if (imgPath != null) {
+	        String[] imgPaths = imgPath.split(",");
+	        model.addAttribute("imgPaths", imgPaths);
+	    }
+
 	    model.addAttribute("dto", dto);
 	    model.addAttribute("page", page);
 	    model.addAttribute("currentPage", "placeboard");
 	    model.addAttribute("user", authentication.getName()); // 인증된 사용자의 이름을 추가
 	}
+
 	
 	@GetMapping("/modify")
 	public String modifyForm(@RequestParam("no") int no, Model model, Principal principal) {
