@@ -46,22 +46,39 @@ public class PlaceBoardController {
 	@Autowired
 	private MapService mapService;
 
-//	@GetMapping("/getSearchList")
-//    @ResponseBody
-//    public List<PlaceBoardDTO> getSearchList(@RequestParam(required = false) Member writer,
-//                                             @RequestParam(required = false) MapEntity place,
-//                                             @RequestParam(required = false) String title,
-//                                             @RequestParam(required = false) String content) {
-//        List<PlaceBoardDTO> placeBoardDTOList = service.getSearchList(writer, place, title, content);
-//        return placeBoardDTOList;
-//    }
+	// 콘텐츠 검색
+    @GetMapping("/search/content")
+    public String searchByContent(Model model, @RequestParam("keyword") String content) {
+        List<PlaceBoard> placeBoards = service.searchByContent(content);
+        model.addAttribute("placeBoards", placeBoards);
+        return "placeboard/list";
+    }
 
-//	@GetMapping("/search")
-//	@ResponseBody
-//	public List<PlaceBoardDTO> search(@RequestParam("keyword") String keyword) {
-//	    List<PlaceBoard> placeBoardList = service.search(keyword);
-//	    return placeBoardList.stream().map(placeBoard -> service.entityToDto(placeBoard)).collect(Collectors.toList());
-//	}
+    // 제목 검색
+    @GetMapping("/search/title")
+    public String searchByTitle(Model model, @RequestParam("keyword") String title) {
+        List<PlaceBoard> placeBoards = service.searchByTitle(title);
+        model.addAttribute("placeBoards", placeBoards);
+        return "placeboard/list";
+    }
+
+//    // 장소 검색
+//    @GetMapping("/search/place")
+//    public String searchByPlace(Model model, @RequestParam("place") MapEntity place) {
+//        MapEntity mapEntity = MapEntity.builder().place(dto.getPlace()).build();
+//        List<PlaceBoard> placeBoards = service.searchByPlace(place);
+//        model.addAttribute("placeBoards", placeBoards);
+//        return "placeboard/list";
+//    }
+//
+//    // 작성자 검색
+//    @GetMapping("/search/writer")
+//    public String searchByWriter(Model model, @RequestParam("writer") Member writer) {
+//        Member member = Member.builder().id(writer).build();
+//        List<PlaceBoard> placeBoards = service.searchByWriter(writer);
+//        model.addAttribute("placeBoards", placeBoards);
+//        return "placeboard/list";
+//    }
 
 	@GetMapping("/list")
 	public void list(@RequestParam(defaultValue = "0") int page, Model model, @RequestParam(defaultValue = "") String place) { // 파라미터 추가

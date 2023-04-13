@@ -35,7 +35,7 @@ public class PlaceBoard extends BaseEntity {
 	@ManyToOne //장소
     private MapEntity place; 
     
-    @Column(length = 50, nullable = false) //글제목
+    @Column(length = 50, nullable = false) //글제목	
     private String title;
     
     @Column(length = 500) //글내용

@@ -14,15 +14,12 @@ import com.example.demo.user.entity.Member;
 
 public interface PlaceBoardRepository extends JpaRepository<PlaceBoard, Integer> {
 
-	@Query("SELECT pb FROM PlaceBoard pb WHERE pb.title LIKE %:keyword% OR pb.place_place LIKE %:keyword% OR pb.content LIKE %:keyword% OR pb.writer_id LIKE %:keyword%")
-	List<PlaceBoard> search(@Param("keyword") String keyword);
+	List<PlaceBoard> findByContentContaining(@Param("keyword") String content);
 
-	List<PlaceBoard> findByContentContaining(String content);
+	List<PlaceBoard> findByPlace(@Param("place") MapEntity place);
+		
+	List<PlaceBoard> findByTitleContaining(@Param("keyword") String title);
 
-	List<PlaceBoard> findByPlaceContaining(MapEntity place);
-
-	List<PlaceBoard> findByTitleContaining(String title);
-
-	List<PlaceBoard> findByWriterContaining(Member writer);
+	List<PlaceBoard> findByWriter(@Param("writer") Member writer);
 
 }

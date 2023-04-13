@@ -50,7 +50,8 @@
 					<option value="content">내용</option>
 				</select>
 				<input type="text" id="searchKeyword"></input>
-				<button id="search_btn" style="height: 36px; width: 120px; margin-right: 2px;" onclick="search()">검색</button>
+				<button id="search_btn" style="height: 36px; width: 120px; margin-right: 2px;"
+					onclick="search()">검색</button>
 				<button id="register_btn" onclick="location.href='/placeboard/register'"
 					class="btn btn-outline-primary mr-3" style="height: 36px; width: 120px; margin-right: 2px;"
 					type="button">글
@@ -73,19 +74,19 @@
 					alert(msg + "번 글이 등록되었습니다.");
 				}
 			});
-			
-			function search(){
+
+			function search() {
 				alert('aa');
 				//searchKeyword input box의 값을 꺼내온다
-				
+
 				$.ajax({
 					type: 'GET',
-					url: "/placeboard/list?place="+'',
+					url: "/placeboard/list?place=" + '',
 					success: function (result) {
 
 					}
 				})
-				
+
 			}
 
 		</script>
