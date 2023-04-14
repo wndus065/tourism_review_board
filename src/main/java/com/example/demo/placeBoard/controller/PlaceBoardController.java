@@ -43,39 +43,7 @@ public class PlaceBoardController {
 	private InterestService interService;
 	
 
-	// 콘텐츠 검색
-    @GetMapping("/search/content")
-    public String searchByContent(Model model, @RequestParam("keyword") String content) {
-        List<PlaceBoard> placeBoards = service.searchByContent(content);
-        model.addAttribute("placeBoards", placeBoards);
-        return "placeboard/list";
-    }
-
-    // 제목 검색
-    @GetMapping("/search/title")
-    public String searchByTitle(Model model, @RequestParam("keyword") String title) {
-        List<PlaceBoard> placeBoards = service.searchByTitle(title);
-        model.addAttribute("placeBoards", placeBoards);
-        return "placeboard/list";
-    }
-
-//    // 장소 검색
-//    @GetMapping("/search/place")
-//    public String searchByPlace(Model model, @RequestParam("place") MapEntity place) {
-//        MapEntity mapEntity = MapEntity.builder().place(dto.getPlace()).build();
-//        List<PlaceBoard> placeBoards = service.searchByPlace(place);
-//        model.addAttribute("placeBoards", placeBoards);
-//        return "placeboard/list";
-//    }
-//
-//    // 작성자 검색
-//    @GetMapping("/search/writer")
-//    public String searchByWriter(Model model, @RequestParam("writer") Member writer) {
-//        Member member = Member.builder().id(writer).build();
-//        List<PlaceBoard> placeBoards = service.searchByWriter(writer);
-//        model.addAttribute("placeBoards", placeBoards);
-//        return "placeboard/list";
-//    }
+	
 
 
 	@GetMapping("/list")

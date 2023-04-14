@@ -120,24 +120,6 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 	}
 
 
-	@Override
-	public List<PlaceBoard> searchByContent(String content) {
-		return repository.findByContentContaining(content);
-	}
-
-	@Override
-	public List<PlaceBoard> searchByPlace(MapEntity place) {
-		return repository.findByPlace(place);
-	}
-
-	@Override
-	public List<PlaceBoard> searchByTitle(String title) {
-		return repository.findByTitleContaining(title);
-	}
-
-	@Override
-	public List<PlaceBoard> searchByWriter(Member writer) {
-		return repository.findByWriter(writer);
-	}
+	
 	
 }

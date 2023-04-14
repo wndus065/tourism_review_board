@@ -14,11 +14,6 @@ public interface PlaceBoardService {
 
 	Page<PlaceBoardDTO> getList(int no);
 
-//	검색메소드
-	List<PlaceBoard> searchByContent(String content);
-    List<PlaceBoard> searchByPlace(MapEntity place);
-    List<PlaceBoard> searchByTitle(String title);
-    List<PlaceBoard> searchByWriter(Member writer);
 
 	PlaceBoardDTO read(int no);
 
