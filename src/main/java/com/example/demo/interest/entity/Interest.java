@@ -3,7 +3,6 @@ package com.example.demo.interest.entity;
 import com.example.demo.placeBoard.entity.PlaceBoard;
 import com.example.demo.user.entity.Member;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;

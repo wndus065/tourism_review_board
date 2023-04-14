@@ -1,8 +1,6 @@
 package com.example.demo.placeboard;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,11 +28,6 @@ public class PlaceBoardRepositoryTest {
 //		PlaceBoard placeboard = new PlaceBoard(0, member1, mapEntity1, "서울여행", "서울여행 63빌딩에 갔다");
 //		repository.save(placeboard);	
 //	}
-<<<<<<< HEAD
-//	
-=======
-	
->>>>>>> branch 'develop' of https://gitlab.com/greenart_project/project1.git
 	@Test
 	public void 데이터단건조회() {
 		Optional<PlaceBoard> result = repository.findById(1);

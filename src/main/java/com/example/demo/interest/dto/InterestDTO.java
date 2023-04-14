@@ -1,9 +1,6 @@
 package com.example.demo.interest.dto;
 
-import java.util.List;
 
-import com.example.demo.placeBoard.entity.PlaceBoard;
-import com.example.demo.user.entity.Member;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

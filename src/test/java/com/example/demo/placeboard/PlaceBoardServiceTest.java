@@ -19,7 +19,7 @@ public class PlaceBoardServiceTest {
 
 	@Autowired
 	PlaceBoardService service;
-<<<<<<< HEAD
+
 
 //	@Test
 //	public void 방명록30개추가() {
@@ -33,9 +33,8 @@ public class PlaceBoardServiceTest {
 //		service.register(new PlaceBoardDTO(0, "id0", "63빌딩", "서울", "놀러왔따", null, null));	
 //	}
 //	
-=======
 	
->>>>>>> branch 'develop' of https://gitlab.com/greenart_project/project1.git
+
 	@Test
 	public void 일번페이지_목록조회하기() {
 		Page<PlaceBoardDTO> page = service.getList(1);
