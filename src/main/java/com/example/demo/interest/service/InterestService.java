@@ -12,7 +12,6 @@ import com.example.demo.placeBoard.entity.PlaceBoard;
 
 import com.example.demo.user.entity.Member;
 
-
 public interface InterestService {
 	
 	void add(String memberId, int placeBoard);	

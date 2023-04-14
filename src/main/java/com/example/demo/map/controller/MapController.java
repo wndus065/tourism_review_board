@@ -31,7 +31,6 @@ public class MapController {
 	@GetMapping("/main")	
 	public String main(Model model) {
 		List<ApiDTO> apiList = apiService.getList();
-//		List<MapDTO> markers = new ArrayList<>();
 		for(ApiDTO apiDTO : apiList) {
 			MapDTO mapDTO = service.apiToMap(apiDTO);
 			service.register(mapDTO);

@@ -75,12 +75,6 @@ public class CommentController {
 		return ResponseEntity.ok(response);
 	}
 
-//	@PutMapping("/update")
-//	public ResponseEntity<?> modify(@RequestBody CommentDTO dto) {
-//		logger.info("Received request: " + dto);
-//		service.modify(dto);
-//		return ResponseEntity.ok().build();
-//	}
 	@PutMapping("/update")
 	public ResponseEntity<Map<String, Object>> modify(@RequestBody CommentDTO dto) {
 	    Map<String, Object> response = new HashMap<>();

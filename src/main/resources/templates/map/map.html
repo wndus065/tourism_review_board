@@ -5,9 +5,8 @@
 
 	<th:block th:fragment="content">
 
-		<h2 style="text-shadow: 1px 1px 10px #d1ebdb">마커를 클릭해보세요 !</h2>
 		<div id="map"
-			style="width: 120%; height: 600px; border: 5px solid green;"></div>
+			style="width: 120%; height: 600px; border: 5px solid #292F36;border-radius: 16px;"></div>
 		<script type="text/javascript"
 			src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=s5xy1mstuu"></script>
 
@@ -41,7 +40,20 @@ for (var i = 0; i < markerDTOs.length; i++) {
 
     naver.maps.Event.addListener(marker, "click", createClickListener(contentString, marker));
   }
+var contentEl = $('<div class="iw_inner" style="width:200px;position:absolute;top:0;left:0;z-index:1000;background-color:#fff;border:solid 3px #292F36;border-radius: 10px;">'
+        + '<h4 style="padding-left:20px; font-size:30px">마커를 클릭 해보세요!</h4>'
+        + '</div>');
 
+    contentEl.appendTo(map.getElement());
+
+    naver.maps.Event.addListener(map, 'zoom_changed', function(zoom) {
+        contentEl.find('.zoom').text(zoom);
+    });
+
+    naver.maps.Event.addListener(map, 'bounds_changed', function(bounds) {
+        contentEl.find('.center').text(map.getCenterPoint());
+        console.log('Center: ' + map.getCenter().toString() + ', Bounds: ' + bounds.toString());
+    });
 var currentInfoWindow = null;
 
 function createClickListener(contentString, marker) {
@@ -130,7 +142,7 @@ naver.maps.Event.addListener(map, "click", function() {
 			현재온도 <span id="current-temp-value"></span>
 		</div>
 
-		<table style="background-color: #e8e7e5;">
+		<table style="background-color: #e8e7e5; border-radius: 10px;">
 			<tr>
 				<td class="weather-day"></td>
 				<td class="weather-day"></td>
