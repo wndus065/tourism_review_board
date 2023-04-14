@@ -21,8 +21,8 @@
 							<label>장소<input type="text" class="inner" name="place" th:value="${dto.place}" 
 								readonly></label>
 							<label>글 내용</label>
-							<textarea class="inner" name="content" style="font-weight:bold;"
-								readonly>[[${dto.content}]]</textarea>	
+							<div class="inner" name="content" style="font-weight:bold; height: auto; line-height:1.4"
+								readonly>[[${dto.content}]]</div>	
 							<!-- 이미지 보여주기 -->
 							<hr>
 							<div class="form-group" th:if="${dto.imgPath != null}">
@@ -151,7 +151,7 @@
 									commentHtml += `<div class="row">
 					        					<div class="form-group col-10">
 					                            	<p><strong>${comment.writer}</strong> ${stars}</p>
-					                            	<p>${comment.comment}</p>
+					                            	<p style="line-height:1.4">${comment.comment}</p>
 					                            	<p style="color: gray">${formattedDateTime}</p>
 					                        	</div>
 					                        	${editDeleteButtons}
