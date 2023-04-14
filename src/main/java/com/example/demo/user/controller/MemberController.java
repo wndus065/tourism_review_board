@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.comment.service.CommentService;
-import com.example.demo.interest.repository.InterestRepository;
 import com.example.demo.interest.service.InterestService;
 import com.example.demo.requestBoard.service.RequestBoardService;
 import com.example.demo.user.dto.MemberDTO;

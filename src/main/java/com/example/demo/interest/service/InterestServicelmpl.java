@@ -1,31 +1,20 @@
 package com.example.demo.interest.service;
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.interest.dto.InterestDTO;
 import com.example.demo.interest.entity.Interest;
 import com.example.demo.interest.repository.InterestRepository;
-import com.example.demo.placeBoard.dto.PlaceBoardDTO;
 import com.example.demo.placeBoard.entity.PlaceBoard;
 import com.example.demo.placeBoard.repository.PlaceBoardRepository;
 import com.example.demo.user.entity.Member;
 import com.example.demo.user.repository.MemberRepository;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class InterestServicelmpl implements InterestService {

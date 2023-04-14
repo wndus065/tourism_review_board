@@ -3,12 +3,9 @@ package com.example.demo.placeBoard.service;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.example.demo.map.entity.MapEntity;
 import com.example.demo.placeBoard.dto.PlaceBoardDTO;
 import com.example.demo.placeBoard.entity.PlaceBoard;
-import com.example.demo.placeBoard.repository.PlaceBoardRepository;
 import com.example.demo.user.entity.Member;
 
 public interface PlaceBoardService {
