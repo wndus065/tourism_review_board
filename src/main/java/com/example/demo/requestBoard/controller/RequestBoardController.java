@@ -15,8 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.demo.requestBoard.dto.RequestBoardDTO;
 import com.example.demo.requestBoard.service.RequestBoardService;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 @Controller
 @RequestMapping("/request")
 public class RequestBoardController {

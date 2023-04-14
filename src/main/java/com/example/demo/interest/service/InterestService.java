@@ -1,6 +1,6 @@
 package com.example.demo.interest.service;
 
-import java.security.Principal;
+
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -11,8 +11,6 @@ import com.example.demo.map.entity.MapEntity;
 import com.example.demo.placeBoard.entity.PlaceBoard;
 
 import com.example.demo.user.entity.Member;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 public interface InterestService {
 	
