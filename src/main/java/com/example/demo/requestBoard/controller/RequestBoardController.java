@@ -50,7 +50,7 @@ public class RequestBoardController {
 	    RequestBoardDTO dto = new RequestBoardDTO();
 	    dto.setWriter(id);
 	    model.addAttribute("dto", dto);
-	    return "/request/register";
+	    return "request/register";
 	}
 
 	@PostMapping("/register")

@@ -39,7 +39,7 @@ public class MapController {
 	
 	model.addAttribute("mapDTOList",markers);
 	model.addAttribute("currentPage", "map");
-		return "/map/map";
+		return "map/map";
 	}
 	@GetMapping("/list")
 	public void list(@RequestParam(defaultValue = "0")int page, Model model) {
