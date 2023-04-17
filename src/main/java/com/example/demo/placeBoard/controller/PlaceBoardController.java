@@ -76,7 +76,7 @@ public class PlaceBoardController {
 	    List<MapDTO> list = mapService.pickPlace();
 
 		model.addAttribute("placelist", list);
-		return "/placeboard/register";
+		return "placeboard/register";
 	}
 
 	@PostMapping("/register")

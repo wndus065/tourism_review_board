@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="layout/basic :: setContent(~{this::content} )">
+<th:block th:replace="~{layout/basic :: setContent(~{this::content} )}">
+>>>>>>> branch 'develop' of https://gitlab.com/greenart_project/project1.git
 
 	<th:block th:fragment="content">
 		<form th:action="@{/placeboard/modify}" th:method="post">

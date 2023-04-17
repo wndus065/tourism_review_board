@@ -50,7 +50,7 @@ public class MemberController {
 		System.out.println("전체 게시물 수 : " + list.getTotalElements());
 		System.out.println("현재 페이지 번호 : " + (list.getNumber() + 1));
 		System.out.println("페이지에 표시할 게시물 수 : " + list.getNumberOfElements());
-		return "/member/list";
+		return "member/list";
 	}
 
 	@GetMapping("/member/read")
@@ -59,7 +59,7 @@ public class MemberController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("page", page);
 		model.addAttribute("currentPage", "memberA");
-		return "/member/read";
+		return "member/read";
 	}
 
 	@GetMapping("/member/readMine")
@@ -74,7 +74,7 @@ public class MemberController {
 
 	@GetMapping("/register")
 	public String register() {
-		return "/member/register";
+		return "member/register";
 	}
 
 	@PostMapping("/register")
@@ -91,7 +91,6 @@ public class MemberController {
 	@GetMapping("/login")
 	public String login() {
 		return "member/login";
-		
 	}
 
 	@PostMapping("/login")
@@ -120,7 +119,7 @@ public class MemberController {
 		principal.getName().equals(id);
 		MemberDTO dto = service.read(id);
 		model.addAttribute("dto", dto);
-		return "/member/modify";
+		return "member/modify";
 	}
 
 	@PostMapping("/modify/{id}")

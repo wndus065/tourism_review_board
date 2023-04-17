@@ -52,6 +52,7 @@ public class RequestBoardController {
 	    model.addAttribute("dto", dto);
 	    model.addAttribute("currentPage", "request");
 	    return "/request/register";
+
 	}
 
 	@PostMapping("/register")
