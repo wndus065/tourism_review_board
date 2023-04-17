@@ -28,26 +28,23 @@ public class MapController {
 	@Autowired
 	private ApiService apiService;
 	
-	@GetMapping("/main")	
-	public String main(Model model) {
+	@GetMapping("/list")	
+	public String main(@RequestParam(defaultValue = "0")int page, Model model){
 		List<ApiDTO> apiList = apiService.getList();
 		for(ApiDTO apiDTO : apiList) {
 			MapDTO mapDTO = service.apiToMap(apiDTO);
 			service.register(mapDTO);
 		}
 	List<MapDTO> markers = service.getAllMarkers();	
+	Page<MapDTO> list = service.getlist(page);
+	model.addAttribute("list",list);
+	model.addAttribute("currentPage", "map");
 	
 	model.addAttribute("mapDTOList",markers);
 	model.addAttribute("currentPage", "map");
-		return "map/map";
+		return "map/list";
 	}
-	@GetMapping("/list")
-	public void list(@RequestParam(defaultValue = "0")int page, Model model) {
-		Page<MapDTO> list = service.getlist(page);
-		model.addAttribute("list",list);
-		model.addAttribute("currentPage", "map");
-		
-	}
+
 	@GetMapping("/read")
 	public void read(String place, @RequestParam(defaultValue= "0")int page, Model model) {
 		MapDTO dto = service.read(place);

@@ -5,7 +5,220 @@
 <th:block th:replace="~{layout/basic :: setContent(~{this::content} )}">
 
 	<th:block th:fragment="content">
+	<style>
+.weather-container {
+	display: flex;
+	justify-content: flex-end;
+	justify-content: space-between;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.weather-icon i {
+	display: block;
+}
 
+.current-temp {
+	display: flex;
+	font-size: 30px;
+	font-weight: bold;
+	align-items: center;
+}
+
+.current-temp span {
+	margin-left: 10px;
+}
+
+.temp-max {
+	font-weight: bold;
+	font-size: 20px;
+	margin-top: 10px;
+}
+
+.weather-day {
+	position: relative static;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.weather-info {
+	display: flex;
+	flex-direction: column;
+}
+
+.weather-icon {
+	font-size: 3rem; /* 원하는 크기로 조정 */
+}
+
+</style>
+
+		<div class="current-temp">
+			현재온도 <span id="current-temp-value"></span>
+		</div>
+
+		<table style="background-color: #e8e7e5; border-radius: 10px;">
+			<tr>
+				<td class="weather-day"></td>
+				<td class="weather-day"></td>
+				<td class="weather-day"></td>
+				<td class="weather-day"></td>
+				<td class="weather-day"></td>
+			</tr>
+			<tr>
+				<td>
+					<div class="weather-icon"></div>
+					<div class="temp-max"></div>
+				</td>
+				<td>
+					<div class="weather-icon"></div>
+					<div class="temp-max"></div>
+				</td>
+				<td>
+					<div class="weather-icon"></div>
+					<div class="temp-max"></div>
+				</td>
+				<td>
+					<div class="weather-icon"></div>
+					<div class="temp-max"></div>
+				</td>
+				<td>
+					<div class="weather-icon"></div>
+					<div class="temp-max"></div>
+				</td>
+			</tr>
+		</table>
+		<script th:inline="javascript">
+  var weatherIcon = {
+    '01' : 'fas fa-sun',
+    '02' : 'fas fa-cloud-sun',
+    '03' : 'fas fa-cloud',
+    '04' : 'fas fa-cloud-meatball',
+    '09' : 'fas fa-cloud-sun-rain',
+    '10' : 'fas fa-cloud-showers-heavy',
+    '11' : 'fas fa-poo-storm',
+    '13' : 'far fa-snowflake',
+    '50' : 'fas fa-smog'
+  };
+
+  var apiURI = "https://api.openweathermap.org/data/2.5/forecast?id=1835847&appid=aa0ea7fbe0c1e13669114c7af508193a&units=metric"
+	  $.ajax({
+		  url: apiURI,
+		  dataType: "json",
+		  type: "GET",
+		  async: "false",
+		  success: function(resp) {
+		    var dailyWeather = resp.list.filter(function(weather, index) {
+		      return index % 8 === 0;
+		    });
+		    var $weatherDays = $('.weather-day');
+		    var $weatherIcons = $('.weather-icon');
+		    var $currentTemps = $('.current-temp');
+		    var $tempMins = $('.temp-min');
+		    var $tempMaxs = $('.temp-max');
+
+		    for (var i = 0; i < $weatherDays.length; i++) {
+		      var date = new Date(dailyWeather[i].dt_txt);
+		      var month = date.getMonth() + 1;
+		      var day = date.getDate();
+		      var $weatherDay = $('<div>').text(month + '/' + day);
+		      $weatherDays.eq(i).append($weatherDay);
+		      var $weatherIcon = $('<i>').addClass(weatherIcon[dailyWeather[i].weather[0].icon.substr(0, 2)]);
+		      $weatherIcons.eq(i).append($weatherIcon);
+		      var $currentTemp = $('<div>').text(Math.floor(dailyWeather[i].main.temp) + 'º');
+		      $currentTemps.eq(i).append($currentTemp);
+		      var $tempMin = $('<div>').text('최저 온도 ' + Math.floor(dailyWeather[i].main.temp_min) + 'ºC');
+		      $tempMins.eq(i).append($tempMin);
+		      var $tempMax = $('<div>').text( Math.floor(dailyWeather[i].main.temp_max) + 'ºC');
+		      $tempMaxs.eq(i).append($tempMax);
+		    }
+		  }
+		});
+      </script>
+		<div id="map"
+			style="width: 120%; height: 600px; border: 5px solid #292F36;border-radius: 16px;"></div>
+		<script type="text/javascript"
+			src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=s5xy1mstuu"></script>
+
+		<script th:inline="javascript">
+var map = new naver.maps.Map('map', {
+    center: new naver.maps.LatLng(37.5659,126.9774),
+    zoom: 12
+});
+var infoWindow = new naver.maps.InfoWindow({
+    content: '마커를 클릭하세요 !'
+});
+</script>
+		<script th:inline="javascript">
+var markers = [];
+/* DTO에서 좌표 정보를 불러와서 마커 생성 */
+var markerDTOs = [[${mapDTOList}]];
+
+for (var i = 0; i < markerDTOs.length; i++) {
+    var latlng = new naver.maps.LatLng(markerDTOs[i].point_x, markerDTOs[i].point_y);
+    var marker = new naver.maps.Marker({
+        position: latlng,
+        map: map
+    });
+    
+    
+    markers.push(marker);
+
+
+    var contentString = '<h3 style="font-size:20px"><a href="/placeboard/list" div style="padding:20px;">' + markerDTOs[i].place + '</a></h3><p>'+ markerDTOs[i].address + '<br>(클릭하면 리뷰 게시판으로 이동됩니다.)</p>';
+
+
+    naver.maps.Event.addListener(marker, "click", createClickListener(contentString, marker));
+  }
+var contentEl = $('<div class="iw_inner" style="width:200px;position:absolute;top:0;left:0;z-index:1000;background-color:#fff;border:solid 3px #292F36;border-radius: 10px;">'
+        + '<h4 style="padding-left:20px; font-size:30px">마커를 클릭 해보세요!</h4>'
+        + '</div>');
+
+    contentEl.appendTo(map.getElement());
+
+    naver.maps.Event.addListener(map, 'zoom_changed', function(zoom) {
+        contentEl.find('.zoom').text(zoom);
+    });
+
+    naver.maps.Event.addListener(map, 'bounds_changed', function(bounds) {
+        contentEl.find('.center').text(map.getCenterPoint());
+        console.log('Center: ' + map.getCenter().toString() + ', Bounds: ' + bounds.toString());
+    });
+var currentInfoWindow = null;
+
+function createClickListener(contentString, marker) {
+  return function() {
+    if (currentInfoWindow) {
+      currentInfoWindow.close();
+    }
+
+    var infowindow = new naver.maps.InfoWindow({
+
+    	content: contentString,
+    	maxWidth: 300,
+    	backgroundColor: "#fff",
+    	borderWidth: 0,
+    	anchorSize: new naver.maps.Size(30, 30),
+    	anchorSkew: true,
+    	anchorColor: "#fff",
+    	pixelOffset: new naver.maps.Point(20, -20),
+    	borderRadius: "5px",
+    	boxShadow: "rgba(0,0,0,0.3) 3px 3px 10px"
+   		});
+
+    	// CSS 스타일 적용
+		infowindow.setContent('<div style="padding:10px; font-size:14px; color:#333; border: 2px solid #ccc;">'+contentString+'</div>');
+
+
+    currentInfoWindow = infowindow;
+    infowindow.open(map, marker);
+  };
+}
+
+naver.maps.Event.addListener(map, "click", function() {
+  if (currentInfoWindow) {
+    currentInfoWindow.close();
+    currentInfoWindow = null;
+  }
+});
+	</script>
 		<header>
 			<h2>문화거리 목록</h2>
 		</header>
