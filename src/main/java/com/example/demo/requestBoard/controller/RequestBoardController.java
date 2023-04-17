@@ -50,6 +50,7 @@ public class RequestBoardController {
 	    RequestBoardDTO dto = new RequestBoardDTO();
 	    dto.setWriter(id);
 	    model.addAttribute("dto", dto);
+	    model.addAttribute("currentPage", "request");
 	    return "/request/register";
 	}
 

@@ -13,9 +13,9 @@
 					<form>
 					<section class="box text-style1" style="width: 500px">
 						<div class="inner">
-							<div th:if="${#lists.contains(interList.![placeBoard.no], dto.no)}"><label>&#128150;&nbsp;제목</label> <input type="text" class="form-control" name="title"
+							<div th:if="${#lists.contains(interList.![placeBoard.no], dto.no)}"><label>&#128150;&nbsp;제목</label> <input type="text" class="inner" name="title"
 								th:value="${dto.title}" readonly></div>
-							<div th:unless="${#lists.contains(interList.![placeBoard.no], dto.no)}"><label>제목</label> <input type="text" class="form-control" name="title"
+							<div th:unless="${#lists.contains(interList.![placeBoard.no], dto.no)}"><label>제목</label> <input type="text" class="inner" name="title"
 								th:value="${dto.title}" readonly></div>
 						
 							<label>장소<input type="text" class="inner" name="place" th:value="${dto.place}" 

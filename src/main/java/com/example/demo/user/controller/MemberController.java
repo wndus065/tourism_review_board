@@ -69,6 +69,7 @@ public class MemberController {
 
 		MemberDTO memberDto = service.read(id);
 		model.addAttribute("dto", memberDto);
+		model.addAttribute("currentPage", "readM");
 	}
 
 	@GetMapping("/register")
@@ -89,7 +90,8 @@ public class MemberController {
 
 	@GetMapping("/login")
 	public String login() {
-		return "/member/login";
+		return "member/login";
+		
 	}
 
 	@PostMapping("/login")

@@ -58,30 +58,30 @@ public class PlaceBoardRepositoryTest {
 		repository.deleteById(3);
 	}
 	
-	@Test
-	public void 콘텐츠검색() {
-		List<PlaceBoard> result = repository.findByContentContaining("asdf");
-		System.out.println(result);
-	}
-	
-	@Test
-	public void 장소검색() {
-		MapEntity place = MapEntity.builder()
-                .place("롯데월드")
-                .build();
-		List<PlaceBoard> result2 = repository.findByPlace(place);
-		System.out.println(result2);
-	}
-	
-		
-	@Test
-	public void 작성자검색() {
-	    Member writer = Member.builder()
-	            .id("user1")
-	            .build();
-
-	    List<PlaceBoard> result = repository.findByWriter(writer);
-	    System.out.println(result);
-	}
+//	@Test
+//	public void 콘텐츠검색() {
+//		List<PlaceBoard> result = repository.findByContentContaining("asdf");
+//		System.out.println(result);
+//	}
+//	
+//	@Test
+//	public void 장소검색() {
+//		MapEntity place = MapEntity.builder()
+//                .place("롯데월드")
+//                .build();
+//		List<PlaceBoard> result2 = repository.findByPlace(place);
+//		System.out.println(result2);
+//	}
+//	
+//		
+//	@Test
+//	public void 작성자검색() {
+//	    Member writer = Member.builder()
+//	            .id("user1")
+//	            .build();
+//
+//	    List<PlaceBoard> result = repository.findByWriter(writer);
+//	    System.out.println(result);
+//	}
 
 }

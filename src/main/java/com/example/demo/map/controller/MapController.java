@@ -58,8 +58,8 @@ public class MapController {
 	
 	
 	@GetMapping("/register")
-	public void register() {
-		
+	public void register(Model model) {
+		model.addAttribute("currentPage", "mapA");
 	}
 	
 	@PostMapping("/register")

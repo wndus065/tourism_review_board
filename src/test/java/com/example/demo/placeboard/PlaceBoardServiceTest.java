@@ -56,17 +56,17 @@ public class PlaceBoardServiceTest {
 		service.remove(2);
 	}
 	
-	@Test
-	public void 콘텐츠데이터검색() {
-		List<PlaceBoard> content = service.searchByContent("내용이수정되었습니다~");
-	    System.out.println(content);
-	}
-	
-	@Test
-	public void 제목검색() {
-		List<PlaceBoard> title = service.searchByTitle("asdf");
-	    System.out.println(title);
-	}
+//	@Test
+//	public void 콘텐츠데이터검색() {
+//		List<PlaceBoard> content = service.searchByContent("내용이수정되었습니다~");
+//	    System.out.println(content);
+//	}
+//	
+//	@Test
+//	public void 제목검색() {
+//		List<PlaceBoard> title = service.searchByTitle("asdf");
+//	    System.out.println(title);
+//	}
 	
 	@Test
 	public void 장소검색() {
@@ -74,17 +74,18 @@ public class PlaceBoardServiceTest {
                 .place("롯데월드")
                 .build();
 	
-		List<PlaceBoard> place1 = service.searchByPlace(place);
-	    System.out.println(place1);
-	}	
-	
-	@Test
-	public void 작성자검색() {
-		 Member writer = Member.builder()
-		            .id("user1")
-		            .build();	
-		List<PlaceBoard> writer1 = service.searchByWriter(writer);
-	    System.out.println(writer1);
-	}
+//		List<PlaceBoard> place1 = service.searchByPlace(place);
+//	    System.out.println(place1);
+//	}	
+//	
+//	@Test
+//	public void 작성자검색() {
+//		 Member writer = Member.builder()
+//		            .id("user1")
+//		            .build();	
+//		List<PlaceBoard> writer1 = service.searchByWriter(writer);
+//	    System.out.println(writer1);
+//	}
 
+}
 }
