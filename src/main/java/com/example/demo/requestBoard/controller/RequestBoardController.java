@@ -42,16 +42,16 @@ public class RequestBoardController {
 
 	@GetMapping("/register")
 	public String register(Principal pricipal, Model model) {
-	    String id = pricipal.getName();
-	    if (id == null) {
-	        // 로그인 되어 있지 않은 경우 로그인 페이지로 리다이렉트
-	        return "redirect:/login";
-	    }
-	    RequestBoardDTO dto = new RequestBoardDTO();
-	    dto.setWriter(id);
-	    model.addAttribute("dto", dto);
-	    model.addAttribute("currentPage", "request");
-	    return "request/register";
+		String id = pricipal.getName();
+		if (id == null) {
+			// 로그인 되어 있지 않은 경우 로그인 페이지로 리다이렉트
+			return "redirect:/login";
+		}
+		RequestBoardDTO dto = new RequestBoardDTO();
+		dto.setWriter(id);
+		model.addAttribute("dto", dto);
+		model.addAttribute("currentPage", "request");
+		return "request/register";
 
 	}
 

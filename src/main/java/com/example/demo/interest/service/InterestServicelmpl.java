@@ -1,8 +1,6 @@
 package com.example.demo.interest.service;
 
-
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -71,9 +69,9 @@ public class InterestServicelmpl implements InterestService {
 			interestRepository.delete(delList);
 		}
 	}
-	
+
 	@Override
-	public List<Interest> getInterestByMemId(String id){
+	public List<Interest> getInterestByMemId(String id) {
 		return interestRepository.findAllByMemberId(id);
 	}
 

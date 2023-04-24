@@ -1,6 +1,5 @@
 package com.example.demo.placeBoard.service;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -25,47 +24,35 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 
 	@Autowired
 	private PlaceBoardRepository repository;
-	
+
 	@Autowired
 	private CommentService commentService;
-	
+
 	@Autowired
 	private InterestService interService;
-	
+
 	@Autowired
 	private FileUtil fileUtil;
 
 	@Override
 	public int register(PlaceBoardDTO dto) {
 		PlaceBoard entity = dtoToEntity(dto);
-		
+
 		String imgPath = fileUtil.fileUpload(dto.getUploadFile());
 		entity.setImgPath(imgPath);
-		
+
 		System.out.println(entity);
 		repository.save(entity);
 
 		return entity.getNo();
 	}
 
-//	@Override
-//	public boolean register(PlaceBoardDTO dto) {
-//		int no = dto.getNo();
-//		PlaceBoardDTO getDto = read(no);
-//		if(getDto != null) {
-//			return false;
-//		}
-//		PlaceBoard entity = dtoToEntity(dto);
-//		repository.save(entity);
-//		return true;
-//	}
-	
 	@Override
 	public Page<PlaceBoardDTO> getList(int page) {
 		int pageNum = (page == 0) ? 0 : page - 1; // page는 index 처럼 0부터 시작
 		Pageable pageable = PageRequest.of(pageNum, 10, Sort.by("no").descending());
 		Page<PlaceBoard> entityPage = repository.findAll(pageable);
-		Page<PlaceBoardDTO> dtoPage = entityPage.map( entity -> entityToDto(entity) );
+		Page<PlaceBoardDTO> dtoPage = entityPage.map(entity -> entityToDto(entity));
 
 		return dtoPage;
 	}
@@ -98,28 +85,24 @@ public class PlaceBoardServiceImpl implements PlaceBoardService {
 		repository.deleteById(no);
 	}
 
-	
 	@Override
 	public void delFkPost(String writerNo) {
 		List<PlaceBoard> list = repository.findAllByWriter(Member.builder().id(writerNo).build());
-		for(PlaceBoard post : list) {
+		for (PlaceBoard post : list) {
 			commentService.delFkCom(post.getNo());
 			interService.delFkInter(post.getNo());
 			repository.delete(post);
 		}
 	}
-	
+
 	@Override
 	public void delFkPostP(String place) {
 		List<PlaceBoard> list = repository.findAllByPlace(MapEntity.builder().place(place).build());
-		for(PlaceBoard post : list) {
+		for (PlaceBoard post : list) {
 			commentService.delFkCom(post.getNo());
 			interService.delFkInter(post.getNo());
 			repository.delete(post);
 		}
 	}
 
-
-	
-	
 }

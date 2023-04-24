@@ -2,7 +2,6 @@ package com.example.demo.map.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -21,79 +20,76 @@ import com.example.demo.map.service.MapService;
 @Controller
 @RequestMapping("/map")
 public class MapController {
-	
+
 	@Autowired
 	private MapService service;
-	
+
 	@Autowired
 	private ApiService apiService;
-	
-	@GetMapping("/list")	
-	public String main(@RequestParam(defaultValue = "0")int page, Model model){
+
+	@GetMapping("/list")
+	public String main(@RequestParam(defaultValue = "0") int page, Model model) {
 		List<ApiDTO> apiList = apiService.getList();
-		for(ApiDTO apiDTO : apiList) {
+		for (ApiDTO apiDTO : apiList) {
 			MapDTO mapDTO = service.apiToMap(apiDTO);
 			service.register(mapDTO);
 		}
-	List<MapDTO> markers = service.getAllMarkers();	
-	Page<MapDTO> list = service.getlist(page);
-	model.addAttribute("list",list);
-	model.addAttribute("currentPage", "map");
-	
-	model.addAttribute("mapDTOList",markers);
-	model.addAttribute("currentPage", "map");
+		List<MapDTO> markers = service.getAllMarkers();
+		Page<MapDTO> list = service.getlist(page);
+		model.addAttribute("list", list);
+		model.addAttribute("currentPage", "map");
+
+		model.addAttribute("mapDTOList", markers);
+		model.addAttribute("currentPage", "map");
 		return "map/list";
 	}
 
 	@GetMapping("/read")
-	public void read(String place, @RequestParam(defaultValue= "0")int page, Model model) {
+	public void read(String place, @RequestParam(defaultValue = "0") int page, Model model) {
 		MapDTO dto = service.read(place);
-		model.addAttribute("dto",dto);
-		model.addAttribute("page",page);
+		model.addAttribute("dto", dto);
+		model.addAttribute("page", page);
 		model.addAttribute("currentPage", "map");
 	}
-	
-	
+
 	@GetMapping("/register")
 	public void register(Model model) {
 		model.addAttribute("currentPage", "mapA");
 	}
-	
+
 	@PostMapping("/register")
 	public String register(MapDTO dto, RedirectAttributes redirectAttributes) {
 		boolean isSuccess = service.register(dto);
-		if(isSuccess) {
+		if (isSuccess) {
 			return "redirect:/map/list";
-		}else {
-			redirectAttributes.addFlashAttribute("msg","이미 등록된 장소입니다.");
+		} else {
+			redirectAttributes.addFlashAttribute("msg", "이미 등록된 장소입니다.");
 			return "redirect:/map/register";
 		}
 	}
-	
+
 	@GetMapping("/modify")
 	public void modify(String place, Model model) {
 		MapDTO dto = service.read(place);
-		model.addAttribute("dto",dto);
+		model.addAttribute("dto", dto);
 		model.addAttribute("currentPage", "map");
 	}
-	
+
 	@PostMapping("/modify")
-	public String modifyPost(MapDTO dto , RedirectAttributes redirectAttributes) {
-		
+	public String modifyPost(MapDTO dto, RedirectAttributes redirectAttributes) {
 
 		service.modify(dto);
 		return "redirect:/map/list";
 	}
-	
+
 	@PostMapping("/remove")
 	public String removePost(String place) {
-		
+
 		// 외래키 삭제
 		service.delFkMap(place);
-		
+
 		service.remove(place);
 		System.out.println("지움");
 		return "redirect:/map/list";
 	}
 }
-

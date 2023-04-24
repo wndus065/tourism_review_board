@@ -6,10 +6,10 @@
 	<th:block th:fragment="content">
 		<style>
 p {
-    padding-left: 10px;
-    font-size: 1.2em;
-    margin-top: 0.7em;
-    margin-bottom: 0.7em;
+	padding-left: 10px;
+	font-size: 1.2em;
+	margin-top: 0.7em;
+	margin-bottom: 0.7em;
 }
 </style>
 		<header>
@@ -18,8 +18,10 @@ p {
 
 		<section class="box text-style1" style="width: 500px">
 			<div class="inner">
-				<p><strong>계정</strong></p>
-				<p>아이디 :  [[${dto.id}]]</p>
+				<p>
+					<strong>계정</strong>
+				</p>
+				<p>아이디 : [[${dto.id}]]</p>
 				<p>가입날짜 : [[${#temporals.format(dto.regDate, 'yyyy/MM/dd
 					HH:mm:ss')}]]</p>
 				<p>수정날짜 : [[${#temporals.format(dto.regDate, 'yyyy/MM/dd
@@ -29,8 +31,10 @@ p {
 		</section>
 		<section class="box text-style1" style="width: 500px">
 			<div class="inner">
-				<p><strong>개인정보</strong></p>
-				<p>이름 :  [[${dto.name}]]</p>
+				<p>
+					<strong>개인정보</strong>
+				</p>
+				<p>이름 : [[${dto.name}]]</p>
 				<p>주민등록번호 : [[${dto.regiNum}]]</p>
 				<p>연락처 : [[${dto.phone}]]</p>
 				<p>이메일 : [[${dto.email}]]</p>

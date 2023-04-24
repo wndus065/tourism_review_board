@@ -4,7 +4,7 @@
 <th:block th:replace="~{layout/basic :: setContent(~{this::content} )}">
 
 	<th:block th:fragment="content">
-<style>
+		<style>
 table td {
 	background-color: transparent;
 }
@@ -17,36 +17,36 @@ table td {
 				<tr>
 					<th>장소</th>
 					<th>제목</th>
-					<th>작성자</th>			
-					<th>  </th>
-								</tr>
+					<th>작성자</th>
+					<th></th>
+				</tr>
 			</thead>
 			<tbody>
-    <tr th:each="dto : ${list}">
-        <th style="background-color: transparent;">
-            <a th:href="@{/placeboard/read(no = ${dto.no}, page= ${list.number + 1})}">
-                [[${dto.place}]]
-            </a>
-        </th>
-        <td>[[${dto.title}]]</td>
-        <td>[[${dto.writer}]]</td>
-        
-        <td>
-        <form th:method="post" th:action="@{/interboard/remove(interest_no=${dto.interest_no})}">
-        <p>
-            <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
-        </p>
-    </form></td>
-    </tr>
-</tbody>
+				<tr th:each="dto : ${list}">
+					<th style="background-color: transparent;"><a
+						th:href="@{/placeboard/read(no = ${dto.no}, page= ${list.number + 1})}">
+							[[${dto.place}]] </a></th>
+					<td>[[${dto.title}]]</td>
+					<td>[[${dto.writer}]]</td>
+
+					<td>
+						<form th:method="post"
+							th:action="@{/interboard/remove(interest_no=${dto.interest_no})}">
+							<p>
+								<button type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+							</p>
+						</form>
+					</td>
+				</tr>
+			</tbody>
 		</table>
 		<!-- Pagination -->
 		<div class="pagination">
-				<div class="pages">
-					<a th:href="@{/interboard/list(page = ${page})}"
-						th:class="${(list.number + 1) == page?'active':''}"
-						th:each="page: ${#numbers.sequence(1, list.totalPages)}">[[${page}]]</a>
-				</div>
-				</div>
+			<div class="pages">
+				<a th:href="@{/interboard/list(page = ${page})}"
+					th:class="${(list.number + 1) == page?'active':''}"
+					th:each="page: ${#numbers.sequence(1, list.totalPages)}">[[${page}]]</a>
+			</div>
+		</div>
 	</th:block>
 </th:block>

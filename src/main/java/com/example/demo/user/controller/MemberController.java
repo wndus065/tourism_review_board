@@ -34,10 +34,10 @@ public class MemberController {
 
 	@Autowired
 	private RequestBoardService reqService;
-	
+
 	@Autowired
 	private CommentService comService;
-	
+
 	@Autowired
 	private InterestService interService;
 
@@ -138,7 +138,7 @@ public class MemberController {
 		reqService.delFkReq(id);
 		comService.delFkComM(id);
 		interService.delFkInterM(id);
-		
+
 		// 외래키 삭제 복
 		service.delFkMember(id);
 

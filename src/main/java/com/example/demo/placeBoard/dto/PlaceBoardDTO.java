@@ -22,12 +22,11 @@ public class PlaceBoardDTO {
 	private int no;
 	private String writer;
 	private String place;
-    private String title;
-    private String content;
-    private LocalDateTime regDate;
-    private LocalDateTime modDate;
-    private MultipartFile uploadFile;
-    private String imgPath;
-    
-    
+	private String title;
+	private String content;
+	private LocalDateTime regDate;
+	private LocalDateTime modDate;
+	private MultipartFile uploadFile;
+	private String imgPath;
+
 }

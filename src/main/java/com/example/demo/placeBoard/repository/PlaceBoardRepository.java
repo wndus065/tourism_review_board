@@ -3,7 +3,6 @@ package com.example.demo.placeBoard.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
 import com.example.demo.map.entity.MapEntity;
 import com.example.demo.placeBoard.entity.PlaceBoard;
 import com.example.demo.user.entity.Member;

@@ -1,7 +1,5 @@
 package com.example.demo.map.service;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,21 +27,21 @@ public class MapServicelmpl implements MapService {
 
 	@Autowired
 	private MapRepository mapRepository;
-	
+
 	@Autowired
 	private PlaceBoardRepository placeRepository;
-	
+
 	@Autowired
 	private CommentRepository comRepository;
-	
+
 	@Autowired
 	private InterestRepository interRepository;
 
 	@Override
-	public boolean register(MapDTO dto) {				
-		String place = dto.getPlace();	
+	public boolean register(MapDTO dto) {
+		String place = dto.getPlace();
 		MapDTO getDto = read(place);
-		
+
 		if (getDto != null) {
 			System.out.println("이미 등록된 장소입니다.");
 			return false;
@@ -56,12 +54,12 @@ public class MapServicelmpl implements MapService {
 	@Override
 	public void remove(String place) {
 		try {
-	        mapRepository.deleteById(place);
-	        System.out.println("삭제");
-	    } catch (EmptyResultDataAccessException e) {
-	        System.out.println("삭제할 데이터가 존재하지 않습니다.");
-	       
-	    }
+			mapRepository.deleteById(place);
+			System.out.println("삭제");
+		} catch (EmptyResultDataAccessException e) {
+			System.out.println("삭제할 데이터가 존재하지 않습니다.");
+
+		}
 	}
 
 	@Override
@@ -123,51 +121,46 @@ public class MapServicelmpl implements MapService {
 				.collect(Collectors.toList());
 	}
 
-	
-		
-	
-
 	@Override
 	public MapDTO read(String place) {
 		Optional<MapEntity> result = mapRepository.findById(place);
-		if(result.isPresent()) {
+		if (result.isPresent()) {
 			MapEntity entity = result.get();
 			return entityToDto(entity);
-		}else {
-			
-			return null;	
+		} else {
+
+			return null;
 		}
-		
+
 	}
 
-	public List<MapDTO> pickPlace(){
+	public List<MapDTO> pickPlace() {
 		List<MapEntity> result = mapRepository.findAll();
 		List<MapDTO> list = new ArrayList<>();
-		for(MapEntity entity : result) {
+		for (MapEntity entity : result) {
 			MapDTO dto = entityToDto(entity);
 			list.add(dto);
 		}
 		return list;
 	}
-	
+
 	@Override
 	public void delFkMap(String place) {
 		List<PlaceBoard> postList = placeRepository.findAllByPlace(MapEntity.builder().place(place).build());
-		for(PlaceBoard placeBoard : postList) {
+		for (PlaceBoard placeBoard : postList) {
 			List<Comment> commentList = comRepository.findAllByPlaceNo(placeBoard);
-		    for(Comment comment : commentList) {
-		    	comRepository.delete(comment);
-		    }
+			for (Comment comment : commentList) {
+				comRepository.delete(comment);
+			}
 
-		    List<Interest> interestList = interRepository.findAllByPlaceBoard(placeBoard);
-		    for(Interest interest : interestList) {
-		    	interRepository.delete(interest);
-		    }
+			List<Interest> interestList = interRepository.findAllByPlaceBoard(placeBoard);
+			for (Interest interest : interestList) {
+				interRepository.delete(interest);
+			}
 
-		    placeRepository.delete(placeBoard);
+			placeRepository.delete(placeBoard);
 		}
 
 	}
-
 
 }

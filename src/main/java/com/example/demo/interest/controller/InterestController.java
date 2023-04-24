@@ -17,20 +17,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.demo.interest.dto.InterestDTO;
 import com.example.demo.interest.service.InterestService;
 
-
-
 @Controller
 @RequestMapping("/interboard")
 public class InterestController {
 
 	@Autowired
 	private InterestService interestService;
-	
-
 
 	@GetMapping("/list")
-	public String getInterestList(@RequestParam(defaultValue = "1") int page, Model model,
-			Principal principal) {
+	public String getInterestList(@RequestParam(defaultValue = "1") int page, Model model, Principal principal) {
 		String memberId = principal.getName();
 		if (memberId == null) {
 			System.out.println("로그인정보가 없습니다.");
@@ -41,37 +36,32 @@ public class InterestController {
 		model.addAttribute("list", interestList);
 		return "interboard/list";
 	}
+
 	@GetMapping("/add")
 	public void add() {
-		
+
 	}
+
 	@PostMapping("/add")
 	public String add(@RequestParam("no") Integer placeBoardNo, RedirectAttributes attributes, Principal principal) {
-	    String memberId = principal.getName();
-	    if (memberId == null) {
-	        return "redirect:/login";
-	    }
-	    try {
-	        interestService.add(memberId, placeBoardNo);
-	        attributes.addFlashAttribute("msg", "관심 목록에 추가되었습니다.");
-	        return "redirect:/placeboard/read?no=" + placeBoardNo;
-	    } catch (IllegalArgumentException e) {
-	        return "redirect:/placeboard/list";
-	    }
-	
-		
+		String memberId = principal.getName();
+		if (memberId == null) {
+			return "redirect:/login";
+		}
+		try {
+			interestService.add(memberId, placeBoardNo);
+			attributes.addFlashAttribute("msg", "관심 목록에 추가되었습니다.");
+			return "redirect:/placeboard/read?no=" + placeBoardNo;
+		} catch (IllegalArgumentException e) {
+			return "redirect:/placeboard/list";
+		}
+
 	}
+
 	@PostMapping("/remove")
 	public String remove(int interest_no) {
 		interestService.remove(interest_no);
 		return "redirect:/interboard/list";
 	}
-	
-	
+
 }
-
-   
-   
- 
-
-

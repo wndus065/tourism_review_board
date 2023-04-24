@@ -1,6 +1,5 @@
 package com.example.demo.interest.service;
 
-
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -13,36 +12,41 @@ import com.example.demo.placeBoard.entity.PlaceBoard;
 import com.example.demo.user.entity.Member;
 
 public interface InterestService {
-	
-	void add(String memberId, int placeBoard);	
-	
-	void remove(int interest_no);	
-	
-	Page<InterestDTO> getList(int no,String memberId);
-	
+
+	void add(String memberId, int placeBoard);
+
+	void remove(int interest_no);
+
+	Page<InterestDTO> getList(int no, String memberId);
 
 	void delFkInter(int placeNo);
+
 	void delFkInterM(String id);
-	
+
 	List<Interest> getInterestByMemId(String id);
-	
-	
-	
+
 	default Interest dtoToEntity(InterestDTO dto) {
 		Member member = Member.builder().id(dto.getId()).build();
-		MapEntity mapEntity = MapEntity.builder().place(dto.getPlace()).build();
-		PlaceBoard placeBoard = PlaceBoard.builder().no(dto.getNo()).place(mapEntity).title(dto.getTitle()).writer(member).build();
-		Interest entity  = Interest.builder()
+		MapEntity mapEntity = MapEntity.builder()
+				.place(dto.getPlace())
+				.build();
+		PlaceBoard placeBoard = PlaceBoard.builder()
+				.no(dto.getNo())
+				.place(mapEntity)
+				.title(dto.getTitle())
+				.writer(member)
+				.build();
+		Interest entity = Interest.builder()
 				.interestNo(dto.getInterest_no())
 				.member(member)
 				.placeBoard(placeBoard)
 				.build();
 		return entity;
-				
+
 	}
-	
+
 	default InterestDTO entityToDto(Interest entity) {
-		
+
 		InterestDTO dto = InterestDTO.builder()
 				.interest_no(entity.getInterestNo())
 				.id(entity.getMember().getId())
@@ -53,7 +57,5 @@ public interface InterestService {
 				.build();
 		return dto;
 	}
-
-	
 
 }

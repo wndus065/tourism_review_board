@@ -23,22 +23,22 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RequestBoard extends BaseEntity{
-	
+public class RequestBoard extends BaseEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int no;
-	
+
 	@ManyToOne
 	private Member writer;
-	
-	@Column(length=50,nullable=false)
+
+	@Column(length = 50, nullable = false)
 	private String place;
-	
-	@Column(length=100,nullable=false)
+
+	@Column(length = 100, nullable = false)
 	private String address;
-	
-	@Column(length=200,nullable=false)
+
+	@Column(length = 200, nullable = false)
 	private String comment;
 
 }

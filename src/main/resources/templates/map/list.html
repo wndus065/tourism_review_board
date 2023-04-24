@@ -5,13 +5,14 @@
 <th:block th:replace="~{layout/basic :: setContent(~{this::content} )}">
 
 	<th:block th:fragment="content">
-	<style>
+		<style>
 .weather-container {
 	display: flex;
 	justify-content: flex-end;
 	justify-content: space-between;
 	font-family: 'Noto Sans KR', sans-serif;
 }
+
 .weather-icon i {
 	display: block;
 }
@@ -47,7 +48,6 @@
 .weather-icon {
 	font-size: 3rem; /* 원하는 크기로 조정 */
 }
-
 </style>
 
 		<div class="current-temp">
@@ -133,7 +133,7 @@
 		});
       </script>
 		<div id="map"
-			style="width: 120%; height: 600px; border: 5px solid #292F36;border-radius: 16px;"></div>
+			style="width: 120%; height: 600px; border: 5px solid #292F36; border-radius: 16px;"></div>
 		<script type="text/javascript"
 			src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=s5xy1mstuu"></script>
 
@@ -229,7 +229,7 @@ naver.maps.Event.addListener(map, "click", function() {
 					<th>주소</th>
 					<th>x좌표</th>
 					<th>y좌표</th>
-					
+
 				</tr>
 			</thead>
 			<tbody>
@@ -240,15 +240,17 @@ naver.maps.Event.addListener(map, "click", function() {
 					<td>[[${dto.address}]]</td>
 					<td>[[${dto.point_x}]]</td>
 					<td>[[${dto.point_y}]]</td>
-					
+
 				</tr>
 			</tbody>
 		</table>
-	
+
 		<!-- Pagination -->
 		<div class="pagination">
 			<div class="pages">
-				<a th:href="@{/map/list(page = ${page})}" th:class="${(list.number + 1) == page?'active':''} " th:each="page: ${#numbers.sequence(1, list.totalPages)}">[[${page}]]</a>
+				<a th:href="@{/map/list(page = ${page})}"
+					th:class="${(list.number + 1) == page?'active':''} "
+					th:each="page: ${#numbers.sequence(1, list.totalPages)}">[[${page}]]</a>
 			</div>
 		</div>
 	</th:block>

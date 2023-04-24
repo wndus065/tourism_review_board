@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:fragment="setContent(content)">
-	
-<title>5조 프로젝트</title>
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="/assets/css/main.css" />
-<style>
+
+	<title>5조 프로젝트</title>
+	<meta charset="utf-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="/assets/css/main.css" />
+	<style>
 table {
 	border-collapse: collapse;
 	width: 120%;
@@ -30,7 +30,7 @@ th {
 }
 </style>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 	</head>
 	<body class="is-preload">
@@ -56,38 +56,51 @@ th {
 			<!-- Login -->
 			<section class="box text-style1" th:if="${session.id == null}">
 				<div class="inner">
-					 
-					   <div th:if="${#authorization.expression('isAuthenticated()')}">어서오세요 ! [[${#authentication.name}]]님!</div>
- 							 				
-					
+
+					<div th:if="${#authorization.expression('isAuthenticated()')}">어서오세요
+						! [[${#authentication.name}]]님!</div>
+						
 					<button class="login-btn">
- 				 <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/logout}">로그아웃</a>
- 			     <a th:if="${#authorization.expression('!isAuthenticated()')}" th:href="@{/login}">로그인</a>
-				</button>
+						<a th:if="${#authorization.expression('isAuthenticated()')}"
+							th:href="@{/logout}">로그아웃</a>
+						<a th:if="${#authorization.expression('!isAuthenticated()')}"
+							th:href="@{/login}">로그인</a>
+					</button>
 					<h1>
-						<a th:if="${#authorization.expression('!isAuthenticated()')}" th:href="@{/register}">회원가입</a>
+						<a th:if="${#authorization.expression('!isAuthenticated()')}"
+							th:href="@{/register}">회원가입</a>
 					</h1>
-					
+
 				</div>
 			</section>
-			
-
 
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
-					<li th:class="${currentPage == 'map' ? 'current' : ''}"><a th:href="@{/map/list}">서울 문화거리 지도</a></li>
-					<li th:class="${currentPage == 'placeboard' ? 'current' : ''}"><a th:href="@{/placeboard/list}">문화거리 리뷰 게시판</a></li>
-					<li th:class="${currentPage == 'memberA' ? 'current' : ''}" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/member/list}">회원 목록</a></li>
-					<li th:class="${currentPage == 'request' ? 'current' : ''}" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/request/list}">장소 요청목록</a></li>
-					<li th:class="${currentPage == 'mapA' ? 'current' : ''}" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/map/register}">장소 등록하기</a></li>
-					<li th:class="${currentPage == 'interA' ? 'current' : ''}" sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/interboard/list}">내 관심목록</a></li>
-					<li th:class="${currentPage == 'request' ? 'current' : ''}" sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/request/register}">장소 요청</a></li>
-					<li th:class="${currentPage == 'readM' ? 'current' : ''}" sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')"><a th:href="@{/member/readMine}">내 정보</a></li>
+					<li th:class="${currentPage == 'map' ? 'current' : ''}"><a
+						th:href="@{/map/list}">서울 문화거리 지도</a></li>
+					<li th:class="${currentPage == 'placeboard' ? 'current' : ''}"><a
+						th:href="@{/placeboard/list}">문화거리 리뷰 게시판</a></li>
+					<li th:class="${currentPage == 'memberA' ? 'current' : ''}"
+						sec:authorize="hasRole('ROLE_ADMIN')"><a
+						th:href="@{/member/list}">회원 목록</a></li>
+					<li th:class="${currentPage == 'request' ? 'current' : ''}"
+						sec:authorize="hasRole('ROLE_ADMIN')"><a
+						th:href="@{/request/list}">장소 요청목록</a></li>
+					<li th:class="${currentPage == 'mapA' ? 'current' : ''}"
+						sec:authorize="hasRole('ROLE_ADMIN')"><a
+						th:href="@{/map/register}">장소 등록하기</a></li>
+					<li th:class="${currentPage == 'interA' ? 'current' : ''}"
+						sec:authorize="hasRole('ROLE_USER')"><a
+						th:href="@{/interboard/list}">내 관심목록</a></li>
+					<li th:class="${currentPage == 'request' ? 'current' : ''}"
+						sec:authorize="hasRole('ROLE_USER')"><a
+						th:href="@{/request/register}">장소 요청</a></li>
+					<li th:class="${currentPage == 'readM' ? 'current' : ''}"
+						sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')"><a
+						th:href="@{/member/readMine}">내 정보</a></li>
 				</ul>
 			</nav>
-
-			<!-- 이 부분을 지움 -->
 
 			<!-- Copyright -->
 			<ul id="copyright">
@@ -117,8 +130,7 @@ th {
 				shuffle : false
 			});
 		</script>
-
-
+		
 	</body>
 </th:block>
 </html>

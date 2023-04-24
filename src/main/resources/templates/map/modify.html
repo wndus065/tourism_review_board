@@ -16,44 +16,45 @@ p {
 			<h2>문화거리 수정하기</h2>
 		</header>
 
-		
-  <section class="box text-style1" style="width: 500px">
-    <div class="inner">
-      <p>
-        <strong>관광지수정</strong>
-      </p>
-      <p>
-        <label>장소 : </label> <input type="text" th:value="${dto.place}" name="place" readonly/>
-      </p>
-      <p>
-        <label>장소코드값 : </label> <input type="text" th:value="${dto.place_key}" name="place_key" />
-      </p>
-      <p>
-        <label>주소 : </label> <input type="text" th:value="${dto.address}" name="address" />
-      </p>
-      <p>
-        <label>경도 : </label> <input type="text" th:value="${dto.point_x}" name="point_x" />
-      </p>
-      <p>
-        <label>위도 : </label> <input type="text" th:value="${dto.point_y}" name="point_y" />
-      </p>
-    </div>
-  </section>
- <div style="display:flex; flex-direction: row;">
-   <form th:method="post"  th:action="@{/map/modify}">
-        <p>
-            <button type="submit"  onclick="return confirm('정말 수정하시겠습니까?')">수정</button>
-        </p>   
-    </form>
-    <form th:method="post" th:action="@{/map/remove(place=${dto.place})}">
-        <p>
-            <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
-        </p>
-    </form> 
-</div>
-   
-
-			
+		<section class="box text-style1" style="width: 500px">
+			<div class="inner">
+				<p>
+					<strong>관광지수정</strong>
+				</p>
+				<p>
+					<label>장소 : </label> <input type="text" th:value="${dto.place}"
+						name="place" readonly />
+				</p>
+				<p>
+					<label>장소코드값 : </label> <input type="text"
+						th:value="${dto.place_key}" name="place_key" />
+				</p>
+				<p>
+					<label>주소 : </label> <input type="text" th:value="${dto.address}"
+						name="address" />
+				</p>
+				<p>
+					<label>경도 : </label> <input type="text" th:value="${dto.point_x}"
+						name="point_x" />
+				</p>
+				<p>
+					<label>위도 : </label> <input type="text" th:value="${dto.point_y}"
+						name="point_y" />
+				</p>
+			</div>
+		</section>
+		<div style="display: flex; flex-direction: row;">
+			<form th:method="post" th:action="@{/map/modify}">
+				<p>
+					<button type="submit" onclick="return confirm('정말 수정하시겠습니까?')">수정</button>
+				</p>
+			</form>
+			<form th:method="post" th:action="@{/map/remove(place=${dto.place})}">
+				<p>
+					<button type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+				</p>
+			</form>
+		</div>
 		
 	</th:block>
 </th:block>

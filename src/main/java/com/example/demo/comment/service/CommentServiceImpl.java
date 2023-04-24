@@ -22,23 +22,22 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<CommentDTO> getList(int placeNo) {
-	    List<Comment> result = repository.findAllByPlaceNo(PlaceBoard.builder().no(placeNo).build());
-	    List<CommentDTO> list = new ArrayList<>();
-	    for (Comment entity : result) {
-	        CommentDTO dto = entityToDto(entity);
-	        list.add(dto);
-	    }
-	    
-	    Collections.sort(list, new Comparator<CommentDTO>() {
-	        @Override
-	        public int compare(CommentDTO c1, CommentDTO c2) {
-	            return c2.getRegDate().compareTo(c1.getRegDate());
-	        }
-	    });
+		List<Comment> result = repository.findAllByPlaceNo(PlaceBoard.builder().no(placeNo).build());
+		List<CommentDTO> list = new ArrayList<>();
+		for (Comment entity : result) {
+			CommentDTO dto = entityToDto(entity);
+			list.add(dto);
+		}
 
-	    return list;
+		Collections.sort(list, new Comparator<CommentDTO>() {
+			@Override
+			public int compare(CommentDTO c1, CommentDTO c2) {
+				return c2.getRegDate().compareTo(c1.getRegDate());
+			}
+		});
+
+		return list;
 	}
-
 
 	@Override
 	public CommentDTO read(int no) {
@@ -60,51 +59,41 @@ public class CommentServiceImpl implements CommentService {
 		return entity.getCommentNo();
 	}
 
-//	@Override
-//	public void modify(CommentDTO dto) {
-//		Optional<Comment> result = repository.findById(dto.getCommentNo());
-//		if (result.isPresent()) {
-//			Comment entity = result.get();
-//			entity.setComment(dto.getComment());
-//			repository.save(entity);
-//		}
-//	}
 	@Override
 	public boolean modify(CommentDTO dto) {
-	    Optional<Comment> result = repository.findById(dto.getCommentNo());
-	    if (result.isPresent()) {
-	        Comment entity = result.get();
-	        entity.setComment(dto.getComment());
-	        repository.save(entity);
-	        return true;
-	    } else {
-	        return false;
-	    }
+		Optional<Comment> result = repository.findById(dto.getCommentNo());
+		if (result.isPresent()) {
+			Comment entity = result.get();
+			entity.setComment(dto.getComment());
+			repository.save(entity);
+			return true;
+		} else {
+			return false;
+		}
 	}
-
 
 	@Override
 	public boolean remove(int no) {
-	    try {
-	        repository.deleteById(no);
-	        return true;
-	    } catch (Exception e) {
-	        return false;
-	    }
+		try {
+			repository.deleteById(no);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
-	
+
 	@Override
 	public void delFkCom(int placeNo) {
 		List<Comment> list = repository.findAllByPlaceNo(PlaceBoard.builder().no(placeNo).build());
-		for(Comment delList : list) {
+		for (Comment delList : list) {
 			repository.delete(delList);
 		}
 	}
-	
+
 	@Override
 	public void delFkComM(String id) {
 		List<Comment> list = repository.findAllByWriter(Member.builder().id(id).build());
-		for(Comment delList : list) {
+		for (Comment delList : list) {
 			repository.delete(delList);
 		}
 	}

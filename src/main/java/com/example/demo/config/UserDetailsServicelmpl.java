@@ -12,20 +12,19 @@ import com.example.demo.user.service.MemberService;
 
 @Service
 public class UserDetailsServicelmpl implements UserDetailsService {
-	
+
 	@Autowired
 	private MemberService service;
-    
+
 	@Override
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 		MemberDTO dto = service.read(id);
- 		if(dto == null) {
+		if (dto == null) {
 			throw new UsernameNotFoundException("");
-		}else {
-			return new CustomUser(dto);	
+		} else {
+			return new CustomUser(dto);
 		}
-		
-	}
 
+	}
 
 }

@@ -16,13 +16,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 public class RequestBoardDTO {
-	
+
 	private int no;
 	private String writer;
 	private String place;
 	private String address;
 	private String comment;
-	
+
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
 

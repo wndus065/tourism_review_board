@@ -10,15 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
 @RestController
 @RequestMapping("/api")
 public class ApiController {
-	
+
 	@Autowired
 	private ApiService apiService;
-	
+
 	@GetMapping("/markers")
 	@ResponseBody
 	public ResponseEntity<List<ApiEntity>> getMarkers() {
@@ -28,5 +26,5 @@ public class ApiController {
 				.toList();
 		return ResponseEntity.ok(list);
 	}
-	
+
 }

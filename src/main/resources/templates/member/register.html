@@ -24,14 +24,18 @@ p {
 				</p>
 				<form th:action="@{/register}" th:method="POST">
 					<p>
-						<label for="id">아이디</label> 
+						<label for="id">아이디</label>
 					</p>
 					<p>
 						<input type="text" id="id" name="id" required>
 					</p>
-					<div><button type="button" class="btn btn-outline-primary" onclick="idCheck()">중복체크</button></div>
-					<i class="failed" id ="idvalidation" hidden="true" >아이디가 중복되었습니다..</i>
-					<i class="success" id ="idvalidation1" hidden="true" >사용할 수 있는 아이디 입니다.</i>
+					<div>
+						<button type="button" class="btn btn-outline-primary"
+							onclick="idCheck()">중복체크</button>
+					</div>
+					<i class="failed" id="idvalidation" hidden="true">아이디가
+						중복되었습니다..</i> <i class="success" id="idvalidation1" hidden="true">사용할
+						수 있는 아이디 입니다.</i>
 					<p>
 						<label for="password">비밀번호</label>
 					</p>
@@ -80,31 +84,31 @@ p {
 			</div>
 		</section>
 		<script th:inline="javascript">
-		function idCheck(){
-		    let id = document.getElementById("id");
-		    let idvalidation = document.getElementById("idvalidation");
-		    let idvalidation1 = document.getElementById("idvalidation1"); // 수정된 부분
-		    let registerBtn = document.getElementById("registerBtn");
-		    $.ajax({
-		        url:'/idcheck?id=' + id.value,
-		        type:'GET',
-		        success:function(result){
-		            let isDuplicate = result.isDuplicate;
-		            if(isDuplicate){
-		                idvalidation.hidden = false;
-		                idvalidation1.hidden = true; // 수정된 부분
-		                registerBtn.disabled = true;
-		            }else{
-		                idvalidation.hidden = true;
-		                idvalidation1.hidden = false; // 수정된 부분
-		                registerBtn.disabled = false;
-		            }
-		        },
-		        error:function(e){
-		            console.log('에러발생');
-		        }
-		    });
-		}
+			function idCheck() {
+				let id = document.getElementById("id");
+				let idvalidation = document.getElementById("idvalidation");
+				let idvalidation1 = document.getElementById("idvalidation1"); // 수정된 부분
+				let registerBtn = document.getElementById("registerBtn");
+				$.ajax({
+					url : '/idcheck?id=' + id.value,
+					type : 'GET',
+					success : function(result) {
+						let isDuplicate = result.isDuplicate;
+						if (isDuplicate) {
+							idvalidation.hidden = false;
+							idvalidation1.hidden = true; // 수정된 부분
+							registerBtn.disabled = true;
+						} else {
+							idvalidation.hidden = true;
+							idvalidation1.hidden = false; // 수정된 부분
+							registerBtn.disabled = false;
+						}
+					},
+					error : function(e) {
+						console.log('에러발생');
+					}
+				});
+			}
 		</script>
 
 	</th:block>

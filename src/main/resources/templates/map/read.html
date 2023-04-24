@@ -3,13 +3,13 @@
 
 <th:block th:replace="layout/basic :: setContent(~{this::content} )">
 
-		<th:block th:fragment="content">
-<style>
+	<th:block th:fragment="content">
+		<style>
 p {
-    padding-left: 10px;
-    font-size: 1.2em;
-    margin-top: 0.7em;
-    margin-bottom: 0.7em;
+	padding-left: 10px;
+	font-size: 1.2em;
+	margin-top: 0.7em;
+	margin-bottom: 0.7em;
 }
 </style>
 		<header>
@@ -17,23 +17,24 @@ p {
 		</header>
 		<section class="box text-style1" style="width: 500px">
 			<div class="inner">
-				<p><strong>상세정보</strong></p>
-				<p>장소 :  [[${dto.place}]]</p>
+				<p>
+					<strong>상세정보</strong>
+				</p>
+				<p>장소 : [[${dto.place}]]</p>
 				<P>주소 : [[${dto.address}]]</P>
 				<p>경도 : [[${dto.point_x}]]</p>
 				<p>위도 : [[${dto.point_y}]]</p>
-				
+
 			</div>
 		</section>
-		
-        
-        <a th:href="@{/map/list(page=${page})}">
-        	<button type="button" class="btn btn-info">목록으로</button>
-        </a>
-         <a th:href="@{/map/modify(place = ${dto.place})}">
-        	<button type="button" class="btn btn-primary">수정</button>
-        </a>
-        
-		
+
+
+		<a th:href="@{/map/list(page=${page})}">
+			<button type="button" class="btn btn-info">목록으로</button>
+		</a>
+		<a th:href="@{/map/modify(place = ${dto.place})}">
+			<button type="button" class="btn btn-primary">수정</button>
+		</a>
+
 	</th:block>
 </th:block>

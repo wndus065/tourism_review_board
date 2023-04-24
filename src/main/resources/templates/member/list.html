@@ -5,10 +5,10 @@
 
 	<th:block th:fragment="content">
 		<style>
-			table td {
-				background-color: transparent;
-			}
-		</style>
+table td {
+	background-color: transparent;
+}
+</style>
 		<header>
 			<h2>회원 목록</h2>
 		</header>
@@ -27,7 +27,7 @@
 			<tbody>
 				<tr th:each="dto : ${list}">
 					<th style="background-color: transparent;"><a
-							th:href="@{/member/read(id = ${dto.id}, page= ${list.number + 1})}">
+						th:href="@{/member/read(id = ${dto.id}, page= ${list.number + 1})}">
 							[[${dto.id}]]</a></th>
 					<td>[[${dto.name}]]</td>
 					<td>[[${dto.phone}]]</td>
@@ -41,7 +41,8 @@
 		<!-- Pagination -->
 		<div class="pagination">
 			<div class="pages">
-				<a th:href="@{/member/list(page = ${page})}" th:class="${(list.number + 1) == page?'active':''} "
+				<a th:href="@{/member/list(page = ${page})}"
+					th:class="${(list.number + 1) == page?'active':''} "
 					th:each="page: ${#numbers.sequence(1, list.totalPages)}">[[${page}]]</a>
 			</div>
 		</div>

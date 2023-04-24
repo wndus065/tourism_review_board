@@ -24,5 +24,5 @@ public class CommentDTO {
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
 	private int grade;
-	
+
 }

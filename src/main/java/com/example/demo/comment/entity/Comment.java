@@ -24,22 +24,22 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Comment extends BaseEntity{
-	
+public class Comment extends BaseEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int commentNo;
-	
+
 	@ManyToOne
 	private PlaceBoard placeNo;
-	
+
 	@ManyToOne
 	private Member writer;
-	
-	@Column(length=200, nullable=false)
+
+	@Column(length = 200, nullable = false)
 	private String comment;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private int grade;
 
 }

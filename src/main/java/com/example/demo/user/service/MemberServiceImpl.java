@@ -26,13 +26,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberRepository repository;
-	
+
 	@Autowired
 	private PlaceBoardRepository placeRepository;
-	
+
 	@Autowired
 	private CommentRepository comRepository;
-	
+
 	@Autowired
 	private InterestRepository interRepository;
 
@@ -68,18 +68,18 @@ public class MemberServiceImpl implements MemberService {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashpassword = passwordEncoder.encode(entity.getPassword());
 		entity.setPassword(hashpassword);
-		
+
 		repository.save(entity);
 		return true;
 	}
-	
+
 	@Override
 	public void modify(MemberDTO dto) {
 		Optional<Member> result = repository.findById(dto.getId());
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		if(result.isPresent()) {
+		if (result.isPresent()) {
 			Member entity = result.get();
-		String hashpassword = passwordEncoder.encode(dto.getPassword());
+			String hashpassword = passwordEncoder.encode(dto.getPassword());
 			entity.setPassword(hashpassword);
 			entity.setPhone(dto.getPhone());
 			entity.setEmail(dto.getEmail());
@@ -87,31 +87,30 @@ public class MemberServiceImpl implements MemberService {
 			repository.save(entity);
 		}
 	}
-	
+
 	@Override
 	public void remove(String id) {
-		System.out.println(id+"회원을 삭제합니다.");
+		System.out.println(id + "회원을 삭제합니다.");
 		repository.deleteById(id);
 	}
-	
+
 	@Override
 	public void delFkMember(String id) {
 		List<PlaceBoard> postList = placeRepository.findAllByWriter(Member.builder().id(id).build());
-		for(PlaceBoard placeBoard : postList) {
-		    List<Comment> commentList = comRepository.findAllByPlaceNo(placeBoard);
-		    for(Comment comment : commentList) {
-		    	comRepository.delete(comment);
-		    }
+		for (PlaceBoard placeBoard : postList) {
+			List<Comment> commentList = comRepository.findAllByPlaceNo(placeBoard);
+			for (Comment comment : commentList) {
+				comRepository.delete(comment);
+			}
 
-		    List<Interest> interestList = interRepository.findAllByPlaceBoard(placeBoard);
-		    for(Interest interest : interestList) {
-		    	interRepository.delete(interest);
-		    }
+			List<Interest> interestList = interRepository.findAllByPlaceBoard(placeBoard);
+			for (Interest interest : interestList) {
+				interRepository.delete(interest);
+			}
 
-		    placeRepository.delete(placeBoard);
+			placeRepository.delete(placeBoard);
 		}
 
 	}
-
 
 }

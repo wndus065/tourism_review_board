@@ -22,12 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.comment.dto.CommentDTO;
 import com.example.demo.comment.service.CommentService;
 
-
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-//@Controller
 @RestController
 @RequestMapping("/comment")
 public class CommentController {
@@ -35,18 +29,14 @@ public class CommentController {
 	@Autowired
 	private CommentService service;
 
-	private final Logger logger = LoggerFactory.getLogger(CommentController.class);
-
 	@PostMapping("/register")
 	@ResponseBody
-
 	public Map<String, Object> register(CommentDTO commentDto, Principal principal, Model model) {
-		
 
 		String id = principal.getName();
-		
+
 		model.addAttribute("userId", id);
-		
+
 		commentDto.setWriter(id);
 		int commentNo = service.register(commentDto, id);
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -77,18 +67,17 @@ public class CommentController {
 
 	@PutMapping("/update")
 	public ResponseEntity<Map<String, Object>> modify(@RequestBody CommentDTO dto) {
-	    Map<String, Object> response = new HashMap<>();
-	    boolean isSuccess = service.modify(dto);
-	    response.put("success", isSuccess);
-	    return ResponseEntity.ok(response);
+		Map<String, Object> response = new HashMap<>();
+		boolean isSuccess = service.modify(dto);
+		response.put("success", isSuccess);
+		return ResponseEntity.ok(response);
 	}
-
 
 	@DeleteMapping("/remove")
 	public ResponseEntity<Map<String, Object>> remove(int commentNo) {
-	    Map<String, Object> response = new HashMap<>();
-	    boolean isSuccess = service.remove(commentNo);
-	    response.put("success", isSuccess);
-	    return ResponseEntity.ok(response);
+		Map<String, Object> response = new HashMap<>();
+		boolean isSuccess = service.remove(commentNo);
+		response.put("success", isSuccess);
+		return ResponseEntity.ok(response);
 	}
 }

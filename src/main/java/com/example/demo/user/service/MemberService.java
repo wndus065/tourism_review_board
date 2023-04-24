@@ -6,9 +6,9 @@ import com.example.demo.user.dto.MemberDTO;
 import com.example.demo.user.entity.Member;
 
 public interface MemberService {
-	
+
 	Page<MemberDTO> getList(int pageNumber);
-	
+
 	default MemberDTO entityToDto(Member entity) {
 		MemberDTO dto = MemberDTO.builder()
 				.id(entity.getId())
@@ -23,12 +23,12 @@ public interface MemberService {
 				.build();
 		return dto;
 	}
-	
+
 	// 회원 조회
 	MemberDTO read(String id);
-	
+
 	boolean register(MemberDTO dto);
-	
+
 	default Member dtoToEntity(MemberDTO dto) {
 		Member entity = Member.builder()
 				.id(dto.getId())
@@ -39,13 +39,14 @@ public interface MemberService {
 				.regiNum(dto.getRegiNum())
 				.role(dto.getRole())
 				.build();
-		
+
 		return entity;
 	}
 
 	void modify(MemberDTO dto);
+
 	void remove(String id);
-	
+
 	void delFkMember(String id);
 
 }

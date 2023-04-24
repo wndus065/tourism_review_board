@@ -27,20 +27,17 @@ import lombok.ToString;
 @Builder
 @Table(name = "interestList")
 public class Interest {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int interestNo;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id" , referencedColumnName = "id")
+	@JoinColumn(name = "id", referencedColumnName = "id")
 	private Member member;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="no" , referencedColumnName = "no")
+	@JoinColumn(name = "no", referencedColumnName = "no")
 	private PlaceBoard placeBoard;
-	
-	
-	
-	
-	
+
 }

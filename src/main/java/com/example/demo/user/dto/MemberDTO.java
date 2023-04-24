@@ -23,10 +23,10 @@ public class MemberDTO {
 	private String phone;
 	private String email;
 	private String regiNum;
-	
+
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
-	
+
 	private String role;
-	
+
 }
