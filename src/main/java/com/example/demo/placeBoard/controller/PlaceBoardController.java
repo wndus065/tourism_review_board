@@ -125,4 +125,37 @@ public class PlaceBoardController {
 		service.remove(no);
 		return "redirect:/placeboard/list";
 	}
+	
+	// 콘텐츠 검색
+    @GetMapping("/search")
+    public String searchByContent(Model model, @RequestParam("keyword") String content) {
+        List<PlaceBoard> placeBoards = service.searchByContent(content);
+        model.addAttribute("placeBoards", placeBoards);
+        return "placeboard/list";
+    }
+
+    // 제목 검색
+    @GetMapping("/search")
+    public String searchByTitle(Model model, @RequestParam("keyword") String title) {
+        List<PlaceBoard> placeBoards = service.searchByTitle(title);
+        model.addAttribute("placeBoards", placeBoards);
+        return "placeboard/list";
+    }
+
+    // 장소 검색    
+    @GetMapping("/search")
+    public String searchByPlace(Model model, @ModelAttribute("place") MapEntity place) {
+        List<PlaceBoard> placeBoards = service.searchByPlace(place);
+        model.addAttribute("placeBoards", placeBoards);
+        return "placeboard/list";
+    }
+
+    // 작성자 검색
+    @GetMapping("/search")
+    public String searchByWriter(Model model, @ModelAttribute("writer") Member writer) {
+        List<PlaceBoard> placeBoards = service.searchByWriter(writer);
+        model.addAttribute("placeBoards", placeBoards);
+        return "placeboard/list";
+    }
+
 }
