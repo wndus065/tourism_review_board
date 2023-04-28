@@ -11,5 +11,15 @@ public interface PlaceBoardRepository extends JpaRepository<PlaceBoard, Integer>
 
 	List<PlaceBoard> findAllByWriter(Member writer);
 	List<PlaceBoard> findAllByPlace(MapEntity place);
+	
+
+	//게시판 검색 기능 구현
+	List<PlaceBoard> findByContentContaining(@Param("keyword") String content);
+
+	List<PlaceBoard> findByPlace(@Param("place") MapEntity place);
+      
+	List<PlaceBoard> findByTitleContaining(@Param("keyword") String title);
+	
+	List<PlaceBoard> findByWriter(@Param("writer") Member writer);
 
 }
